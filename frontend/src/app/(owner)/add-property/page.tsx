@@ -1,616 +1,817 @@
 "use client";
-import { useState } from "react";
+import api from "@/lib/api";
+import React, {useState} from "react";
 
-const AMENITIES = [
-  "gym", "pool", "playground", "security", "elevator",
-  "power_backup", "lift", "intercom", "cctv", "garden", "clubhouse",
+const AMENITY_OPTIONS = [
+  {key: "gym", label: "Gym", icon: "🏋️"},
+  {key: "pool", label: "Pool", icon: "🏊"},
+  {key: "playground", label: "Playground", icon: "🛝"},
+  {key: "security", label: "Security", icon: "🔒"},
+  {key: "elevator", label: "Elevator", icon: "🛗"},
+  {key: "power_backup", label: "Power Backup", icon: "⚡"},
+  {key: "lift", label: "Lift", icon: "🔼"},
+  {key: "intercom", label: "Intercom", icon: "📞"},
+  {key: "cctv", label: "CCTV", icon: "📹"},
+  {key: "garden", label: "Garden", icon: "🌿"},
+  {key: "clubhouse", label: "Clubhouse", icon: "🏛️"},
 ];
-
-const AMENITY_LABELS = {
-  gym: "Gym", pool: "Pool", playground: "Playground", security: "Security",
-  elevator: "Elevator", power_backup: "Power Backup", lift: "Lift",
-  intercom: "Intercom", cctv: "CCTV", garden: "Garden", clubhouse: "Clubhouse",
-};
 
 const STEPS = ["Basic", "Location", "Details", "Amenities", "Images", "Review"];
 
 const initialForm = {
-  title: "", slug: "", description: "",
-  type: "apartment", listingType: "", price: "", priceUnit: "",
-  address: "", city: "", state: "", zipCode: "", country: "India",
-  lat: "", lng: "",
-  bedrooms: 0, bathrooms: 0, balconies: 0,
-  area: "", areaUnit: "sqft", floor: 0, totalFloors: 0,
-  facing: "", furnishing: "unfurnished", parking: false, ageOfProperty: 0,
-  amenities: [],
-  status: "available", isVerified: false, isFeatured: false,
+  title: "",
+  slug: "",
+  description: "",
+  type: "",
+  listingType: "",
+  price: "",
+  priceUnit: "",
+  address: "",
+  city: "",
+  state: "",
+  zipCode: "",
+  country: "India",
+  lat: "",
+  lng: "",
+  details: {
+    bedrooms: 0,
+    bathrooms: 0,
+    balconies: 0,
+    area: "",
+    areaUnit: "sqft",
+    floor: 0,
+    totalFloors: 0,
+    facing: "",
+    furnishing: "unfurnished",
+    parking: false,
+    ageOfProperty: 0,
+  },
+  amenities: [] as string[],
+  images: [] as File[],
+  status: "",
+  isVerified: false,
+  isFeatured: false,
 };
 
-function toSlug(str) {
-  return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-}
+// ─── Reusable Field Wrapper ───────────────────────────────────────────────────
+const Field = ({
+  label,
+  children,
+  full = false,
+}: {
+  label: string;
+  children: React.ReactNode;
+  full?: boolean;
+}) => (
+  <div className={`flex flex-col gap-1.5 ${full ? "col-span-2" : ""}`}>
+    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+      {label}
+    </label>
+    {children}
+  </div>
+);
 
-export default function AddPropertyForm({ onSubmit }) {
-  const [step, setStep] = useState(0);
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState({});
-  const [images, setImages] = useState([]);
-  const [previews, setPreviews] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
+// ─── Shared input / select className ─────────────────────────────────────────
+const inputCls =
+  "w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg outline-none focus:border-gray-900 transition-colors placeholder:text-gray-400 bg-white";
 
-  const set = (key, value) => setForm((f) => ({ ...f, [key]: value }));
+const PropertyListing = () => {
+  const [step, setStep] = useState(1);
+  const [propertyData, setPropertyData] = useState(initialForm);
+  const [uploading, setUploading] = useState(false);
 
-  const handleTitle = (val) => {
-    set("title", val);
-    set("slug", toSlug(val));
-  };
+  const nextStep = () => setStep((p) => Math.min(p + 1, STEPS.length));
+  const prevStep = () => setStep((p) => Math.max(p - 1, 1));
 
-  const handleImages = (e) => {
-    const files = Array.from(e.target.files);
-    setImages(files);
-    const urls = files.map((f) => URL.createObjectURL(f));
-    setPreviews(urls);
-  };
+  // ─── Handlers ──────────────────────────────────────────────────────────────
+  const DETAIL_FIELDS = [
+    "bedrooms",
+    "bathrooms",
+    "balconies",
+    "area",
+    "areaUnit",
+    "floor",
+    "totalFloors",
+    "facing",
+    "furnishing",
+    "parking",
+    "ageOfProperty",
+  ];
 
-  const toggleAmenity = (a) => {
-    set("amenities",
-      form.amenities.includes(a)
-        ? form.amenities.filter((x) => x !== a)
-        : [...form.amenities, a]
-    );
-  };
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const {name, value, type} = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    const val = type === "checkbox" ? checked : value;
 
-  const validateStep0 = () => {
-    const e = {};
-    if (!form.title.trim()) e.title = "Title is required";
-    if (!form.description.trim()) e.description = "Description is required";
-    if (!form.type) e.type = "Select property type";
-    if (!form.listingType) e.listingType = "Select listing type";
-    if (!form.price || Number(form.price) <= 0) e.price = "Enter a valid price";
-    if (!form.priceUnit) e.priceUnit = "Select price unit";
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
-
-  const nextStep = () => {
-    if (step === 0 && !validateStep0()) return;
-    setStep((s) => s + 1);
-  };
-
-  const prevStep = () => setStep((s) => s - 1);
-
-  const buildPayload = () => ({
-    title: form.title,
-    slug: form.slug,
-    description: form.description,
-    type: form.type,
-    listingType: form.listingType,
-    price: Number(form.price),
-    priceUnit: form.priceUnit,
-    location: {
-      address: form.address,
-      city: form.city,
-      state: form.state,
-      zipCode: form.zipCode,
-      country: form.country,
-      ...(form.lat && form.lng && {
-        coordinates: {
-          type: "Point",
-          coordinates: [Number(form.lng), Number(form.lat)],
-        },
-      }),
-    },
-    details: {
-      bedrooms: Number(form.bedrooms),
-      bathrooms: Number(form.bathrooms),
-      balconies: Number(form.balconies),
-      area: Number(form.area),
-      areaUnit: form.areaUnit,
-      floor: Number(form.floor),
-      totalFloors: Number(form.totalFloors),
-      facing: form.facing || undefined,
-      furnishing: form.furnishing,
-      parking: form.parking,
-      ageOfProperty: Number(form.ageOfProperty),
-    },
-    amenities: form.amenities,
-    status: form.status,
-    isVerified: form.isVerified,
-    isFeatured: form.isFeatured,
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-
-  const handleSubmit = async () => {
-    setIsLoading(true);
-    setSubmitError("");
-
-    try {
-      const payload = buildPayload();
-
-      // FormData banao — images + JSON data dono saath bhejne ke liye
-      const formData = new FormData();
-
-      // Property data ko JSON string ke roop mein attach karo
-      formData.append("data", JSON.stringify(payload));
-
-      // Har image ko alag alag attach karo
-      images.forEach((img) => {
-        formData.append("images", img);
-      });
-
-      const res = await fetch("/api/properties", {
-        method: "POST",
-        // Content-Type header mat lagao — browser khud multipart/form-data set karega
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        const msg = errorData.message || res.statusText || "Unknown error";
-        setSubmitError(msg);
-        return;
-      }
-
-      const result = await res.json();
-      console.log("Property created:", result);
-      setSubmitted(true);
-    } catch (err) {
-      console.error("Network error:", err);
-      setSubmitError("Network error. Please check your connection and try again.");
-    } finally {
-      setIsLoading(false);
+    if (DETAIL_FIELDS.includes(name)) {
+      setPropertyData((p) => ({
+        ...p,
+        details: {...p.details, [name]: val},
+      }));
+    } else {
+      setPropertyData((p) => ({...p, [name]: val}));
     }
   };
 
-  const reset = () => {
-    setForm(initialForm);
-    setImages([]);
-    setPreviews([]);
-    setErrors({});
-    setStep(0);
-    setSubmitted(false);
+  // handleImageUpload hatao, yeh simple handler lagao
+  const handleFileSelect = (files: FileList | null) => {
+    if (!files) return;
+    const newFiles = [...files].filter((f) => f.type.startsWith("image/"));
+    setPropertyData((p) => ({...p, images: [...p.images, ...newFiles]}));
   };
 
-  // ─── Style tokens — pure Black & White ──────────────────────────
-  const inp =
-    "w-full border border-black rounded-lg px-3 py-2 text-sm text-black placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1";
-  const lbl = "block text-xs font-semibold text-black mb-1 uppercase tracking-widest";
-  const err = (k) =>
-    errors[k] ? (
-      <p className="text-black text-xs mt-1 font-medium">⚠ {errors[k]}</p>
-    ) : null;
+  const removeImage = (index: number) =>
+    setPropertyData((p) => ({
+      ...p,
+      images: p.images.filter((_, i) => i !== index),
+    }));
 
-  // ─── Toggle component ────────────────────────────────────────────
-  const Toggle = ({ id }) => (
-    <button
-      type="button"
-      onClick={() => set(id, !form[id])}
-      className={`w-11 h-6 rounded-full relative border border-black transition-colors ${
-        form[id] ? "bg-black" : "bg-white"
-      }`}
-    >
-      <span
-        className={`absolute top-0.5 w-4 h-4 rounded-full border border-black transition-all ${
-          form[id] ? "left-5 bg-white" : "left-0.5 bg-black"
-        }`}
-      />
-    </button>
-  );
+  // handleSubmit mein FormData use karo
+  const handleSubmit = async () => {
+    const fd = new FormData();
 
-  // ─── Success ─────────────────────────────────────────────────────
-  if (submitted) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-center bg-white min-h-screen">
-        <div className="w-16 h-16 border-2 border-black rounded-full flex items-center justify-center text-2xl mb-6">
-          ✓
-        </div>
-        <h2 className="text-2xl font-semibold text-black mb-2">Property submitted!</h2>
-        <p className="text-gray-500 text-sm mb-8">Your listing has been created successfully.</p>
+    // Simple fields
+    fd.append("title", propertyData.title);
+    fd.append("slug", propertyData.slug);
+    fd.append("description", propertyData.description);
+    fd.append("type", propertyData.type);
+    fd.append("listingType", propertyData.listingType);
+    fd.append("price", propertyData.price);
+    fd.append("priceUnit", propertyData.priceUnit);
+    fd.append("status", propertyData.status);
+
+    // Location
+    fd.append("address", propertyData.address);
+    fd.append("city", propertyData.city);
+    fd.append("state", propertyData.state);
+    fd.append("zipCode", propertyData.zipCode);
+    fd.append("country", propertyData.country);
+    fd.append("lat", propertyData.lat);
+    fd.append("lng", propertyData.lng);
+
+    // Nested objects — JSON string ke roop mein
+    fd.append("details", JSON.stringify(propertyData.details));
+    fd.append("amenities", JSON.stringify(propertyData.amenities));
+
+    // Images — har file alag append
+    propertyData.images.forEach((file) => {
+      fd.append("images", file);
+    });
+    console.log("Submitting form with data:", propertyData);
+    
+    const res = await api.post("/properties", fd, {
+      headers: {"Content-Type": "multipart/form-data"},
+    });
+    console.log("Created:", res.data);
+  };
+
+  // ─── Step counter for bedrooms/bathrooms/balconies ────────────────────────
+  const Counter = ({
+    name,
+    label,
+  }: {
+    name: keyof typeof propertyData.details;
+    label: string;
+  }) => (
+    <div className="flex flex-col gap-1.5">
+      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        {label}
+      </label>
+      <div className="flex border border-gray-300 rounded-lg overflow-hidden">
         <button
-          onClick={reset}
-          className="px-6 py-2.5 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+          type="button"
+          onClick={() =>
+            setPropertyData((p) => ({
+              ...p,
+              details: {
+                ...p.details,
+                [name]: Math.max(0, (p.details[name] as number) - 1),
+              },
+            }))
+          }
+          className="w-9 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-500 text-lg transition-colors"
         >
-          Add another property
+          −
+        </button>
+        <input
+          type="number"
+          name={name}
+          min={0}
+          value={(propertyData.details[name] as number) || 0}
+          onChange={handleChange}
+          className="flex-1 text-center text-sm py-2.5 border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+        />
+        <button
+          type="button"
+          onClick={() =>
+            setPropertyData((p) => ({
+              ...p,
+              details: {
+                ...p.details,
+                [name]: (p.details[name] as number) + 1,
+              },
+            }))
+          }
+          className="w-9 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-500 text-lg transition-colors"
+        >
+          +
         </button>
       </div>
-    );
-  }
+    </div>
+  );
 
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4 bg-white min-h-screen">
+    <main className="min-h-screen bg-gray-100 p-4">
+      <div className="bg-white text-black p-6 rounded-2xl shadow-sm max-w-2xl mx-auto my-10">
+        <h1 className="text-2xl font-semibold text-gray-900 mb-6">
+          Add Property
+        </h1>
 
-      {/* ── Step tabs ─────────────────────────────────────────────── */}
-      <div className="flex rounded-xl overflow-hidden border border-black mb-4">
-        {STEPS.map((s, i) => (
-          <button
-            key={s}
-            onClick={() => { if (i < step) setStep(i); }}
-            className={`flex-1 py-2.5 text-xs font-semibold border-r border-black last:border-r-0 transition-colors tracking-wide
-              ${i === step
-                ? "bg-black text-white"
-                : i < step
-                ? "bg-white text-black"
-                : "bg-white text-gray-300 cursor-default"}`}
-          >
-            {i < step ? "✓ " : ""}{s}
-          </button>
-        ))}
-      </div>
-
-      {/* Progress bar */}
-      <div className="h-px bg-gray-200 mb-6">
-        <div
-          className="h-px bg-black transition-all duration-300"
-          style={{ width: `${(step / (STEPS.length - 1)) * 100}%` }}
-        />
-      </div>
-
-      <div className="bg-white border border-black rounded-2xl p-6">
-
-        {/* ── Step 0: Basic ─────────────────────────────────────── */}
-        {step === 0 && (
-          <div className="space-y-4">
-            <h2 className="text-base font-semibold text-black border-b border-gray-100 pb-3">
-              Basic information
-            </h2>
-
-            <div>
-              <label className={lbl}>Title *</label>
-              <input
-                className={inp}
-                value={form.title}
-                placeholder="e.g. 2BHK Apartment in Noida Sector 62"
-                onChange={(e) => handleTitle(e.target.value)}
-              />
-              {err("title")}
-            </div>
-
-            <div>
-              <label className={lbl}>Slug</label>
-              <input
-                className={inp + " bg-gray-50 text-gray-400 cursor-not-allowed"}
-                value={form.slug}
-                readOnly
-              />
-            </div>
-
-            <div>
-              <label className={lbl}>Description *</label>
-              <textarea
-                className={inp}
-                rows={3}
-                value={form.description}
-                placeholder="Describe the property..."
-                onChange={(e) => set("description", e.target.value)}
-              />
-              {err("description")}
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>Property type *</label>
-                <select className={inp} value={form.type} onChange={(e) => set("type", e.target.value)}>
-                  {["apartment","house","condo","townhouse","villa","plot","office","shop","studio","warehouse","farmhouse","pg"]
-                    .map((t) => (
-                      <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
-                    ))}
-                </select>
-                {err("type")}
-              </div>
-              <div>
-                <label className={lbl}>Listing type *</label>
-                <select className={inp} value={form.listingType} onChange={(e) => set("listingType", e.target.value)}>
-                  <option value="">-- Select --</option>
-                  <option value="rent">Rent</option>
-                  <option value="sale">Sale</option>
-                </select>
-                {err("listingType")}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>Price (₹) *</label>
-                <input
-                  className={inp}
-                  type="number"
-                  min="0"
-                  value={form.price}
-                  placeholder="e.g. 25000"
-                  onChange={(e) => set("price", e.target.value)}
-                />
-                {err("price")}
-              </div>
-              <div>
-                <label className={lbl}>Price unit *</label>
-                <select className={inp} value={form.priceUnit} onChange={(e) => set("priceUnit", e.target.value)}>
-                  <option value="">-- Select --</option>
-                  <option value="per_month">Per Month</option>
-                  <option value="total">Total</option>
-                </select>
-                {err("priceUnit")}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ── Step 1: Location ──────────────────────────────────── */}
+        {/* ── Step 1: Basic ─────────────────────────────────────────────── */}
         {step === 1 && (
-          <div className="space-y-4">
-            <h2 className="text-base font-semibold text-black border-b border-gray-100 pb-3">Location</h2>
-            <div>
-              <label className={lbl}>Full address</label>
-              <input className={inp} value={form.address} placeholder="Plot 45, Sector 62"
-                onChange={(e) => set("address", e.target.value)} />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>City</label>
-                <input className={inp} value={form.city} placeholder="Noida"
-                  onChange={(e) => set("city", e.target.value)} />
-              </div>
-              <div>
-                <label className={lbl}>State</label>
-                <input className={inp} value={form.state} placeholder="Uttar Pradesh"
-                  onChange={(e) => set("state", e.target.value)} />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>ZIP / PIN code</label>
-                <input className={inp} value={form.zipCode} placeholder="201301"
-                  onChange={(e) => set("zipCode", e.target.value)} />
-              </div>
-              <div>
-                <label className={lbl}>Country</label>
-                <input className={inp} value={form.country}
-                  onChange={(e) => set("country", e.target.value)} />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>
-                  Latitude{" "}
-                  <span className="normal-case font-normal tracking-normal text-gray-400">(optional)</span>
-                </label>
-                <input className={inp} type="number" step="any" value={form.lat}
-                  placeholder="28.6139" onChange={(e) => set("lat", e.target.value)} />
-              </div>
-              <div>
-                <label className={lbl}>
-                  Longitude{" "}
-                  <span className="normal-case font-normal tracking-normal text-gray-400">(optional)</span>
-                </label>
-                <input className={inp} type="number" step="any" value={form.lng}
-                  placeholder="77.2090" onChange={(e) => set("lng", e.target.value)} />
-              </div>
-            </div>
-          </div>
-        )}
+          <>
+            <h2 className="text-xl font-medium text-gray-900 mb-6 pb-4 border-b border-gray-200">
+              Basic Information
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <Field label="Title" full>
+                <input
+                  name="title"
+                  type="text"
+                  placeholder="e.g. 3BHK Apartment in Sector 62"
+                  value={propertyData.title}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
 
-        {/* ── Step 2: Details ───────────────────────────────────── */}
-        {step === 2 && (
-          <div className="space-y-4">
-            <h2 className="text-base font-semibold text-black border-b border-gray-100 pb-3">Property details</h2>
-            <div className="grid grid-cols-3 gap-3">
-              {[["bedrooms","Bedrooms"],["bathrooms","Bathrooms"],["balconies","Balconies"]].map(([k, l]) => (
-                <div key={k}>
-                  <label className={lbl}>{l}</label>
-                  <input className={inp} type="number" min="0" value={form[k]}
-                    onChange={(e) => set(k, e.target.value)} />
+              <Field label="Description" full>
+                <textarea
+                  name="description"
+                  rows={3}
+                  placeholder="Describe the property — location highlights, amenities..."
+                  value={propertyData.description}
+                  onChange={handleChange}
+                  className={`${inputCls} resize-y`}
+                />
+              </Field>
+
+              <Field label="Property Type">
+                <select
+                  name="type"
+                  value={propertyData.type}
+                  onChange={handleChange}
+                  className={`${inputCls} appearance-none`}
+                >
+                  <option value="">Select type</option>
+                  <option value="apartment">Apartment</option>
+                  <option value="house">House</option>
+                  <option value="villa">Villa</option>
+                  <option value="plot">Plot</option>
+                  <option value="office">Office</option>
+                  <option value="shop">Shop</option>
+                  <option value="studio">Studio</option>
+                  <option value="pg">PG</option>
+                  <option value="farmhouse">Farmhouse</option>
+                  <option value="warehouse">Warehouse</option>
+                </select>
+              </Field>
+
+              <Field label="Listing Type">
+                <select
+                  name="listingType"
+                  value={propertyData.listingType}
+                  onChange={handleChange}
+                  className={`${inputCls} appearance-none`}
+                >
+                  <option value="">Select listing</option>
+                  <option value="sale">For Sale</option>
+                  <option value="rent">For Rent</option>
+                </select>
+              </Field>
+
+              <Field label="Price" full>
+                <div className="flex gap-2">
+                  <input
+                    name="price"
+                    type="number"
+                    placeholder="e.g. 4500000"
+                    value={propertyData.price}
+                    onChange={handleChange}
+                    className={`${inputCls} flex-1`}
+                  />
+                  <select
+                    name="priceUnit"
+                    value={propertyData.priceUnit}
+                    onChange={handleChange}
+                    className={`${inputCls} w-36 appearance-none`}
+                  >
+                    <option value="">Unit</option>
+                    <option value="total">Total</option>
+                    <option value="per_month">Per Month</option>
+                  </select>
                 </div>
-              ))}
+              </Field>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>Area</label>
-                <input className={inp} type="number" min="0" value={form.area}
-                  placeholder="e.g. 1200" onChange={(e) => set("area", e.target.value)} />
-              </div>
-              <div>
-                <label className={lbl}>Area unit</label>
-                <select className={inp} value={form.areaUnit} onChange={(e) => set("areaUnit", e.target.value)}>
-                  <option value="sqft">sq ft</option>
-                  <option value="sqm">sq m</option>
-                </select>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>Floor number</label>
-                <input className={inp} type="number" min="0" value={form.floor}
-                  onChange={(e) => set("floor", e.target.value)} />
-              </div>
-              <div>
-                <label className={lbl}>Total floors</label>
-                <input className={inp} type="number" min="0" value={form.totalFloors}
-                  onChange={(e) => set("totalFloors", e.target.value)} />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>Facing direction</label>
-                <select className={inp} value={form.facing} onChange={(e) => set("facing", e.target.value)}>
-                  <option value="">-- Not specified --</option>
-                  <option value="north">North</option>
-                  <option value="south">South</option>
-                  <option value="east">East</option>
-                  <option value="west">West</option>
-                </select>
-              </div>
-              <div>
-                <label className={lbl}>Furnishing</label>
-                <select className={inp} value={form.furnishing} onChange={(e) => set("furnishing", e.target.value)}>
-                  <option value="unfurnished">Unfurnished</option>
-                  <option value="semi-furnished">Semi-furnished</option>
-                  <option value="furnished">Furnished</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label className={lbl}>Age of property (years)</label>
-              <input className={inp} type="number" min="0" value={form.ageOfProperty}
-                onChange={(e) => set("ageOfProperty", e.target.value)} />
-            </div>
-            <div className="flex items-center justify-between border border-black rounded-lg px-4 py-3">
-              <span className="text-sm font-medium text-black">Parking available</span>
-              <Toggle id="parking" />
-            </div>
-          </div>
+          </>
         )}
 
-        {/* ── Step 3: Amenities ─────────────────────────────────── */}
+        {/* ── Step 2: Location ──────────────────────────────────────────── */}
+        {step === 2 && (
+          <>
+            <h2 className="text-xl font-medium text-gray-900 mb-6 pb-4 border-b border-gray-200">
+              Location
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <Field label="Address" full>
+                <input
+                  name="address"
+                  type="text"
+                  placeholder="Street address, building, floor..."
+                  value={propertyData.address}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field label="City">
+                <input
+                  name="city"
+                  type="text"
+                  placeholder="e.g. Noida"
+                  value={propertyData.city}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field label="State">
+                <input
+                  name="state"
+                  type="text"
+                  placeholder="e.g. Uttar Pradesh"
+                  value={propertyData.state}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field label="ZIP Code">
+                <input
+                  name="zipCode"
+                  type="text"
+                  placeholder="e.g. 201301"
+                  value={propertyData.zipCode}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field label="Country">
+                <select
+                  name="country"
+                  value={propertyData.country}
+                  onChange={handleChange}
+                  className={`${inputCls} appearance-none`}
+                >
+                  <option>India</option>
+                  <option>United States</option>
+                  <option>United Kingdom</option>
+                  <option>UAE</option>
+                </select>
+              </Field>
+
+              {/* Coordinates */}
+              <div className="col-span-2 bg-gray-50 border border-gray-200 rounded-xl p-4">
+                <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
+                  📍 Coordinates{" "}
+                  <span className="normal-case font-normal text-gray-400">
+                    — optional
+                  </span>
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <Field label="Latitude">
+                    <input
+                      name="lat"
+                      type="number"
+                      placeholder="e.g. 28.6139"
+                      step="any"
+                      value={propertyData.lat}
+                      onChange={handleChange}
+                      className={inputCls}
+                    />
+                  </Field>
+                  <Field label="Longitude">
+                    <input
+                      name="lng"
+                      type="number"
+                      placeholder="e.g. 77.2090"
+                      step="any"
+                      value={propertyData.lng}
+                      onChange={handleChange}
+                      className={inputCls}
+                    />
+                  </Field>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ── Step 3: Details ───────────────────────────────────────────── */}
         {step === 3 && (
-          <div>
-            <h2 className="text-base font-semibold text-black border-b border-gray-100 pb-3 mb-1">Amenities</h2>
-            <p className="text-xs text-gray-400 mb-4 uppercase tracking-widest">Select all that apply</p>
-            <div className="grid grid-cols-2 gap-2">
-              {AMENITIES.map((a) => {
-                const selected = form.amenities.includes(a);
-                return (
+          <>
+            <h2 className="text-xl font-medium text-gray-900 mb-6 pb-4 border-b border-gray-200">
+              Property Details
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Counters */}
+              <div className="col-span-2 grid grid-cols-3 gap-4">
+                <Counter name="bedrooms" label="Bedrooms" />
+                <Counter name="bathrooms" label="Bathrooms" />
+                <Counter name="balconies" label="Balconies" />
+              </div>
+
+              {/* Area */}
+              <Field label="Area" full>
+                <div className="flex gap-2">
+                  <input
+                    name="area"
+                    type="number"
+                    placeholder="e.g. 1200"
+                    min={0}
+                    value={propertyData.details.area}
+                    onChange={handleChange}
+                    className={`${inputCls} flex-1`}
+                  />
+                  <select
+                    name="areaUnit"
+                    value={propertyData.details.areaUnit}
+                    onChange={handleChange}
+                    className={`${inputCls} w-24 appearance-none`}
+                  >
+                    <option value="sqft">sq ft</option>
+                    <option value="sqm">sq m</option>
+                  </select>
+                </div>
+              </Field>
+
+              {/* Floor */}
+              <Field label="Floor">
+                <input
+                  name="floor"
+                  type="number"
+                  placeholder="e.g. 3"
+                  min={0}
+                  value={propertyData.details.floor}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field label="Total Floors">
+                <input
+                  name="totalFloors"
+                  type="number"
+                  placeholder="e.g. 12"
+                  min={0}
+                  value={propertyData.details.totalFloors}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
+
+              {/* Facing */}
+              <Field label="Facing" full>
+                <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+                  {["north", "south", "east", "west"].map((dir) => (
+                    <button
+                      key={dir}
+                      type="button"
+                      onClick={() =>
+                        setPropertyData((p) => ({
+                          ...p,
+                          details: {...p.details, facing: dir},
+                        }))
+                      }
+                      className={`flex-1 py-2.5 text-sm font-medium capitalize transition-colors border-r border-gray-300 last:border-0
+                        ${propertyData.details.facing === dir ? "bg-gray-900 text-white" : "bg-white text-gray-500 hover:bg-gray-50"}`}
+                    >
+                      {dir}
+                    </button>
+                  ))}
+                </div>
+              </Field>
+
+              {/* Furnishing */}
+              <Field label="Furnishing" full>
+                <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+                  {["unfurnished", "semi-furnished", "furnished"].map((f) => (
+                    <button
+                      key={f}
+                      type="button"
+                      onClick={() =>
+                        setPropertyData((p) => ({
+                          ...p,
+                          details: {...p.details, furnishing: f},
+                        }))
+                      }
+                      className={`flex-1 py-2.5 text-sm font-medium capitalize transition-colors border-r border-gray-300 last:border-0
+                        ${propertyData.details.furnishing === f ? "bg-gray-900 text-white" : "bg-white text-gray-500 hover:bg-gray-50"}`}
+                    >
+                      {f}
+                    </button>
+                  ))}
+                </div>
+              </Field>
+
+              {/* Parking */}
+              <Field label="Parking" full>
+                <div className="flex items-center justify-between px-3 py-2.5 border border-gray-300 rounded-lg">
+                  <span className="text-sm text-gray-700">
+                    Parking available
+                  </span>
                   <button
-                    key={a}
-                    onClick={() => toggleAmenity(a)}
-                    className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors
-                      ${selected
-                        ? "bg-black text-white border-black"
-                        : "bg-white text-black border-black hover:bg-gray-50"}`}
+                    type="button"
+                    onClick={() =>
+                      setPropertyData((p) => ({
+                        ...p,
+                        details: {...p.details, parking: !p.details.parking},
+                      }))
+                    }
+                    className={`relative w-10 h-[22px] rounded-full transition-colors ${propertyData.details.parking ? "bg-gray-900" : "bg-gray-300"}`}
                   >
                     <span
-                      className={`w-4 h-4 rounded border flex items-center justify-center text-xs flex-shrink-0
-                        ${selected ? "bg-white border-white text-black" : "border-black"}`}
-                    >
-                      {selected && "✓"}
-                    </span>
-                    {AMENITY_LABELS[a]}
+                      className={`absolute top-[3px] w-4 h-4 bg-white rounded-full shadow transition-transform
+                      ${propertyData.details.parking ? "translate-x-[19px]" : "translate-x-[3px]"}`}
+                    />
                   </button>
+                </div>
+              </Field>
+
+              {/* Age */}
+              <Field label="Age of Property (years)" full>
+                <input
+                  name="ageOfProperty"
+                  type="number"
+                  placeholder="e.g. 5"
+                  min={0}
+                  value={propertyData.details.ageOfProperty}
+                  onChange={handleChange}
+                  className={inputCls}
+                />
+              </Field>
+            </div>
+          </>
+        )}
+
+        {/* ── Step 4: Amenities ─────────────────────────────────────────── */}
+        {step === 4 && (
+          <>
+            <h2 className="text-xl font-medium text-gray-900 mb-1">
+              Amenities
+            </h2>
+            <p className="text-sm text-gray-400 mb-6 pb-4 border-b border-gray-200">
+              Property mein available suvidhaayein select karein
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              {AMENITY_OPTIONS.map(({key, label, icon}) => {
+                const isChecked = propertyData.amenities.includes(key);
+                return (
+                  <label
+                    key={key}
+                    className={`flex items-center gap-2.5 px-4 py-3 rounded-lg border cursor-pointer transition-all select-none
+                      ${isChecked ? "bg-gray-900 border-gray-900" : "bg-white border-gray-300 hover:border-gray-900"}`}
+                  >
+                    <input
+                      type="checkbox"
+                      name="amenities"
+                      value={key}
+                      checked={isChecked}
+                      onChange={(e) => {
+                        const {checked, value} = e.target;
+                        setPropertyData((p) => ({
+                          ...p,
+                          amenities: checked
+                            ? [...p.amenities, value]
+                            : p.amenities.filter((a) => a !== value),
+                        }));
+                      }}
+                      className="sr-only"
+                    />
+                    <span className="text-base leading-none">{icon}</span>
+                    <span
+                      className={`text-sm font-medium flex-1 ${isChecked ? "text-white" : "text-gray-700"}`}
+                    >
+                      {label}
+                    </span>
+                    <span
+                      className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-colors
+                      ${isChecked ? "bg-white border-white" : "border-gray-300"}`}
+                    >
+                      {isChecked && (
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                          <path
+                            d="M1 4l2 2 4-4"
+                            stroke="black"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                  </label>
                 );
               })}
             </div>
-          </div>
-        )}
-
-        {/* ── Step 4: Images ────────────────────────────────────── */}
-        {step === 4 && (
-          <div className="space-y-4">
-            <h2 className="text-base font-semibold text-black border-b border-gray-100 pb-3">Images & settings</h2>
-            <label className="block border-2 border-dashed border-black rounded-xl p-8 text-center cursor-pointer hover:bg-gray-50 transition-colors">
-              <input type="file" accept="image/*" multiple className="hidden" onChange={handleImages} />
-              <div className="text-3xl font-light text-black mb-2">+</div>
-              <p className="text-sm font-medium text-black">Click to upload images</p>
-              <p className="text-xs text-gray-400 mt-1">PNG, JPG, WEBP — multiple files allowed</p>
-            </label>
-            {previews.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {previews.map((src, i) => (
-                  <img key={i} src={src} alt=""
-                    className="w-20 h-20 object-cover rounded-lg border border-black" />
-                ))}
-              </div>
+            {propertyData.amenities.length > 0 && (
+              <p className="mt-4 text-sm text-gray-400">
+                <span className="font-medium text-gray-900">
+                  {propertyData.amenities.length}
+                </span>{" "}
+                {propertyData.amenities.length === 1 ? "amenity" : "amenities"}{" "}
+                selected
+              </p>
             )}
-
-            <div className="border border-black rounded-xl overflow-hidden mt-2">
-              {[["isFeatured","Mark as featured listing"],["isVerified","Verified property"]].map(([k, l]) => (
-                <div key={k} className="flex items-center justify-between px-4 py-3 border-b border-black">
-                  <span className="text-sm font-medium text-black">{l}</span>
-                  <Toggle id={k} />
-                </div>
-              ))}
-              <div className="flex items-center justify-between px-4 py-3">
-                <span className="text-sm font-medium text-black">Status</span>
-                <select
-                  className="border border-black rounded-lg px-3 py-1.5 text-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-black"
-                  value={form.status}
-                  onChange={(e) => set("status", e.target.value)}
-                >
-                  <option value="available">Available</option>
-                  <option value="pending">Pending</option>
-                  <option value="sold">Sold</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          </>
         )}
 
-        {/* ── Step 5: Review ────────────────────────────────────── */}
+        {/* ── Step 5: Images ────────────────────────────────────────────── */}
         {step === 5 && (
-          <div>
-            <h2 className="text-base font-semibold text-black border-b border-gray-100 pb-3 mb-4">
-              Review & submit
-            </h2>
-            <div className="border border-black rounded-xl overflow-hidden">
-              {[
-                ["Title", form.title],
-                ["Type", `${form.type} / ${form.listingType}`],
-                ["Price", `₹${Number(form.price).toLocaleString("en-IN")} (${form.priceUnit?.replace("_", " ")})`],
-                ["Location", [form.address, form.city, form.state, form.zipCode, form.country].filter(Boolean).join(", ") || "—"],
-                ["Coordinates", form.lat && form.lng ? `${form.lat}, ${form.lng}` : "—"],
-                ["Bedrooms / Bathrooms", `${form.bedrooms} / ${form.bathrooms}`],
-                ["Area", form.area ? `${form.area} ${form.areaUnit}` : "—"],
-                ["Floor", `${form.floor} of ${form.totalFloors}`],
-                ["Furnishing", form.furnishing],
-                ["Parking", form.parking ? "Yes" : "No"],
-                ["Amenities", form.amenities.length ? form.amenities.map((a) => AMENITY_LABELS[a]).join(", ") : "None"],
-                ["Images", `${images.length} file(s) selected`],
-                ["Status", form.status],
-                ["Featured", form.isFeatured ? "Yes" : "No"],
-                ["Verified", form.isVerified ? "Yes" : "No"],
-              ].map(([k, v], i, arr) => (
-                <div
-                  key={k}
-                  className={`flex gap-4 px-4 py-2.5 text-sm ${i % 2 === 0 ? "bg-white" : "bg-gray-50"} ${
-                    i < arr.length - 1 ? "border-b border-gray-200" : ""
-                  }`}
-                >
-                  <span className="text-gray-400 w-40 flex-shrink-0 text-xs uppercase tracking-widest pt-0.5">{k}</span>
-                  <span className="text-black font-medium">{v}</span>
+          <>
+            <h2 className="text-xl font-medium text-gray-900 mb-1">Images</h2>
+            <p className="text-sm text-gray-400 mb-6 pb-4 border-b border-gray-200">
+              Property ki photos add karein — pehli image cover photo hogi
+            </p>
+
+            <label
+              className="flex flex-col items-center gap-3 p-10 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-gray-900 hover:bg-gray-50 transition-all"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                handleFileSelect(e.dataTransfer.files);
+              }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                className="sr-only"
+                onChange={(e) => handleFileSelect(e.target.files)}
+              />
+              <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path
+                    d="M9 12V4M9 4L6 7M9 4l3 3"
+                    stroke="#374151"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M3 14h12"
+                    stroke="#374151"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+              <p className="text-sm font-medium text-gray-900">
+                Photos drag karein ya browse karein
+              </p>
+              <p className="text-xs text-gray-400">
+                JPG, PNG, WEBP — max 5MB each
+              </p>
+            </label>
+
+            {propertyData.images.length > 0 && (
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
+                  {propertyData.images.map((file, i) => (
+                    <div
+                      key={i}
+                      className="relative aspect-[4/3] rounded-lg overflow-hidden border border-gray-200 bg-gray-100"
+                    >
+                      {/* ✅ File object se preview */}
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                      {i === 0 && (
+                        <span className="absolute bottom-2 left-2 text-[10px] font-medium bg-black/60 text-white px-2 py-0.5 rounded-full">
+                          Cover
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => removeImage(i)}
+                        className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black/60 flex items-center justify-center hover:bg-black/80 transition-colors"
+                      >
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                        >
+                          <path
+                            d="M2 2l6 6M8 2L2 8"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+                <div className="flex items-center justify-between mt-3">
+                  <p className="text-sm text-gray-400">
+                    <span className="font-medium text-gray-900">
+                      {propertyData.images.length}
+                    </span>{" "}
+                    images added
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setPropertyData((p) => ({...p, images: []}))}
+                    className="text-sm text-gray-400 underline hover:text-gray-700"
+                  >
+                    Sab hatao
+                  </button>
+                </div>
+              </>
+            )}
+          </>
         )}
 
-        {/* ── Navigation ───────────────────────────────────────── */}
-        {submitError && (
-          <div className="mt-4 px-4 py-3 border border-black rounded-lg bg-gray-50 text-sm text-black font-medium">
-            ⚠ {submitError}
-          </div>
+        {/* ── Step 6: Review ────────────────────────────────────────────── */}
+        {step === 6 && (
+          <>
+            <h2 className="text-xl font-medium text-gray-900 mb-1">
+              Review & Submit
+            </h2>
+            <p className="text-sm text-gray-400 mb-6 pb-4 border-b border-gray-200">
+              Data check karo aur submit karo
+            </p>
+            <pre className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-xs text-gray-500 leading-relaxed overflow-x-auto mb-6">
+              {JSON.stringify(propertyData, null, 2)}
+            </pre>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="w-full py-3 text-sm font-medium bg-gray-900 text-white rounded-xl hover:opacity-85 transition-opacity"
+            >
+              Submit Property Listing
+            </button>
+          </>
         )}
-        <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
-          <button
-            onClick={prevStep}
-            disabled={step === 0}
-            className="px-5 py-2 text-sm font-medium border border-black text-black rounded-lg disabled:opacity-25 hover:bg-gray-50 transition-colors"
-          >
-            ← Back
-          </button>
-          {step < STEPS.length - 1 ? (
+
+        {/* ── Navigation ────────────────────────────────────────────────── */}
+        <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-200">
+          {step > 1 ? (
+            <button
+              onClick={prevStep}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium border border-gray-300 rounded-lg bg-white hover:bg-gray-50 transition-colors"
+            >
+              ← Previous
+            </button>
+          ) : (
+            <div />
+          )}
+
+          <div className="flex gap-1.5">
+            {STEPS.map((_, i) => (
+              <div
+                key={i}
+                className="h-1.5 rounded-full transition-all duration-200"
+                style={{
+                  width: i + 1 === step ? "18px" : "6px",
+                  background: i + 1 === step ? "#111827" : "#D1D5DB",
+                }}
+              />
+            ))}
+          </div>
+
+          {step < STEPS.length ? (
             <button
               onClick={nextStep}
-              className="px-6 py-2 text-sm font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-gray-900 text-white rounded-lg hover:opacity-85 transition-opacity"
             >
               Next →
             </button>
           ) : (
-            <button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className="px-6 py-2 text-sm font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                "Submit property ↗"
-              )}
-            </button>
+            <div />
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
-}
+};
+
+export default PropertyListing;
