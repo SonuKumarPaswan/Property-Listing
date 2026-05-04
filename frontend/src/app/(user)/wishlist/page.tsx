@@ -19,7 +19,7 @@ const Page = () => {
     },
   ]);
 
-  const removeItem = (id) => {
+  const removeItem = (id: number) => {
     setWishlist(wishlist.filter((item) => item.id !== id));
   };
 

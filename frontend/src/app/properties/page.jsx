@@ -1,14 +1,28 @@
- import  PropertyFilter from "@/components/shared/PropertyFilter";
- import PropertyCard from "@/components/property/PropertyCard";
-const page = () => {
-  return (
-    <div className="container flex   items-start gap-4 mx-auto px-4 ">
-        <div className="w-[400px] "><PropertyFilter /> </div> 
-        <div >
-           <PropertyCard />
-       </div> 
-    </div>
-  )
-}
+"use client"
 
-export default page
+import PropertyFilter from "@/components/shared/PropertyFilter";
+import PropertyCard from "@/components/property/PropertyCard";
+import {useEffect, useState} from "react";
+import api from "@/lib/api";
+const page = () => {
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    fetchProperties();
+  }, []);
+
+  const fetchProperties = async () => {
+    const res = await api.get("/properties");
+    console.log(res.data.data);
+    setProperties(res.data.data);
+  };
+  return (
+    <div className="container flex justify-between gap-2 mx-auto p-4 ">
+        <PropertyFilter />
+      
+        <PropertyCard  properties={properties} />
+    </div>
+  );
+};
+
+export default page;
