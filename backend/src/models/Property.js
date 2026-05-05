@@ -12,12 +12,10 @@ const propertySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-
     description: {
       type: String,
       required: true,
     },
-
     type: {
       type: String,
       enum: [

@@ -169,3 +169,22 @@ export const PROPERTIES = [
     isFeatured: false,
   },
 ]
+
+export interface IProperty {
+  _id: string;
+  title: string;
+  price: number;
+  listingType: "rent" | "sale";
+  location?: {
+    city?: string;
+    state?: string;
+  };
+  details?: {
+    bedrooms?: number;
+    bathrooms?: number;
+    area?: number;
+    floor?: number;
+  };
+  images?: { url: string }[];
+  isVerified?: boolean;
+}

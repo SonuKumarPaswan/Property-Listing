@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import PropertyFilter from "@/components/shared/PropertyFilter";
-import PropertyCard from "@/components/property/PropertyCard";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import api from "@/lib/api";
-const page = () => {
+import PropertyCard from "@/components/property/PropertyCard";
+
+const Page = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
@@ -13,16 +13,14 @@ const page = () => {
 
   const fetchProperties = async () => {
     const res = await api.get("/properties");
-    console.log(res.data.data);
     setProperties(res.data.data);
   };
+
   return (
-    <div className="container flex justify-between gap-2 mx-auto p-4 ">
-        <PropertyFilter />
-      
-        <PropertyCard  properties={properties} />
+    <div className="container mx-auto p-4">
+      <PropertyCard properties={properties} />
     </div>
   );
 };
 
-export default page;
+export default Page;
