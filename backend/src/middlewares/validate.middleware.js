@@ -1,11 +1,11 @@
 const validate = (schema) => (req, res, next) => {
-  const { error } = schema.validate(req.body, { abortEarly: false });
+  const {error} = schema.validate(req.body, {abortEarly: false});
   if (error) {
     const errors = error.details.map((e) => ({
-      field:   e.path.join("."),
+      field: e.path.join("."),
       message: e.message,
     }));
-    return res.status(422).json({ success: false, errors });
+    return res.status(422).json({success: false, errors});
   }
   next();
 };
