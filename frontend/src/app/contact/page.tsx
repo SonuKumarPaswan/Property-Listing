@@ -23,7 +23,7 @@ const SUBJECTS = ["Property Inquiry", "Schedule a Viewing", "Investment Consulta
 const CONTACTS = [
   { icon: MapPin, label: "Head Office",    primary: "C-127 Block-C Sector-63",  secondary: "Noida, Uttar Pardesh 201301", href: "https://maps.google.com" },
   { icon: Phone,  label: "Phone",          primary: "+91 98765 43210",          secondary: "Mon–Sat, 9 AM – 7 PM",       href: "tel:+919876543210" },
-  { icon: Mail,   label: "Email",          primary: "contact@misthihouses.com",   secondary: "We reply within 24 hours",   href: "mailto:connect@estateprime.in" },
+  { icon: Mail,   label: "Email",          primary: "contact@misthiSpaces.com",   secondary: "We reply within 24 hours",   href: "mailto:connect@estateprime.in" },
   { icon: Clock,  label: "Working Hours",  primary: "Monday – Saturday",        secondary: "9:00 AM – 7:00 PM IST",      href: null },
 ];
 

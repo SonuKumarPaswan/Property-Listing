@@ -63,7 +63,7 @@ const sections = [
     {
         num: "01", icon: "🍪",
         title: "What Are Cookies?",
-        text: "Cookies are small text files placed on your device when you visit MishtiHouses.com. They allow our platform to remember your preferences, login sessions, and browsing behaviour. Cookies do not harm your device and cannot execute code. They exist solely to make your real estate search experience faster, personalised, and seamless across every visit.",
+        text: "Cookies are small text files placed on your device when you visit MishtiSpaces.com. They allow our platform to remember your preferences, login sessions, and browsing behaviour. Cookies do not harm your device and cannot execute code. They exist solely to make your real estate search experience faster, personalised, and seamless across every visit.",
     },
     {
         num: "02", icon: "🔍",
@@ -73,7 +73,7 @@ const sections = [
     {
         num: "03", icon: "🛡️",
         title: "How We Protect Your Privacy",
-        text: "All cookie data is encrypted in transit using TLS 1.3 and stored on ISO 27001-certified servers within India. We comply fully with the Information Technology Act, 2000 and applicable Indian data protection regulations. You retain the right to access, correct, or delete your data at any time by contacting privacy@mishthouses.com.",
+        text: "All cookie data is encrypted in transit using TLS 1.3 and stored on ISO 27001-certified servers within India. We comply fully with the Information Technology Act, 2000 and applicable Indian data protection regulations. You retain the right to access, correct, or delete your data at any time by contacting privacy@mishtSpaces.com.",
     },
     {
         num: "04", icon: "⚙️",
@@ -224,7 +224,7 @@ export default function CookiePolicyPage() {
 
                         {/* Sub */}
                         <p style={heroStyle(300)} className="text-[#94A3B8] text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-12">
-                            We believe your privacy is a right, not a privilege. Here's exactly how MishtiHouses.com uses cookies — with full transparency.
+                            We believe your privacy is a right, not a privilege. Here's exactly how MishtiSpaces.com uses cookies — with full transparency.
                         </p>
 
                         {/* Stat pills — same style as ToS meta pills */}
@@ -446,9 +446,9 @@ export default function CookiePolicyPage() {
                                     </p>
                                 </div>
                                 <div className="flex flex-col gap-3 flex-shrink-0">
-                                    <a href="mailto:privacy@mishthouses.com"
+                                    <a href="mailto:privacy@mishtSpaces.com"
                                         className="flex items-center gap-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-sm px-8 py-3 rounded-full transition-all duration-200 shadow-[0_0_24px_rgba(59,130,246,0.35)] hover:shadow-[0_0_32px_rgba(59,130,246,0.5)]">
-                                        📧 &nbsp;privacy@mishthouses.com
+                                        📧 &nbsp;privacy@mishtSpaces.com
                                     </a>
                                     <p className="text-white/20 text-[11px] text-center">
                                         Sector-63, Noida, 201301, India

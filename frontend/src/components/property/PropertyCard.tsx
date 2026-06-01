@@ -1,7 +1,7 @@
 "use client";
 
 import { Property } from "@/data/Property";
-import Image from "next/image";
+import images from "next/image";
 
 export default function PropertyCard({ properties }: { properties: Property[] }) {
 

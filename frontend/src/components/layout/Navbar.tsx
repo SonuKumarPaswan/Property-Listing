@@ -654,7 +654,7 @@ export default function Navbar() {
         {/* Mobile logo */}
         <div style={{ marginBottom: 32 }}>
           <div className="mh-logo-full">
-            <Image src="/logo.png" alt="Mishti Houses Logo" width={60} height={48} style={{ objectFit: "contain", width: "auto", height: "144px" }} priority />
+            <Image src="/logo.png" alt="Mishti Spaces Logo" width={60} height={48} style={{ objectFit: "contain", width: "auto", height: "144px" }} priority />
           </div>
         </div>
 
