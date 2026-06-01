@@ -23,25 +23,31 @@ const CITIES = ["Mumbai", "Delhi", "Bengaluru", "Hyderabad", "Chennai", "Pune", 
 const SOCIALS = [
   {
     label: "Facebook",
-    href: "#",
+    href: "https://www.facebook.com/profile.php?id=61590764961448",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
       </svg>
     ),
   },
-  {
-    label: "Twitter",
-    href: "#",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-      </svg>
-    ),
-  },
+ {
+  label: "WhatsApp",
+  href: "https://wa.me/918745875061",
+  icon: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      width="18"
+      height="18"
+    >
+      <path d="M20.52 3.48A11.86 11.86 0 0 0 12.07 0C5.5 0 .16 5.34.16 11.91c0 2.1.55 4.15 1.59 5.95L0 24l6.32-1.66a11.88 11.88 0 0 0 5.75 1.47h.01c6.57 0 11.91-5.34 11.91-11.91 0-3.18-1.24-6.17-3.47-8.42zM12.08 21.8a9.84 9.84 0 0 1-5.02-1.38l-.36-.21-3.75.98 1-3.65-.24-.37a9.82 9.82 0 1 1 8.37 4.63zm5.39-7.35c-.29-.14-1.72-.85-1.99-.95-.27-.1-.46-.14-.66.14-.19.29-.76.95-.93 1.15-.17.19-.34.22-.63.07-.29-.14-1.2-.44-2.29-1.4-.85-.76-1.42-1.69-1.59-1.98-.17-.29-.02-.44.12-.58.13-.13.29-.34.44-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.14-.66-1.58-.9-2.17-.24-.57-.49-.49-.66-.5h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-.96 2.43.06 1.43 1.03 2.81 1.17 3 .14.19 2.02 3.09 4.89 4.33.68.29 1.21.46 1.62.59.68.22 1.3.19 1.79.12.55-.08 1.72-.7 1.96-1.37.24-.67.24-1.25.17-1.37-.07-.12-.27-.19-.56-.33z" />
+    </svg>
+  ),
+},
   {
     label: "Instagram",
-    href: "#",
+    href: "https://www.instagram.com/mishtispaces/",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -52,7 +58,7 @@ const SOCIALS = [
   },
   {
     label: "LinkedIn",
-    href: "#",
+    href: "https://www.linkedin.com/in/mishti-spaces-4994bb413/",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -63,7 +69,7 @@ const SOCIALS = [
   },
   {
     label: "YouTube",
-    href: "#",
+    href: "https://www.youtube.com/@mishti-spaces",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
         <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
@@ -507,7 +513,7 @@ export default function Footer() {
               <div style={{ display: "flex", flexDirection: "column", gap: "2px", marginBottom: "1.5rem" }}>
                 {[
                   { text: "support@mishtispaces.com" },
-                  { text: "+91 9876543210" },
+                  { text: "+91 8745875061" },
                   { text: "Noida, Uttar Pradesh, India" },
                 ].map((c) => (
                   <div key={c.text} style={{ display: "flex", alignItems: "center", gap: "0px", fontSize: "0.74rem", color: "#6b8fc7" }}>
