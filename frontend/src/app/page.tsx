@@ -59,7 +59,7 @@ export default function Home() {
           {/* 🔥 FORM END */}
         </div>
       </section>
-       <PropertyCard     />
+       {/* <PropertyCard     /> */}
     </div>
   );
 }
