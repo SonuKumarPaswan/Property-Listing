@@ -52,10 +52,10 @@ function buildSections(): SectionDef[] {
             id: "introduction", label: "Introduction", icon: <Home size={15} />,
             content: (
                 <>
-                    <P>Welcome to <strong className="text-white font-semibold">MishtiHouses.com</strong> — a premium <em>real estate platform</em> built to transform the way people discover, evaluate, and transact in property across India. Whether you intend to <em>buy, sell, or rent property</em>, MishtiHouses.com provides a secure, transparent, and technology-first environment.</P>
-                    <P>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User") and MishtiHouses.com ("Company", "we", "us", or "our"), governing your access to and use of the Platform.</P>
+                    <P>Welcome to <strong className="text-white font-semibold">MishtiSpaces.com</strong> — a premium <em>real estate platform</em> built to transform the way people discover, evaluate, and transact in property across India. Whether you intend to <em>buy, sell, or rent property</em>, MishtiSpaces.com provides a secure, transparent, and technology-first environment.</P>
+                    <P>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User") and MishtiSpaces.com ("Company", "we", "us", or "our"), governing your access to and use of the Platform.</P>
                     <Note>By accessing any part of this Platform — even without creating an account — you confirm that you have read, understood, and agreed to these Terms in their entirety. If you disagree with any provision, please discontinue use immediately.</Note>
-                    <P>MishtiHouses.com serves as a neutral digital marketplace connecting buyers, sellers, landlords, tenants, and registered agents. We do not directly own, manage, or sell any property featured herein.</P>
+                    <P>MishtiSpaces.com serves as a neutral digital marketplace connecting buyers, sellers, landlords, tenants, and registered agents. We do not directly own, manage, or sell any property featured herein.</P>
                 </>
             ),
         },
@@ -63,7 +63,7 @@ function buildSections(): SectionDef[] {
             id: "acceptance", label: "Acceptance of Terms", icon: <CheckCircle2 size={15} />,
             content: (
                 <>
-                    <P>Your continued use of MishtiHouses.com — regardless of whether you have created an account — constitutes your unconditional acceptance of these Terms, our Privacy Policy, and any supplementary guidelines published on the Platform.</P>
+                    <P>Your continued use of MishtiSpaces.com — regardless of whether you have created an account — constitutes your unconditional acceptance of these Terms, our Privacy Policy, and any supplementary guidelines published on the Platform.</P>
                     <P>Acceptance is automatic and binding upon your first interaction with the Platform. This includes browsing property listings, saving a search, submitting an enquiry, or completing the registration process.</P>
                     <Note warn><strong>Important:</strong> If you are using this Platform on behalf of a business entity, you represent that you are duly authorised to bind that entity to these Terms.</Note>
                 </>
@@ -73,13 +73,13 @@ function buildSections(): SectionDef[] {
             id: "eligibility", label: "User Eligibility", icon: <UserCheck size={15} />,
             content: (
                 <>
-                    <P>MishtiHouses.com is available to individuals who meet all of the following criteria. By using the Platform, you represent and warrant that:</P>
+                    <P>MishtiSpaces.com is available to individuals who meet all of the following criteria. By using the Platform, you represent and warrant that:</P>
                     <Bullets items={[
                         "You are at least 18 years of age, or the legal age of majority in your jurisdiction, whichever is higher.",
                         "You possess full legal capacity to enter into a binding contract under Indian law.",
                         "You are not subject to any legal prohibition that prevents you from using this Platform.",
                         "You will use the Platform exclusively for lawful purposes related to real estate transactions.",
-                        "You have not been previously banned or suspended from MishtiHouses.com.",
+                        "You have not been previously banned or suspended from MishtiSpaces.com.",
                     ]} />
                     <P>Corporate entities — including private limited companies, LLPs, trusts, and partnerships — may register for legitimate commercial real estate activity, provided a duly authorised representative accepts these Terms.</P>
                 </>
@@ -95,10 +95,10 @@ function buildSections(): SectionDef[] {
                     <Bullets items={[
                         "Use a strong, unique password and enable two-factor authentication where available.",
                         "Never share your login credentials with any third party.",
-                        "Immediately notify us at security@mishthouses.com upon detecting unauthorised access.",
+                        "Immediately notify us at security@mishtSpaces.com upon detecting unauthorised access.",
                         "Log out from shared or public devices after every session.",
                     ]} />
-                    <P>MishtiHouses.com will never request your password via email, SMS, or phone call. Accounts found to have been created using fraudulent information will be permanently suspended without prior notice.</P>
+                    <P>MishtiSpaces.com will never request your password via email, SMS, or phone call. Accounts found to have been created using fraudulent information will be permanently suspended without prior notice.</P>
                 </>
             ),
         },
@@ -106,7 +106,7 @@ function buildSections(): SectionDef[] {
             id: "listings", label: "Property Listings & Accuracy", icon: <Building2 size={15} />,
             content: (
                 <>
-                    <P>MishtiHouses.com functions as a <em>property listings</em> marketplace. All listings are published by Listers — individual owners, registered agents, or developers — who are entirely responsible for the content they submit.</P>
+                    <P>MishtiSpaces.com functions as a <em>property listings</em> marketplace. All listings are published by Listers — individual owners, registered agents, or developers — who are entirely responsible for the content they submit.</P>
                     <P>By submitting a property listing, you warrant that:</P>
                     <Bullets items={[
                         "You are the legal owner of the property or hold a valid authorisation to list it.",
@@ -115,7 +115,7 @@ function buildSections(): SectionDef[] {
                         "The property complies with RERA and all applicable local authority regulations.",
                         "The listing will be promptly removed or updated once the property is no longer available.",
                     ]} />
-                    <Note warn>MishtiHouses.com does not independently verify the accuracy of every listing. Users are strongly advised to conduct independent due diligence before initiating any property transaction.</Note>
+                    <Note warn>MishtiSpaces.com does not independently verify the accuracy of every listing. Users are strongly advised to conduct independent due diligence before initiating any property transaction.</Note>
                 </>
             ),
         },
@@ -123,7 +123,7 @@ function buildSections(): SectionDef[] {
             id: "responsibilities", label: "User Responsibilities", icon: <ClipboardList size={15} />,
             content: (
                 <>
-                    <P>All users of MishtiHouses.com are expected to engage lawfully and professionally. You agree to:</P>
+                    <P>All users of MishtiSpaces.com are expected to engage lawfully and professionally. You agree to:</P>
                     <Bullets items={[
                         "Use the Platform only for genuine property-related purposes — searching, listing, or transacting.",
                         "Communicate honestly and professionally with other users, agents, and property owners.",
@@ -131,7 +131,7 @@ function buildSections(): SectionDef[] {
                         "Ensure that all submitted content — text, images, and documents — is accurate and does not infringe third-party rights.",
                         "Promptly report any suspicious listings or policy violations to our support team.",
                     ]} />
-                    <P>You further agree not to use any automated tools, bots, web scrapers, or crawlers to access or aggregate Platform data without prior written consent from MishtiHouses.com</P>
+                    <P>You further agree not to use any automated tools, bots, web scrapers, or crawlers to access or aggregate Platform data without prior written consent from MishtiSpaces.com</P>
                 </>
             ),
         },
@@ -166,10 +166,10 @@ function buildSections(): SectionDef[] {
             id: "payments", label: "Payments & Transactions", icon: <CreditCard size={15} />,
             content: (
                 <>
-                    <P>MishtiHouses.com offers tiered subscription plans for individuals, real estate professionals, and developers. Premium features — such as promoted listings, verified seller badges, lead management tools, and advanced analytics — are exclusive to paid plans.</P>
+                    <P>MishtiSpaces.com offers tiered subscription plans for individuals, real estate professionals, and developers. Premium features — such as promoted listings, verified seller badges, lead management tools, and advanced analytics — are exclusive to paid plans.</P>
                     <P>All fees are denominated in Indian Rupees (INR) and include applicable GST unless expressly stated otherwise. Payments are processed via PCI-DSS-compliant third-party gateways. We do not store card or banking details on our servers.</P>
                     <Note><strong>Refund Policy:</strong> Subscription fees are non-refundable once a billing cycle has commenced. Promotional credits are non-transferable and carry a defined expiry date communicated at the time of issuance.</Note>
-                    <P>MishtiHouses.com is not a party to property purchase, sale, or lease transactions between users. We strongly recommend consulting a qualified legal or financial advisor before committing to any real estate transaction.</P>
+                    <P>MishtiSpaces.com is not a party to property purchase, sale, or lease transactions between users. We strongly recommend consulting a qualified legal or financial advisor before committing to any real estate transaction.</P>
                 </>
             ),
         },
@@ -177,8 +177,8 @@ function buildSections(): SectionDef[] {
             id: "ip", label: "Intellectual Property", icon: <Copyright size={15} />,
             content: (
                 <>
-                    <P>All content, features, and functionality on MishtiHouses.com — including text, graphics, logos, UI design, source code, and data compilations — are the exclusive intellectual property of MishtiHouses.com or its licensors, protected under Indian and international copyright and trademark laws.</P>
-                    <P>By submitting content to the Platform (including property photos, descriptions, and floor plans), you grant MishtiHouses.com a non-exclusive, royalty-free, worldwide, sublicensable licence to use, display, and distribute such content solely for operating and promoting the Platform.</P>
+                    <P>All content, features, and functionality on MishtiSpaces.com — including text, graphics, logos, UI design, source code, and data compilations — are the exclusive intellectual property of MishtiSpaces.com or its licensors, protected under Indian and international copyright and trademark laws.</P>
+                    <P>By submitting content to the Platform (including property photos, descriptions, and floor plans), you grant MishtiSpaces.com a non-exclusive, royalty-free, worldwide, sublicensable licence to use, display, and distribute such content solely for operating and promoting the Platform.</P>
                     <Note warn>Unauthorised reproduction, redistribution, or commercial exploitation of any content from this Platform is strictly prohibited and may result in civil and criminal liability under the Copyright Act, 1957.</Note>
                 </>
             ),
@@ -187,9 +187,9 @@ function buildSections(): SectionDef[] {
             id: "third-party", label: "Third-Party Services", icon: <ExternalLink size={15} />,
             content: (
                 <>
-                    <P>MishtiHouses.com may integrate or link to third-party services — including mapping tools, mortgage calculators, legal advisory portals, and payment gateways — to enhance your experience on our real estate platform. These are provided for convenience only.</P>
+                    <P>MishtiSpaces.com may integrate or link to third-party services — including mapping tools, mortgage calculators, legal advisory portals, and payment gateways — to enhance your experience on our real estate platform. These are provided for convenience only.</P>
                     <P>We do not control, endorse, or assume responsibility for the content, privacy practices, or security of any third-party service. Your use of any linked external platform is entirely at your own risk and is governed by that platform's own terms and policies.</P>
-                    <P>MishtiHouses.com shall not be liable for any loss, damage, or inconvenience arising from your reliance on or interaction with third-party tools or services accessed through the Platform.</P>
+                    <P>MishtiSpaces.com shall not be liable for any loss, damage, or inconvenience arising from your reliance on or interaction with third-party tools or services accessed through the Platform.</P>
                 </>
             ),
         },
@@ -197,7 +197,7 @@ function buildSections(): SectionDef[] {
             id: "liability", label: "Limitation of Liability", icon: <Scale size={15} />,
             content: (
                 <>
-                    <P>To the fullest extent permitted under applicable law, MishtiHouses.com — including its directors, officers, employees, agents, and licensors — shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from:</P>
+                    <P>To the fullest extent permitted under applicable law, MishtiSpaces.com — including its directors, officers, employees, agents, and licensors — shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from:</P>
                     <Bullets items={[
                         "Your use of, or inability to use, any part of the Platform.",
                         "Inaccuracies, omissions, or errors in any property listing.",
@@ -205,7 +205,7 @@ function buildSections(): SectionDef[] {
                         "Unauthorised access to your account or personal data.",
                         "Interruptions, downtime, or technical failures on the Platform.",
                     ]} />
-                    <Note>In no event shall MishtiHouses.com's total aggregate liability to you exceed the amount paid by you to the Company in the twelve (12) months preceding the event giving rise to the claim.</Note>
+                    <Note>In no event shall MishtiSpaces.com's total aggregate liability to you exceed the amount paid by you to the Company in the twelve (12) months preceding the event giving rise to the claim.</Note>
                 </>
             ),
         },
@@ -213,9 +213,9 @@ function buildSections(): SectionDef[] {
             id: "privacy", label: "Privacy Policy", icon: <Eye size={15} />,
             content: (
                 <>
-                    <P>MishtiHouses.com is committed to protecting the privacy and security of your personal information. Our Privacy Policy explains in detail how we collect, use, store, share, and safeguard your data when you interact with the Platform.</P>
+                    <P>MishtiSpaces.com is committed to protecting the privacy and security of your personal information. Our Privacy Policy explains in detail how we collect, use, store, share, and safeguard your data when you interact with the Platform.</P>
                     <P>By accepting these Terms, you simultaneously acknowledge and agree to our Privacy Policy, which is incorporated herein by reference and forms an inseparable part of this agreement.</P>
-                    <Note>MishtiHouses.com complies with the Information Technology Act, 2000, the IT (Reasonable Security Practices) Rules, 2011, and applicable Indian data protection frameworks.</Note>
+                    <Note>MishtiSpaces.com complies with the Information Technology Act, 2000, the IT (Reasonable Security Practices) Rules, 2011, and applicable Indian data protection frameworks.</Note>
                 </>
             ),
         },
@@ -223,8 +223,8 @@ function buildSections(): SectionDef[] {
             id: "termination", label: "Termination", icon: <PowerOff size={15} />,
             content: (
                 <>
-                    <P>MishtiHouses.com reserves the right to suspend, restrict, or permanently terminate your access to the Platform at any time, with or without prior notice, for reasons including breach of these Terms, fraudulent activity, or conduct deemed harmful to other users or the Platform's integrity.</P>
-                    <P>You may terminate your account at any time by using the account deletion option in your profile settings or by writing to support@mishthouses.com. Upon termination, your right to access the Platform ceases immediately.</P>
+                    <P>MishtiSpaces.com reserves the right to suspend, restrict, or permanently terminate your access to the Platform at any time, with or without prior notice, for reasons including breach of these Terms, fraudulent activity, or conduct deemed harmful to other users or the Platform's integrity.</P>
+                    <P>You may terminate your account at any time by using the account deletion option in your profile settings or by writing to support@mishtSpaces.com. Upon termination, your right to access the Platform ceases immediately.</P>
                     <P>Provisions that by their nature survive termination — including intellectual property rights, limitation of liability, dispute resolution, and governing law — shall remain in full force after your account is closed.</P>
                 </>
             ),
@@ -233,9 +233,9 @@ function buildSections(): SectionDef[] {
             id: "changes", label: "Changes to Terms", icon: <RefreshCcw size={15} />,
             content: (
                 <>
-                    <P>MishtiHouses.com may revise these Terms from time to time to reflect changes in our services, applicable laws, or operational requirements. We will notify registered users of material changes via email and through a prominent in-Platform notice.</P>
+                    <P>MishtiSpaces.com may revise these Terms from time to time to reflect changes in our services, applicable laws, or operational requirements. We will notify registered users of material changes via email and through a prominent in-Platform notice.</P>
                     <P>The "Last Updated" date at the top of this page reflects the most recent revision. Minor clarifications may be made without separate notification.</P>
-                    <Note>Your continued use of MishtiHouses.com after any revised Terms take effect constitutes your binding acceptance of the updated agreement. If you do not agree with a revision, you must discontinue use immediately.</Note>
+                    <Note>Your continued use of MishtiSpaces.com after any revised Terms take effect constitutes your binding acceptance of the updated agreement. If you do not agree with a revision, you must discontinue use immediately.</Note>
                 </>
             ),
         },
@@ -243,9 +243,9 @@ function buildSections(): SectionDef[] {
             id: "governing", label: "Governing Law", icon: <Gavel size={15} />,
             content: (
                 <>
-                    <P>These Terms shall be governed by, and construed in accordance with, the laws of the Republic of India. Any dispute arising out of or in connection with these Terms or your use of MishtiHouses.com shall be subject to the exclusive jurisdiction of the courts of <strong className="text-white">New Delhi, India</strong>.</P>
+                    <P>These Terms shall be governed by, and construed in accordance with, the laws of the Republic of India. Any dispute arising out of or in connection with these Terms or your use of MishtiSpaces.com shall be subject to the exclusive jurisdiction of the courts of <strong className="text-white">New Delhi, India</strong>.</P>
                     <P>In the event of a dispute, both parties agree to first attempt resolution through good-faith negotiation within thirty (30) calendar days. If unsuccessful, disputes shall be resolved through binding arbitration under the Arbitration and Conciliation Act, 1996, conducted in English in New Delhi.</P>
-                    <P>Nothing herein prevents MishtiHouses.com from seeking injunctive or equitable relief from a court of competent jurisdiction to protect intellectual property rights or prevent imminent irreparable harm.</P>
+                    <P>Nothing herein prevents MishtiSpaces.com from seeking injunctive or equitable relief from a court of competent jurisdiction to protect intellectual property rights or prevent imminent irreparable harm.</P>
                 </>
             ),
         },
@@ -256,10 +256,10 @@ function buildSections(): SectionDef[] {
                     <P>For any questions, legal notices, or complaints regarding these Terms of Service, please reach out to our dedicated support team through the appropriate channel below:</P>
                     <div className="grid sm:grid-cols-2 gap-2.5 mt-4">
                         {[
-                            { role: "General Enquiries", email: "enquiries@mishthouses.com" },
-                            { role: "Legal & Compliance", email: "legal@mishthouses.com" },
-                            { role: "Account Support", email: "support@mishthouses.com" },
-                            { role: "Security Reports", email: "security@mishthouses.com" },
+                            { role: "General Enquiries", email: "enquiries@mishtSpaces.com" },
+                            { role: "Legal & Compliance", email: "legal@mishtSpaces.com" },
+                            { role: "Account Support", email: "support@mishtSpaces.com" },
+                            { role: "Security Reports", email: "security@mishtSpaces.com" },
                         ].map((c) => (
                             <div key={c.role} className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 hover:border-blue-500/25 transition-colors">
                                 <p className="text-[10px] uppercase tracking-widest text-white/25 mb-1">{c.role}</p>
@@ -269,7 +269,7 @@ function buildSections(): SectionDef[] {
                     </div>
                     <div className="mt-3 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3">
                         <p className="text-[10px] uppercase tracking-widest text-white/25 mb-1">Registered Office</p>
-                        <p className="text-sm text-slate-400">MishtiHouses.com , Basement B-07, AGS Building, C-27 Sector-63, Noida, 201301, India.</p>
+                        <p className="text-sm text-slate-400">MishtiSpaces.com , Basement B-07, AGS Building, C-27 Sector-63, Noida, 201301, India.</p>
                     </div>
                 </>
             ),
@@ -532,7 +532,7 @@ export default function TermsOfServicePage() {
                                 Legal Document — Effective April 2, 2026
                             </div>
                             <p className="text-slate-400 text-[14px] leading-relaxed">
-                                Please read these Terms carefully before using <strong className="text-white">MishtiHouses.com</strong> — India's trusted real estate platform for property buyers, sellers, and renters.
+                                Please read these Terms carefully before using <strong className="text-white">MishtiSpaces.com</strong> — India's trusted real estate platform for property buyers, sellers, and renters.
                             </p>
                         </div>
 
@@ -565,7 +565,7 @@ export default function TermsOfServicePage() {
                                         Find Your Dream Property
                                     </h2>
                                     <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                                        Explore thousands of verified <em>property listings</em> across India. Buy, sell, or rent with full confidence on MishtiHouses.com.
+                                        Explore thousands of verified <em>property listings</em> across India. Buy, sell, or rent with full confidence on MishtiSpaces.com.
                                     </p>
                                 </div>
                                 <div className="flex flex-col gap-3 flex-shrink-0">

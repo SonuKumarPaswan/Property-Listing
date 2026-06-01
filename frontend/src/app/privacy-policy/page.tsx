@@ -60,7 +60,7 @@ const PrivacyPolicyPage = () => {
             fontWeight: 400,
             maxWidth: '560px',
           }}>
-            Your privacy matters to us. Learn how MishtiHouses collects, uses, and protects your personal information.
+            Your privacy matters to us. Learn how MishtiSpaces collects, uses, and protects your personal information.
           </p>
           <p style={{
             color: '#7a9bbf',
@@ -86,7 +86,7 @@ const PrivacyPolicyPage = () => {
           borderLeft: '5px solid #1a2b4a',
         }}>
           <p style={{ color: '#3d4f6b', fontSize: '16px', lineHeight: 1.8, margin: 0, fontFamily: "'Arial', sans-serif" }}>
-            At <strong style={{ color: '#1a2b4a' }}>MishtiHouses</strong>, we are committed to protecting the privacy and security of our users, buyers, sellers, agents, and all individuals who interact with our platform. This Privacy Policy outlines in detail how we collect, process, store, share, and protect your personal information when you use our website, mobile applications, and related real estate services. By accessing or using MishtiHouses, you agree to the practices described in this document. We encourage you to read this policy carefully and contact us if you have any questions or concerns.
+            At <strong style={{ color: '#1a2b4a' }}>MishtiSpaces</strong>, we are committed to protecting the privacy and security of our users, buyers, sellers, agents, and all individuals who interact with our platform. This Privacy Policy outlines in detail how we collect, process, store, share, and protect your personal information when you use our website, mobile applications, and related real estate services. By accessing or using MishtiSpaces, you agree to the practices described in this document. We encourage you to read this policy carefully and contact us if you have any questions or concerns.
           </p>
         </div>
 
@@ -95,9 +95,9 @@ const PrivacyPolicyPage = () => {
           number="01"
           title="Information We Collect"
           content={[
-            "When you register for an account on MishtiHouses, we collect personal identification details such as your full name, email address, mobile phone number, and a secure password. If you choose to complete a profile, you may also provide additional information such as your profile photo, preferred locations, property budget, and occupation.",
+            "When you register for an account on MishtiSpaces, we collect personal identification details such as your full name, email address, mobile phone number, and a secure password. If you choose to complete a profile, you may also provide additional information such as your profile photo, preferred locations, property budget, and occupation.",
             "When you list a property, we collect detailed information about the property including its address, size, type, price, amenities, and photographs. As an agent or developer, we may also collect your professional license number, agency affiliation, and business address to verify your identity and credentials.",
-            "We automatically collect technical data when you interact with our platform, including your IP address, browser type and version, device type, operating system, pages visited, time spent on each page, and click behaviour. This information is collected through cookies, web beacons, and similar tracking technologies to understand how users engage with MishtiHouses and improve our services accordingly.",
+            "We automatically collect technical data when you interact with our platform, including your IP address, browser type and version, device type, operating system, pages visited, time spent on each page, and click behaviour. This information is collected through cookies, web beacons, and similar tracking technologies to understand how users engage with MishtiSpaces and improve our services accordingly.",
             "If you contact our support team or fill out our contact form, we collect the content of your messages, your contact details, and any files or documents you attach. Communication records may be stored for quality assurance, legal compliance, and service improvement purposes.",
           ]}
         />
@@ -107,7 +107,7 @@ const PrivacyPolicyPage = () => {
           number="02"
           title="How We Use Your Information"
           content={[
-            "Your personal information is used primarily to operate and deliver MishtiHouses services. This includes creating and managing your account, facilitating property searches, connecting buyers with sellers or agents, processing inquiries, and sending you property alerts or recommendations based on your preferences.",
+            "Your personal information is used primarily to operate and deliver MishtiSpaces services. This includes creating and managing your account, facilitating property searches, connecting buyers with sellers or agents, processing inquiries, and sending you property alerts or recommendations based on your preferences.",
             "We use your contact details to communicate with you about your account activity, property listings, bookings, or messages from other users. We may also send you service-related notifications, security alerts, and transactional emails that are necessary for the functioning of our platform.",
             "With your explicit consent, we may use your information to send you marketing communications about new property listings, promotional offers, real estate insights, and updates about our platform. You can opt out of these communications at any time by clicking the unsubscribe link in any marketing email or updating your notification preferences in your account settings.",
             "We analyse aggregated and anonymised data to understand usage trends, measure performance of our features, conduct market research, and improve the overall quality of our services. This analysis does not identify you personally and helps us develop better tools for the real estate community.",
@@ -119,9 +119,9 @@ const PrivacyPolicyPage = () => {
           number="03"
           title="Cookies and Tracking Technologies"
           content={[
-            "MishtiHouses uses cookies and similar tracking technologies to enhance your experience on our platform. Cookies are small text files stored on your device that help us remember your preferences, keep you logged in, and deliver relevant content. We use both session cookies, which expire when you close your browser, and persistent cookies, which remain on your device for a set period of time.",
+            "MishtiSpaces uses cookies and similar tracking technologies to enhance your experience on our platform. Cookies are small text files stored on your device that help us remember your preferences, keep you logged in, and deliver relevant content. We use both session cookies, which expire when you close your browser, and persistent cookies, which remain on your device for a set period of time.",
             "We use essential cookies that are strictly necessary for the platform to function, such as authentication tokens and security cookies. We also use performance cookies to measure how users interact with our website, preference cookies to remember your language and display settings, and marketing cookies to serve relevant advertisements across the web.",
-            "You can control cookie settings through your browser preferences. Most browsers allow you to block or delete cookies. However, disabling certain cookies may affect the functionality of MishtiHouses. You can also opt out of interest-based advertising by visiting relevant industry opt-out pages. We honour Do Not Track signals where technically feasible.",
+            "You can control cookie settings through your browser preferences. Most browsers allow you to block or delete cookies. However, disabling certain cookies may affect the functionality of MishtiSpaces. You can also opt out of interest-based advertising by visiting relevant industry opt-out pages. We honour Do Not Track signals where technically feasible.",
           ]}
         />
 
@@ -130,10 +130,10 @@ const PrivacyPolicyPage = () => {
           number="04"
           title="Sharing of Your Information"
           content={[
-            "MishtiHouses does not sell your personal information to third parties for their own marketing purposes. We share your information only in the limited circumstances described in this policy and always in compliance with applicable law.",
+            "MishtiSpaces does not sell your personal information to third parties for their own marketing purposes. We share your information only in the limited circumstances described in this policy and always in compliance with applicable law.",
             "We may share your information with registered real estate agents, brokers, or property developers listed on our platform when you submit an inquiry or express interest in a property. In such cases, only the information necessary to facilitate your inquiry, such as your name, contact number, and the property you are interested in, will be shared.",
             "We work with trusted third-party service providers who assist us in operating the platform. These include cloud hosting providers, payment processors, email delivery services, analytics platforms, and customer support tools. All third-party providers are contractually obligated to protect your data and use it only for the specific purpose for which it was shared.",
-            "We may disclose your information if required to do so by law or in response to a valid legal request from government authorities, courts, or law enforcement agencies. We may also share information to protect the rights, property, or safety of MishtiHouses, our users, or the general public.",
+            "We may disclose your information if required to do so by law or in response to a valid legal request from government authorities, courts, or law enforcement agencies. We may also share information to protect the rights, property, or safety of MishtiSpaces, our users, or the general public.",
           ]}
         />
 
@@ -175,7 +175,7 @@ const PrivacyPolicyPage = () => {
           number="08"
           title="Children's Privacy"
           content={[
-            "MishtiHouses is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have inadvertently collected personal information from a minor, we will take immediate steps to delete that information from our systems. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.",
+            "MishtiSpaces is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have inadvertently collected personal information from a minor, we will take immediate steps to delete that information from our systems. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.",
           ]}
         />
 
@@ -185,7 +185,7 @@ const PrivacyPolicyPage = () => {
           title="Changes to This Policy"
           content={[
             "We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we make significant changes, we will notify you by posting the updated policy on our website with a new effective date and, where appropriate, by sending you an email notification.",
-            "We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information. Your continued use of MishtiHouses after any changes to this policy constitutes your acceptance of the updated terms.",
+            "We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information. Your continued use of MishtiSpaces after any changes to this policy constitutes your acceptance of the updated terms.",
           ]}
         />
 
@@ -209,7 +209,7 @@ const PrivacyPolicyPage = () => {
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px', marginTop: '8px' }}>
             <ContactItem icon="📍" label="Address" value="C-127 Block-C Sector-63, Noida, Uttar Pradesh 201301" />
             <ContactItem icon="📞" label="Phone" value="+91 9876543210 (Mon–Sat, 9 AM – 7 PM)" />
-            <ContactItem icon="✉️" label="Email" value="support@mishtihouses.com" />
+            <ContactItem icon="✉️" label="Email" value="support@mishtispaces.com" />
           </div>
           <p style={{ margin: 0, color: '#7a9bbf', fontSize: '13px', fontFamily: "'Arial', sans-serif", marginTop: '8px' }}>
             We aim to respond to all privacy-related requests within 30 business days.

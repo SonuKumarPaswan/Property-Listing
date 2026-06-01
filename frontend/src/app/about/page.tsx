@@ -326,7 +326,7 @@ export default function AboutPage() {
               }}
             >
               Mishti           
-            <span className="text-white"> Houses.com</span>
+            <span className="text-white"> Spaces.com</span>
              </span>
           </motion.h1>
 
@@ -408,7 +408,7 @@ export default function AboutPage() {
               </span>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-slate-400">
-              Mishti Houses is not a brokerage. It is not an agency. It is a
+              Mishti Spaces is not a brokerage. It is not an agency. It is a
               technology-first platform that brings the entire property search
               and transaction journey into one clean, transparent digital space.
             </p>
@@ -422,7 +422,7 @@ export default function AboutPage() {
                 <p className="leading-relaxed text-slate-300">
                   Traditional real estate is broken. It is fragmented, opaque, and
                   driven by middlemen who benefit from information asymmetry. Mishti
-                  Houses was built to flip that model entirely. We are a digital
+                  Spaces was built to flip that model entirely. We are a digital
                   infrastructure layer — connecting buyers directly with sellers, and
                   renters directly with owners, without friction or artificial barriers.
                 </p>
@@ -479,7 +479,7 @@ export default function AboutPage() {
               {
                 year: "2025",
                 title: "The Vision",
-                desc: "Mishti Houses began not from a boardroom decision, but from a clear-eyed observation: India's property market was vast, full of potential, and deeply underserved by technology. In 2025, a small team came together with one shared conviction — that finding a home should be as simple and trustworthy as any modern digital experience. The vision was to build a platform that removed layers of complexity, brought transparency to every listing, and put the searcher firmly in control.",
+                desc: "Mishti Spaces began not from a boardroom decision, but from a clear-eyed observation: India's property market was vast, full of potential, and deeply underserved by technology. In 2025, a small team came together with one shared conviction — that finding a home should be as simple and trustworthy as any modern digital experience. The vision was to build a platform that removed layers of complexity, brought transparency to every listing, and put the searcher firmly in control.",
               },
               {
                 year: "2025–26",
@@ -489,7 +489,7 @@ export default function AboutPage() {
               {
                 year: "2026",
                 title: "The Launch",
-                desc: "Mishti Houses is now moving towards its official launch in 2026. The platform has been built to scale — from a handful of cities to a nationwide presence — without compromising on the quality, verification standards, or user experience that defines it. The launch is not just a product release. It is the opening of a new chapter in how India discovers, evaluates, and secures property. The mission is set. The platform is ready. The journey begins.",
+                desc: "Mishti Spaces is now moving towards its official launch in 2026. The platform has been built to scale — from a handful of cities to a nationwide presence — without compromising on the quality, verification standards, or user experience that defines it. The launch is not just a product release. It is the opening of a new chapter in how India discovers, evaluates, and secures property. The mission is set. The platform is ready. The journey begins.",
               },
             ].map((item, i) => (
               <ScrollReveal key={item.year} custom={i * 0.1}>
@@ -510,11 +510,11 @@ export default function AboutPage() {
           <ScrollReveal className="mt-10">
             <div className="rounded-2xl border border-blue-600/25 bg-gradient-to-r from-blue-900/20 via-[#041C32]/60 to-blue-900/20 p-10 text-center backdrop-blur-sm">
               <p className="mx-auto max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">
-                "We did not build Mishti Houses to be another listing directory. We built it to be
+                "We did not build Mishti Spaces to be another listing directory. We built it to be
                 the platform every Indian turns to when a property decision matters — because for
                 most families, it is the most important decision of their lives."
               </p>
-              <p className="mt-5 text-sm font-semibold text-blue-800">— Mishti Houses Founding Team</p>
+              <p className="mt-5 text-sm font-semibold text-blue-800">— Mishti Spaces Founding Team</p>
             </div>
           </ScrollReveal>
         </div>
@@ -536,7 +536,7 @@ export default function AboutPage() {
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-slate-400">
-              From initial discovery to final decision — Mishti Houses covers every part
+              From initial discovery to final decision — Mishti Spaces covers every part
               of the property journey with purpose-built features.
             </p>
           </ScrollReveal>
@@ -555,12 +555,12 @@ export default function AboutPage() {
             <NumberedCard
               num="03"
               title="Verified Listings"
-              desc="Every listing on Mishti Houses passes through a structured verification process before going live. We confirm ownership documents, validate contact details, and perform authenticity checks — so you never waste time on outdated or fraudulent posts."
+              desc="Every listing on Mishti Spaces passes through a structured verification process before going live. We confirm ownership documents, validate contact details, and perform authenticity checks — so you never waste time on outdated or fraudulent posts."
             />
             <NumberedCard
               num="04"
               title="Buy, Sell and Rent"
-              desc="Whether you are purchasing your first home, selling an investment property, or looking for a rental in a new city, Mishti Houses provides a dedicated end-to-end flow for each journey — tailored to what that specific transaction actually requires."
+              desc="Whether you are purchasing your first home, selling an investment property, or looking for a rental in a new city, Mishti Spaces provides a dedicated end-to-end flow for each journey — tailored to what that specific transaction actually requires."
             />
             <NumberedCard
               num="05"
@@ -589,14 +589,14 @@ export default function AboutPage() {
               <div>
                 <PillLabel text="Why Choose Us" />
                 <h2 className="mt-5 text-4xl font-black tracking-tight md:text-5xl">
-                  The Mishti Houses{" "}
+                  The Mishti Spaces{" "}
                   <span className="bg-gradient-to-r from-blue-800 to-blue-400 bg-clip-text text-transparent">
                     Difference
                   </span>
                 </h2>
                 <p className="mt-5 leading-relaxed text-slate-400">
                   In a market saturated with platforms that overpromise and underdeliver,
-                  Mishti Houses is being built on fundamentally different principles —
+                  Mishti Spaces is being built on fundamentally different principles —
                   ones that put the user's interest first, always.
                 </p>
                 <p className="mt-4 leading-relaxed text-slate-400">
@@ -609,7 +609,7 @@ export default function AboutPage() {
 
             <div className="flex flex-col gap-4">
               {[
-                { title: "Verified First, Listed Second", desc: "No property appears on Mishti Houses without passing our verification checks. Authenticity is the price of entry." },
+                { title: "Verified First, Listed Second", desc: "No property appears on Mishti Spaces without passing our verification checks. Authenticity is the price of entry." },
                 { title: "No Middlemen Dependency", desc: "Buyers and owners connect directly. The platform enables the relationship — it does not extract rent from it." },
                 { title: "Radical Transparency", desc: "Pricing, ownership, availability — all visible, all honest. No fine print, no hidden agendas." },
                 { title: "Built for Every City", desc: "Not just metros. Our platform is designed to serve users across Tier-1, Tier-2, and Tier-3 cities with equal depth." },
@@ -727,13 +727,13 @@ export default function AboutPage() {
                 </h2>
                 <p className="mt-5 leading-relaxed text-slate-300">
                   We envision a future where every property decision in India — from a studio
-                  rental to a commercial investment — begins and ends on Mishti Houses. Not
+                  rental to a commercial investment — begins and ends on Mishti Spaces. Not
                   because we forced ourselves into the market, but because we earned the trust
                   of users through consistently superior experience and relentlessly honest
                   practices.
                 </p>
                 <p className="mt-4 leading-relaxed text-slate-400">
-                  In our vision, Mishti Houses is not just a website or an app. It is the
+                  In our vision, Mishti Spaces is not just a website or an app. It is the
                   infrastructure layer of Indian real estate — the platform that defines
                   what transparency, discovery, and trust look like in this industry for
                   the next generation of buyers and investors.
@@ -771,7 +771,7 @@ export default function AboutPage() {
             <NumberedCard
               num="01"
               title="Multi-City Expansion"
-              desc="Mishti Houses will expand across 100+ cities in the near term, with hyperlocal content, regional language support, and on-ground verification teams in every major market — ensuring depth, not just width of coverage."
+              desc="Mishti Spaces will expand across 100+ cities in the near term, with hyperlocal content, regional language support, and on-ground verification teams in every major market — ensuring depth, not just width of coverage."
             />
             <NumberedCard
               num="02"
@@ -796,7 +796,7 @@ export default function AboutPage() {
             <NumberedCard
               num="06"
               title="Builder Ecosystem"
-              desc="Onboarding India's top real estate developers to list new launches and pre-launch opportunities on Mishti Houses, giving registered users early, verified access to premium projects before the wider market."
+              desc="Onboarding India's top real estate developers to list new launches and pre-launch opportunities on Mishti Spaces, giving registered users early, verified access to premium projects before the wider market."
             />
           </div>
 
@@ -820,7 +820,7 @@ export default function AboutPage() {
               },
               {
                 title: "Data Quality and Listing Accuracy",
-                desc: "Stale listings are trust killers. Our team runs daily freshness audits, automated availability checks, and user-flagged review workflows to ensure that every listing on Mishti Houses is current, accurate, and trustworthy at all times.",
+                desc: "Stale listings are trust killers. Our team runs daily freshness audits, automated availability checks, and user-flagged review workflows to ensure that every listing on Mishti Spaces is current, accurate, and trustworthy at all times.",
                 accent: "from-blue-500 to-blue-600",
               },
               {
@@ -870,7 +870,7 @@ export default function AboutPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <ValueCard
               title="Trust"
-              desc="Trust is not a feature. It is the foundation on which every feature, every policy, and every user interaction at Mishti Houses is built. We earn it by being consistent, honest, and user-first in every decision we make."
+              desc="Trust is not a feature. It is the foundation on which every feature, every policy, and every user interaction at Mishti Spaces is built. We earn it by being consistent, honest, and user-first in every decision we make."
             />
             <ValueCard
               title="Transparency"
@@ -905,7 +905,7 @@ export default function AboutPage() {
               </span>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-slate-400">
-              Mishti Houses is built by a product-focused team of engineers, platform architects,
+              Mishti Spaces is built by a product-focused team of engineers, platform architects,
               and real estate thinkers — united by a shared obsession with making property discovery
               better. No politics. No fluff. Just great work.
             </p>
@@ -922,7 +922,7 @@ export default function AboutPage() {
               initials="AD"
               name="Akanshu Dutt"
               role=" Full Stack Developer"
-              desc="Akanshu leads the entire technical vision and execution at Mishti Houses. He designed the platform architecture, leads the engineering team, and makes the high-stakes technology decisions that define what the product can do. With expertise spanning full-stack engineering, system design, and scalable infrastructure, he ensures the platform performs reliably for every user across every city."
+              desc="Akanshu leads the entire technical vision and execution at Mishti Spaces. He designed the platform architecture, leads the engineering team, and makes the high-stakes technology decisions that define what the product can do. With expertise spanning full-stack engineering, system design, and scalable infrastructure, he ensures the platform performs reliably for every user across every city."
               highlight
             />
             <TeamCard
@@ -935,7 +935,7 @@ export default function AboutPage() {
               initials="FE"
               name="Frontend Engineering"
               role="UI and Experience Engineers"
-              desc="A team of frontend engineers who own the visual and interactive layer of Mishti Houses. They translate design into production-grade, responsive, and accessible code using Next.js and Tailwind CSS — ensuring that every user, on any device, gets an experience that feels fast and intentional."
+              desc="A team of frontend engineers who own the visual and interactive layer of Mishti Spaces. They translate design into production-grade, responsive, and accessible code using Next.js and Tailwind CSS — ensuring that every user, on any device, gets an experience that feels fast and intentional."
             />
           </div>
 
@@ -977,7 +977,7 @@ export default function AboutPage() {
               initials="RE"
               name="Property Experts"
               role="Real Estate Advisory"
-              desc="Certified real estate professionals who own the verification pipeline, advise users on market conditions, and ensure that all listings comply with RERA regulations and Mishti Houses' own quality standards across every city."
+              desc="Certified real estate professionals who own the verification pipeline, advise users on market conditions, and ensure that all listings comply with RERA regulations and Mishti Spaces' own quality standards across every city."
             />
             <TeamCard
               initials="CS"
@@ -989,7 +989,7 @@ export default function AboutPage() {
               initials="GR"
               name="Growth and Partnerships"
               role="Marketing and Ecosystem"
-              desc="The team building Mishti Houses' presence across every market — through targeted digital campaigns, builder partnerships, and community-led initiatives that grow the platform through genuine value, not paid noise."
+              desc="The team building Mishti Spaces' presence across every market — through targeted digital campaigns, builder partnerships, and community-led initiatives that grow the platform through genuine value, not paid noise."
             />
           </div>
         </div>
@@ -1006,7 +1006,7 @@ export default function AboutPage() {
           <ScrollReveal className="mb-16 text-center">
             <PillLabel text="Future Plans" />
             <h2 className="mt-5 text-4xl font-black tracking-tight md:text-5xl">
-              The Mishti Houses of{" "}
+              The Mishti Spaces of{" "}
               <span className="bg-gradient-to-r from-blue-800 to-blue-400 bg-clip-text text-transparent">
                 Tomorrow
               </span>
@@ -1066,7 +1066,7 @@ export default function AboutPage() {
                 <p className="mt-4 leading-relaxed text-slate-400">
                   Domestically, we are deepening Tier-2 and Tier-3 coverage with dedicated
                   local teams, regional language interfaces, and market-specific features that
-                  make Mishti Houses as powerful in Varanasi as it is in Bengaluru.
+                  make Mishti Spaces as powerful in Varanasi as it is in Bengaluru.
                 </p>
               </GlassCard>
             </ScrollReveal>
@@ -1131,7 +1131,7 @@ export default function AboutPage() {
             </h2>
             <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-slate-400">
               Whether you are searching for your first home, listing a property, or
-              exploring what the market looks like — Mishti Houses is the platform built
+              exploring what the market looks like — Mishti Spaces is the platform built
               to make that journey simpler, faster, and more trustworthy than anything
               you have experienced before.
             </p>

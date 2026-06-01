@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mishti Houses",
+  title: "Mishti Spaces",
   description: "A modern real estate platform",
 };
 

@@ -1,12 +1,12 @@
 "use client";
 
 import { Property } from "@/data/Property";
-import Image from "next/image";
+import images from "next/image";
 
 export default function PropertyCard({ properties }: { properties: Property[] }) {
 
-  const{ images } = properties[0] || {};
-  console.log("Rendering PropertyCard with properties:", properties[0]?.images[0]?.url);
+  // const{ images } = properties[0] || {};
+  // console.log("Rendering PropertyCard with properties:", properties[0]?.images[0]?.url);
 
   if (!properties || properties.length === 0) {
     return <p className="text-center w-full">No properties found</p>;

@@ -870,7 +870,7 @@ export default function SignupPage() {
             <Link href="/">
               <Image
                 src="/logo.png"
-                alt="Mishti Houses Logo"
+                alt="Mishti Spaces Logo"
                 width={320} // Increased size
                 height={140}
                 priority
@@ -883,7 +883,7 @@ export default function SignupPage() {
               />
             </Link>
             {/* <div>
-              <div style={S.logoName}>MishtiHouses</div>
+              <div style={S.logoName}>MishtiSpaces</div>
               <div style={S.logoSub}>Real Estate Platform</div>
             </div> */}
           </div>
@@ -999,7 +999,7 @@ export default function SignupPage() {
                   Account Created!
                 </h3>
                 <p style={{color: "#6b7f9e", fontSize: 14, marginBottom: 22}}>
-                  Welcome to MishtiHouses as a{" "}
+                  Welcome to MishtiSpaces as a{" "}
                   <strong style={{color: "#1e6bff"}}>
                     {role === "buyer" ? "Property Buyer" : "Real Estate Agent"}
                   </strong>
@@ -1348,7 +1348,7 @@ export default function SignupPage() {
               {toast}
             </div>
             <div style={{fontSize: 12, color: "#6b7f9e", marginTop: 2}}>
-              Welcome to MishtiHouses!
+              Welcome to MishtiSpaces!
             </div>
           </div>
         </div>

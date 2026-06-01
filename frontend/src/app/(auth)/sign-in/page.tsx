@@ -161,7 +161,7 @@ const handleLogin = async (e: React.FormEvent) => {
           <Link href="/">
             <Image
               src="/logo.png"
-              alt="Mishti Houses Logo"
+              alt="Mishti Spaces Logo"
               width={320}           // Increased size
               height={140}
               priority
@@ -189,7 +189,7 @@ const handleLogin = async (e: React.FormEvent) => {
             Today
           </h2>
           <p className="text-sm leading-relaxed mb-8" style={{ color: "#94a3b8" }}>
-            Buy, sell or rent properties easily with Mishti Houses. Thousands of verified listings across India.
+            Buy, sell or rent properties easily with Mishti Spaces. Thousands of verified listings across India.
           </p>
           <div className="flex gap-8">
             {[
@@ -217,7 +217,7 @@ const handleLogin = async (e: React.FormEvent) => {
             <Link href="/">
               <Image
                 src="/logo.png"
-                alt="Mishti Houses Logo"
+                alt="Mishti Spaces Logo"
                 width={180}
                 height={160}
                 priority

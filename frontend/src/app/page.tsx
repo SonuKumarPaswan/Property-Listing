@@ -32,7 +32,7 @@ export default function Home() {
           </h1>
 
           <p className="mb-6 text-lg">
-            Buy, Sell or Rent properties easily with Mishti Houses
+            Buy, Sell or Rent properties easily with Mishti Spaces
           </p>
 
           {/* 🔥 FORM START */}
@@ -59,7 +59,7 @@ export default function Home() {
           {/* 🔥 FORM END */}
         </div>
       </section>
-       <PropertyCard />
+       <PropertyCard     />
     </div>
   );
 }

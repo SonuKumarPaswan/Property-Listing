@@ -484,7 +484,7 @@ export default function Footer() {
                   <Link href="/">
                     <Image
                       src="/logo.png"
-                      alt="Mishti Houses Logo"
+                      alt="Mishti Spaces Logo"
                       width={320}           // Increased size
                       height={140}
                       priority
@@ -506,7 +506,7 @@ export default function Footer() {
               <h3> Contact us:</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "2px", marginBottom: "1.5rem" }}>
                 {[
-                  { text: "support@mishtihouses.com" },
+                  { text: "support@mishtispaces.com" },
                   { text: "+91 9876543210" },
                   { text: "Noida, Uttar Pradesh, India" },
                 ].map((c) => (
@@ -608,7 +608,7 @@ export default function Footer() {
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }} className="mh-bottom">
               <div style={{ display: "flex", alignItems: "center" }}>
                 <span className="mh-pulse-dot" />
-                © {new Date().getFullYear()} Mishti Houses. All rights reserved.
+                © {new Date().getFullYear()} Mishti Spaces. All rights reserved.
               </div>
               <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
                 {NAV_LINKS.map((item) => (
