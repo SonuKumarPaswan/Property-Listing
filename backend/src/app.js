@@ -5,6 +5,8 @@ const app = express();
 app.use(cors({
     origin: [
         "http://localhost:3000",
+        "http://www.mishtispaces.com/",
+        "https://mishtispaces.com/",
         "https://mishti-houses.vercel.app"
      ],
     methods: ["GET", "POST", "PUT", "DELETE"],
