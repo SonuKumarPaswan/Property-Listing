@@ -14,9 +14,6 @@ const {
   propertyValidationSchema,
 } = require("../schemaValidation/property.validation");
 
-
-
-
 router.get("/search", searchProperties);
 router.get("/", getAllProperties);
 router.get("/:id", getPropertyById);
