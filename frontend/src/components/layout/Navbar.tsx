@@ -572,37 +572,20 @@ export default function Navbar() {
           </div>
 
          
-          <div className="hidden md:flex items-center gap-3 mh-nav-item">
-     
-            <button className="mh-search">
-              <svg
-                style={{width: 14, height: 14}}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              Search
-            </button>
+          <div className="hidden md:flex items-center gap-4 mh-nav-item">
 
             {!isLoggedIn ? (
               <>
                 <Link
                   href="/sign-in"
-                  className="mh-btn-login"
+                  className="mr-4 hover:border-b-2 hover:border-blue-500 transition pb-1"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Sign-In
+                  Log In
                 </Link>
                 <Link
                   href="/sign-up"
-                  className="mh-btn-login"
+                  className="py-2 px-4 rounded-md bg-blue-500/30 hover:bg-blue-500 transition text-sm font-semibold "
                   onClick={() => setMobileOpen(false)}
                 >
                   Sign-Up
@@ -610,7 +593,7 @@ export default function Navbar() {
               </>
             ) : (
               <button
-                className="mh-btn-login"
+                className="py-2 px-4 rounded-lg bg-blue-500/30 hover:text-white transition text-sm font-semibold "
                 onClick={() => {
                   handleLogout();
                   setMobileOpen(false);
@@ -620,22 +603,7 @@ export default function Navbar() {
               </button>
             )}
 
-            <Link href="/add-property" className="mh-btn-add">
-              <svg
-                style={{width: 15, height: 15}}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-              Add Property
-            </Link>
+           
           </div>
 
           <button
@@ -757,7 +725,7 @@ export default function Navbar() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: 12,
+            gap:10,
             marginTop: 24,
             paddingTop: 24,
             borderTop: "1px solid rgba(255,255,255,0.08)",
@@ -769,7 +737,7 @@ export default function Navbar() {
             style={{textAlign: "center"}}
             onClick={() => setMobileOpen(false)}
           >
-            Sign-In
+            Log In
           </Link>
           <Link
             href="/sign-up"
@@ -778,27 +746,6 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
           >
             Sign-Up
-          </Link>
-          <Link
-            href="/add-property"
-            className="mh-btn-add"
-            style={{justifyContent: "center"}}
-            onClick={() => setMobileOpen(false)}
-          >
-            <svg
-              style={{width: 15, height: 15}}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            Add Property
           </Link>
         </div>
       </div>
