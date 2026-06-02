@@ -1,7 +1,6 @@
 import React from "react";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 
-
 type Service = {
   title: string;
   description: string;
@@ -17,7 +16,7 @@ const services: Service[] = [
   {
     title: "Workspace Solutions",
     description: "Co-working space arrangements",
-    icon: <HiMiniBuildingOffice2 />,
+    icon: <HiMiniBuildingOffice2 size={50} />,
   },
   {
     title: "Facility Management Services",
@@ -43,134 +42,45 @@ const services: Service[] = [
 
 const ServicesProvider: React.FC = () => {
   return (
-    <section className="services-section">
-      <style>{`
-        .services-section {
-          padding: 80px 20px;
-          background: #f8fafc;
-        }
-
-        .services-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          text-align: center;
-        }
-
-        .services-title {
-          font-size: 56px;
-          font-weight: 800;
-          color: #08131b;
-          margin-bottom: 18px;
-        }
-
-        .services-subtitle {
-          font-size: 20px;
-          color: #7b7b7b;
-          max-width: 820px;
-          margin: 0 auto 60px;
-          line-height: 1.6;
-        }
-
-        .services-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 30px;
-        }
-
-        .service-card {
-          background: #fff;
-          border: 2px solid #000;
-          border-radius: 28px;
-          min-height: 440px;
-          padding: 48px 28px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 6px 6px 0 #000;
-          transition: transform 0.3s ease;
-        }
-
-        .service-card:hover {
-          transform: translateY(-4px);
-        }
-
-        .service-icon {
-          width: 110px;
-          height: 110px;
-          border-radius: 18px;
-          background: rgba(30, 136, 229, 0.08);
-          color: #1e88e5;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 40px;
-          margin-bottom: 28px;
-        }
-
-        .service-title {
-          font-size: 30px;
-          font-weight: 600;
-          color: #111;
-          margin-bottom: 18px;
-        }
-
-        .service-description {
-          font-size: 18px;
-          color: #7a7a7a;
-          line-height: 1.8;
-          margin-bottom: 34px;
-          max-width: 280px;
-        }
-
-        .service-link {
-          text-decoration: none;
-          color: #111;
-          font-size: 18px;
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .service-link span {
-          font-size: 22px;
-        }
-
-        @media (max-width: 992px) {
-          .services-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (max-width: 640px) {
-          .services-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .services-title {
-            font-size: 40px;
-          }
-
-          .service-card {
-            min-height: auto;
-          }
-        }
-      `}</style>
-
-      <div className="services-container">
-        <h2 className="services-title">Services Provide For You</h2>
-        <p className="services-subtitle">
+    <section className="py-20 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-4 text-center">
+        {/* Heading */}
+        <h2 className="text-5xl md:text-6xl font-extrabold text-[#08131b] mb-4">
+          Services Provide For You
+        </h2>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-16 leading-relaxed">
           Discover premium property services designed to match your lifestyle needs.
         </p>
 
-        <div className="services-grid">
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div className="service-card" key={index}>
-              <div className="service-icon">{service.icon}</div>
-              <h3 className="service-title">{service.title}</h3>
-              <p className="service-description">{service.description}</p>
-              <a href="#" className="service-link">
-                Learn More <span>→</span>
+            <div
+              key={index}
+              className="bg-white border-2 hover:border-blue-400 rounded-lg p-12 flex flex-col items-center justify-center shadow-[4px_2px_0_0_#000] hover:shadow-[4px_2px_0_0_#1e88e3] hover:-translate-y-1 transition-transform duration-300"
+            >
+              {/* Icon */}
+              <div className="w-[110px] h-[110px] bg-blue-50 text-[#1e88e5] rounded-2xl flex items-center justify-center mb-8 text-5xl">
+                {service.icon}
+              </div>
+
+              {/* Title */}
+              <h3 className="text-3xl font-semibold text-gray-900 mb-5">
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-[18px] text-gray-600 leading-relaxed mb-10 text-center max-w-[280px]">
+                {service.description}
+              </p>
+
+              {/* Learn More */}
+              <a
+                href="#"
+                className="text-lg font-medium text-gray-900 inline-flex items-center gap-2 hover:gap-3 transition-all"
+              >
+                Learn More
+                <span className="text-2xl">→</span>
               </a>
             </div>
           ))}
