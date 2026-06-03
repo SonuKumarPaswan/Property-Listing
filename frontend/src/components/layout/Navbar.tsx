@@ -9,34 +9,14 @@ const navLinks = [
   {
     label: "Home",
     href: "/",
-    icon: (
-      <svg
-        style={{width: 16, height: 16}}
-        fill="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-      </svg>
-    ),
+  },
+  {
+    label: "About",
+    href: "/about",
   },
   {
     label: "Properties",
     href: "/properties",
-    icon: (
-      <svg
-        style={{width: 16, height: 16}}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.8}
-          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-        />
-      </svg>
-    ),
     dropdown: [
       {label: "Buy", href: "/properties/buy", desc: "Ready-to-move homes"},
       {
@@ -57,78 +37,12 @@ const navLinks = [
     ],
   },
   {
-    label: "Explore",
-    href: "/explore",
-    icon: (
-      <svg
-        style={{width: 16, height: 16}}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.8}
-          d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-        />
-      </svg>
-    ),
-    dropdown: [
-      {
-        label: "City Guide",
-        href: "/explore/cities",
-        desc: "Top cities to invest",
-      },
-      {
-        label: "Locality Insights",
-        href: "/explore/locality",
-        desc: "Neighbourhood data",
-      },
-      {
-        label: "Price Trends",
-        href: "/explore/trends",
-        desc: "Market analytics",
-      },
-    ],
-  },
-  {
     label: "Wishlist",
-    href: "/wishlist",
-    icon: (
-      <svg
-        style={{width: 16, height: 16}}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.8}
-          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-        />
-      </svg>
-    ),
+    href: "/wishlist", 
   },
   {
-    label: "Agents",
-    href: "/agents",
-    icon: (
-      <svg
-        style={{width: 16, height: 16}}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.8}
-          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-      </svg>
-    ),
+    label: "Contact Us",
+    href: "/contact",
   },
 ];
 
@@ -521,7 +435,6 @@ export default function Navbar() {
                   href={link.href}
                   className={`mh-link ${activeDropdown === link.label ? "dropdown-open active" : ""}`}
                 >
-                  {link.icon}
                   {link.label}
                   {link.label === "Wishlist" && (
                     <span className="mh-notif-dot" />
@@ -675,7 +588,7 @@ export default function Navbar() {
                 className="mh-mobile-link"
                 onClick={() => setMobileOpen(false)}
               >
-                <div className="mh-mobile-link-icon">{link.icon}</div>
+               
                 <span>{link.label}</span>
                 {link.label === "Wishlist" && (
                   <span
