@@ -4,7 +4,7 @@ const app = express();
 
 app.use(cors({
     origin: [
-        "http://localhost:3000",
+        "http://localhost:3002",
         "http://www.mishtispaces.com/",
         "https://mishtispaces.com/",
         "https://mishti-houses.vercel.app"
@@ -15,7 +15,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(require('./routes/main.routes'));
+app.use(require('./routes/main.routes'));
 
 app.get("/", (req, res) => {
     res.send("Property created successfully");

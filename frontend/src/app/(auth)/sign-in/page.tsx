@@ -157,23 +157,7 @@ const handleLogin = async (e: React.FormEvent) => {
         />
 
         {/* 🔥 INCREASED LOGO ON DESKTOP (PC) */}
-        <div className="relative z-10 p-10">
-          <Link href="/">
-            <Image
-              src="/logo.png"
-              alt="Mishti Spaces Logo"
-              width={320}           // Increased size
-              height={140}
-              priority
-              className="rounded-lg"
-              style={{
-                width: "280px",     // You can change this value to make it bigger/smaller
-                height: "auto",
-                objectFit: "contain",
-              }}
-            />
-          </Link>
-        </div>
+        
 
         {/* Headline + stats */}
         <div className="relative z-10 px-10 pb-12">
@@ -183,9 +167,9 @@ const handleLogin = async (e: React.FormEvent) => {
           >
             Real Estate Platform
           </div>
-          <h2 className="text-4xl font-extrabold text-white leading-tight mb-4">
+          <h2 className="text-7xl font-extrabold text-white leading-tight mb-4">
             Find Your<br />
-            <span style={{ color: "#3b82f6" }}>Dream Home</span><br />
+            <span style={{ color: "#3b82f6" }}>Dream Property</span><br />
             Today
           </h2>
           <p className="text-sm leading-relaxed mb-8" style={{ color: "#94a3b8" }}>
