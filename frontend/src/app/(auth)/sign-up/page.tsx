@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import api from "@/lib/api";
@@ -212,7 +212,7 @@ const IconBriefcase = () => (
 );
 const IconSpinner = () => (
   <svg
-    style={{animation: "spin 1s linear infinite"}}
+    style={{ animation: "spin 1s linear infinite" }}
     width="18"
     height="18"
     viewBox="0 0 24 24"
@@ -252,21 +252,21 @@ const CitySVG = () => (
     viewBox="0 0 760 480"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{width: "100%", maxHeight: 400, opacity: 0.38}}
+    style={{ width: "100%", maxHeight: 400, opacity: 0.38 }}
   >
     {[
-      {x: 10, w: 52, h: 255},
-      {x: 68, w: 38, h: 188},
-      {x: 112, w: 62, h: 315},
-      {x: 180, w: 48, h: 242},
-      {x: 234, w: 78, h: 395},
-      {x: 318, w: 52, h: 282},
-      {x: 376, w: 68, h: 350},
-      {x: 450, w: 44, h: 215},
-      {x: 500, w: 88, h: 370},
-      {x: 594, w: 52, h: 265},
-      {x: 652, w: 38, h: 190},
-      {x: 696, w: 52, h: 300},
+      { x: 10, w: 52, h: 255 },
+      { x: 68, w: 38, h: 188 },
+      { x: 112, w: 62, h: 315 },
+      { x: 180, w: 48, h: 242 },
+      { x: 234, w: 78, h: 395 },
+      { x: 318, w: 52, h: 282 },
+      { x: 376, w: 68, h: 350 },
+      { x: 450, w: 44, h: 215 },
+      { x: 500, w: 88, h: 370 },
+      { x: 594, w: 52, h: 265 },
+      { x: 652, w: 38, h: 190 },
+      { x: 696, w: 52, h: 300 },
     ].map((b, i) => (
       <rect
         key={i}
@@ -341,11 +341,11 @@ const Particles = () => (
     }}
   >
     {[
-      {left: "14%", top: "18%", size: 3, delay: "0s", dur: "4s"},
-      {left: "72%", top: "32%", size: 2, delay: "1.2s", dur: "5.5s"},
-      {left: "44%", top: "55%", size: 4, delay: "2.1s", dur: "3.8s"},
-      {left: "86%", top: "14%", size: 2, delay: "0.6s", dur: "6s"},
-      {left: "28%", top: "76%", size: 3, delay: "1.8s", dur: "4.2s"},
+      { left: "14%", top: "18%", size: 3, delay: "0s", dur: "4s" },
+      { left: "72%", top: "32%", size: 2, delay: "1.2s", dur: "5.5s" },
+      { left: "44%", top: "55%", size: 4, delay: "2.1s", dur: "3.8s" },
+      { left: "86%", top: "14%", size: 2, delay: "0.6s", dur: "6s" },
+      { left: "28%", top: "76%", size: 3, delay: "1.8s", dur: "4.2s" },
     ].map((p, i) => (
       <div
         key={i}
@@ -372,13 +372,13 @@ function getStrength(pw: string) {
   if (/[0-9]/.test(pw)) s++;
   if (/[^a-zA-Z0-9]/.test(pw)) s++;
   const map = [
-    {label: "", color: "#dce3f0"},
-    {label: "Weak", color: "#ff4f6a"},
-    {label: "Fair", color: "#ffa94d"},
-    {label: "Good", color: "#00c6a0"},
-    {label: "Strong", color: "#1e6bff"},
+    { label: "", color: "#dce3f0" },
+    { label: "Weak", color: "#ff4f6a" },
+    { label: "Fair", color: "#ffa94d" },
+    { label: "Good", color: "#00c6a0" },
+    { label: "Strong", color: "#1e6bff" },
   ];
-  return {score: s, ...map[s]};
+  return { score: s, ...map[s] };
 }
 
 // ─── Styles ────────────────────────────────
@@ -435,8 +435,8 @@ const S: Record<string, React.CSSProperties> = {
     letterSpacing: "-0.5px",
     lineHeight: 1.1,
   },
-  logoSub: {fontSize: 11, color: "#00c6ff", fontWeight: 500},
-  hero: {position: "relative", zIndex: 2, paddingBottom: 28},
+  logoSub: { fontSize: 11, color: "#00c6ff", fontWeight: 500 },
+  hero: { position: "relative", zIndex: 2, paddingBottom: 28 },
   badge: {
     display: "inline-flex",
     alignItems: "center",
@@ -474,14 +474,14 @@ const S: Record<string, React.CSSProperties> = {
     maxWidth: 370,
     marginBottom: 30,
   },
-  statsRow: {display: "flex", gap: 28},
+  statsRow: { display: "flex", gap: 28 },
   statNum: {
     fontFamily: "'Syne', sans-serif",
     fontSize: 26,
     fontWeight: 800,
     color: "#fff",
   },
-  statLbl: {fontSize: 12, color: "#7a94b8", marginTop: 2},
+  statLbl: { fontSize: 12, color: "#7a94b8", marginTop: 2 },
   right: {
     width: "48%",
     minHeight: "100vh",
@@ -492,7 +492,7 @@ const S: Record<string, React.CSSProperties> = {
     padding: "40px 32px",
     overflowY: "auto" as const,
   },
-  card: {width: "100%", maxWidth: 476},
+  card: { width: "100%", maxWidth: 476 },
   cardTitle: {
     fontFamily: "'Syne', sans-serif",
     fontSize: 27,
@@ -501,7 +501,7 @@ const S: Record<string, React.CSSProperties> = {
     marginBottom: 4,
     letterSpacing: "-0.4px",
   },
-  cardSub: {fontSize: 14, color: "#6b7f9e", marginBottom: 26},
+  cardSub: { fontSize: 14, color: "#6b7f9e", marginBottom: 26 },
   tabs: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -538,7 +538,7 @@ const S: Record<string, React.CSSProperties> = {
     gap: 14,
     marginBottom: 14,
   },
-  field: {marginBottom: 14},
+  field: { marginBottom: 14 },
   lbl: {
     display: "block",
     fontSize: 10.5,
@@ -548,7 +548,7 @@ const S: Record<string, React.CSSProperties> = {
     textTransform: "uppercase" as const,
     marginBottom: 7,
   },
-  wrap: {position: "relative", display: "flex", alignItems: "center"},
+  wrap: { position: "relative", display: "flex", alignItems: "center" },
   icoL: {
     position: "absolute",
     left: 13,
@@ -569,8 +569,8 @@ const S: Record<string, React.CSSProperties> = {
     transition: "all 0.18s",
     fontFamily: "'DM Sans', sans-serif",
   },
-  inputErr: {borderColor: "#ff4f6a", background: "#fff8f9"},
-  inputOk: {borderColor: "#00c6a0"},
+  inputErr: { borderColor: "#ff4f6a", background: "#fff8f9" },
+  inputOk: { borderColor: "#00c6a0" },
   eyeBtn: {
     position: "absolute",
     right: 11,
@@ -600,7 +600,7 @@ const S: Record<string, React.CSSProperties> = {
     gap: 4,
     fontWeight: 500,
   },
-  strengthRow: {display: "flex", alignItems: "center", gap: 4, marginTop: 8},
+  strengthRow: { display: "flex", alignItems: "center", gap: 4, marginTop: 8 },
   strengthSeg: {
     flex: 1,
     height: 3,
@@ -623,8 +623,8 @@ const S: Record<string, React.CSSProperties> = {
     cursor: "pointer",
     flexShrink: 0,
   },
-  checkLbl: {fontSize: 13, color: "#6b7f9e", lineHeight: 1.55},
-  lnk: {color: "#1e6bff", textDecoration: "none", fontWeight: 600},
+  checkLbl: { fontSize: 13, color: "#6b7f9e", lineHeight: 1.55 },
+  lnk: { color: "#1e6bff", textDecoration: "none", fontWeight: 600 },
   divRow: {
     display: "flex",
     alignItems: "center",
@@ -632,7 +632,7 @@ const S: Record<string, React.CSSProperties> = {
     marginBottom: 14,
     marginTop: 4,
   },
-  divLine: {flex: 1, height: 1, background: "#d8e1f0"},
+  divLine: { flex: 1, height: 1, background: "#d8e1f0" },
   divTxt: {
     fontSize: 11.5,
     color: "#9aafcc",
@@ -677,7 +677,7 @@ const S: Record<string, React.CSSProperties> = {
     transition: "all 0.18s",
     marginBottom: 20,
   },
-  bottomTxt: {textAlign: "center" as const, fontSize: 13, color: "#6b7f9e"},
+  bottomTxt: { textAlign: "center" as const, fontSize: 13, color: "#6b7f9e" },
   bottomLnk: {
     color: "#1e6bff",
     fontWeight: 700,
@@ -762,18 +762,18 @@ export default function SignupPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value, type, checked} = e.target;
-    setForm((f) => ({...f, [name]: type === "checkbox" ? checked : value}));
+    const { name, value, type, checked } = e.target;
+    setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }));
     if (touched[name]) {
       const upd = validate();
-      setErrors((prev) => ({...prev, [name]: upd[name as keyof Errors]}));
+      setErrors((prev) => ({ ...prev, [name]: upd[name as keyof Errors] }));
     }
   };
 
   const handleBlur = (name: string) => {
-    setTouched((t) => ({...t, [name]: true}));
+    setTouched((t) => ({ ...t, [name]: true }));
     const e = validate();
-    setErrors((prev) => ({...prev, [name]: e[name as keyof Errors]}));
+    setErrors((prev) => ({ ...prev, [name]: e[name as keyof Errors] }));
   };
 
   const handleSubmit = async (ev: React.FormEvent) => {
@@ -792,29 +792,29 @@ export default function SignupPage() {
       const backendRole = role === "buyer" ? "user" : "agent";
       console.log("Submitting with role:", backendRole);
 
-    const res= await api.post("/users/register", {
-      username: form.fullName, 
-      email: form.email,
-      password: form.password,
-      role: backendRole,
-    });
-      if(res.status === 201){
+      const res = await api.post("/users/register", {
+        username: form.fullName,
+        email: form.email,
+        password: form.password,
+        role: backendRole,
+      });
+      if (res.status === 201) {
         console.log("Registration successful:", res.data);
         setToast(res.data.message || "Registration successful! Please log in.");
         setSuccess(true);
-      }else{
+      } else {
         console.error("Registration failed:", res.data);
         setToast(res.data.message || "Registration failed. Please try again.");
       }
-      
-    } catch (error: any) {
-     const errorMessage =
-      error?.response?.data?.message ||   // backend message
-      error?.response?.data?.error ||     // fallback
-      error.message ||                    // axios default
-      "Something went wrong";
 
-    setToast(errorMessage);
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message ||   // backend message
+        error?.response?.data?.error ||     // fallback
+        error.message ||                    // axios default
+        "Something went wrong";
+
+      setToast(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -830,8 +830,8 @@ export default function SignupPage() {
     ...S.input,
     ...(errors[name as keyof Errors] && touched[name] ? S.inputErr : {}),
     ...(!errors[name as keyof Errors] &&
-    touched[name] &&
-    form[name as keyof FormData]
+      touched[name] &&
+      form[name as keyof FormData]
       ? S.inputOk
       : {}),
   });
@@ -866,51 +866,22 @@ export default function SignupPage() {
             <CitySVG />
           </div>
 
-          <div style={S.logoRow}>
-            <Link href="/">
-              <Image
-                src="/logo.png"
-                alt="Mishti Spaces Logo"
-                width={320} // Increased size
-                height={140}
-                priority
-                className="rounded-lg"
-                style={{
-                  width: "280px", // You can change this value to make it bigger/smaller
-                  height: "auto",
-                  objectFit: "contain",
-                }}
-              />
-            </Link>
-            {/* <div>
-              <div style={S.logoName}>MishtiSpaces</div>
-              <div style={S.logoSub}>Real Estate Platform</div>
-            </div> */}
-          </div>
 
-          <div style={S.hero}>
-            <div style={S.badge}>
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "#00c6ff",
-                  display: "inline-block",
-                }}
-              />
+
+          <div className="relative z-10 px-10 pb-12">
+            <div
+              className="inline-block px-3 py-1 rounded-full text-xs font-extrabold mb-4 tracking-widest uppercase"
+              style={{ background: "rgba(37,99,235,0.3)", color: "#93c5fd", border: "1px solid rgba(37,99,235,0.4)" }}
+            >
               Real Estate Platform
             </div>
-            <h1 style={S.h1}>
-              Find Your
-              <br />
-              <span style={S.accent}>Dream Home</span>
-              <br />
-              Today
-            </h1>
-            <p style={S.heroP}>
-              Buy, sell or rent properties with ease. Thousands of verified
-              listings across India, trusted by buyers and agents alike.
+            <h2 className="text-7xl  font-extrabold font-sans text-white leading-tight mb-4">
+            Find Your<br />
+            <span style={{ color: "#3b82f6" }}>Dream Property</span><br />
+            Today
+          </h2>
+            <p className="text-sm leading-relaxed mb-8" style={{ color: "#94a3b8" }}>
+              Buy, sell or rent properties easily with Mishti Spaces. Thousands of verified listings across India.
             </p>
             <div style={S.statsRow}>
               {[
@@ -918,7 +889,7 @@ export default function SignupPage() {
                 ["8K+", "Happy Clients"],
                 ["50+", "Cities"],
               ].map(([n, l]) => (
-                <div key={l} style={{display: "flex", flexDirection: "column"}}>
+                <div key={l} style={{ display: "flex", flexDirection: "column" }}>
                   <span style={S.statNum}>{n}</span>
                   <span style={S.statLbl}>{l}</span>
                 </div>
@@ -951,7 +922,7 @@ export default function SignupPage() {
                   key={r.key}
                   type="button"
                   className="rtab"
-                  style={{...S.tab, ...(role === r.key ? S.tabActive : {})}}
+                  style={{ ...S.tab, ...(role === r.key ? S.tabActive : {}) }}
                   onClick={() => switchRole(r.key)}
                 >
                   {r.icon} {r.label}
@@ -998,9 +969,9 @@ export default function SignupPage() {
                 >
                   Account Created!
                 </h3>
-                <p style={{color: "#6b7f9e", fontSize: 14, marginBottom: 22}}>
+                <p style={{ color: "#6b7f9e", fontSize: 14, marginBottom: 22 }}>
                   Welcome to MishtiSpaces as a{" "}
-                  <strong style={{color: "#1e6bff"}}>
+                  <strong style={{ color: "#1e6bff" }}>
                     {role === "buyer" ? "Property Buyer" : "Real Estate Agent"}
                   </strong>
                   . Check your email to verify your account.
@@ -1026,7 +997,7 @@ export default function SignupPage() {
               <form onSubmit={handleSubmit} noValidate>
                 {/* Full Name + Email */}
                 <div style={S.twoCol}>
-                  <div className="f-in" style={{animationDelay: "0.04s"}}>
+                  <div className="f-in" style={{ animationDelay: "0.04s" }}>
                     <label style={S.lbl}>Full Name</label>
                     <div style={S.wrap}>
                       <span style={S.icoL}>
@@ -1046,7 +1017,7 @@ export default function SignupPage() {
                       <div style={S.errMsg}>{errors.fullName}</div>
                     )}
                   </div>
-                  <div className="f-in" style={{animationDelay: "0.08s"}}>
+                  <div className="f-in" style={{ animationDelay: "0.08s" }}>
                     <label style={S.lbl}>Email Address</label>
                     <div style={S.wrap}>
                       <span style={S.icoL}>
@@ -1093,7 +1064,7 @@ export default function SignupPage() {
 
                 {/* Agent-only */}
                 {role === "agent" && (
-                  <div style={{...S.twoCol}} className="f-in">
+                  <div style={{ ...S.twoCol }} className="f-in">
                     <div>
                       <label style={S.lbl}>Agency Name</label>
                       <div style={S.wrap}>
@@ -1251,7 +1222,7 @@ export default function SignupPage() {
                   </label>
                 </div>
                 {errors.agreeTerms && touched.agreeTerms && (
-                  <div style={{...S.errMsg, marginTop: -10, marginBottom: 12}}>
+                  <div style={{ ...S.errMsg, marginTop: -10, marginBottom: 12 }}>
                     {errors.agreeTerms}
                   </div>
                 )}
@@ -1344,10 +1315,10 @@ export default function SignupPage() {
             </svg>
           </div>
           <div>
-            <div style={{fontWeight: 700, color: "#0a1628", fontSize: 13.5}}>
+            <div style={{ fontWeight: 700, color: "#0a1628", fontSize: 13.5 }}>
               {toast}
             </div>
-            <div style={{fontSize: 12, color: "#6b7f9e", marginTop: 2}}>
+            <div style={{ fontSize: 12, color: "#6b7f9e", marginTop: 2 }}>
               Welcome to MishtiSpaces!
             </div>
           </div>

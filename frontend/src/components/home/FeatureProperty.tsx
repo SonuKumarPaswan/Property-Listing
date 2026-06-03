@@ -80,7 +80,7 @@ const FeaturedProperty = () => {
                 src={property.image}
                 alt={property.title}
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-              />
+              /> 
             </div>
 
             <div className="p-5">
