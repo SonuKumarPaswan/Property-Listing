@@ -7,6 +7,7 @@ import MotionProvider from "./providers/MotionProvider";
 import Login from "@/components/common/Login";
 import CustomCursor from "@/components/common/CustomCursor";
 import ScrollProgress from "@/components/common/ScrollProgress";
+import AIAssistant from "@/components/layout/AIAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -103,6 +104,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           <Navbar />
           <main className="flex-1 smooth-ui mt-16  ">{children}</main>
           <Login />
+          <AIAssistant />
           <Footer />
         </MotionProvider>
         <link

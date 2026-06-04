@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import {useState} from "react";
 
 export default function ContactPage() {
   const [contact, setContact] = useState({
@@ -11,10 +11,10 @@ export default function ContactPage() {
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const { name, value } = e.target;
-    setContact((prev) => ({ ...prev, [name]: value }));
+    const {name, value} = e.target;
+    setContact((prev) => ({...prev, [name]: value}));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -33,7 +33,6 @@ export default function ContactPage() {
       <div className="text-center ">
         {/* Image Container */}
         <div className="relative w-full h-[400px] md:h-120  overflow-hidden">
-
           {/* Background Image */}
           <Image
             src="https://images.unsplash.com/photo-1497366216548-37526070297c"
@@ -52,7 +51,8 @@ export default function ContactPage() {
             </h1>
 
             <p className="text-white/80 max-w-xl">
-              Get in touch with us for any inquiries or assistance. We're here to help you find your dream property!
+              Get in touch with us for any inquiries or assistance. We're here
+              to help you find your dream property!
             </p>
           </div>
           {/* Bottom Right Badge */}
@@ -69,9 +69,6 @@ export default function ContactPage() {
         </div>
       </div>
       <section className="py-24 px-5 bg-white">
-
-
-
         <div className="max-w-6xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-16">
@@ -126,8 +123,6 @@ export default function ContactPage() {
                     className="object-cover"
                   />
                 </div>
-
-
               </div>
             </div>
 
@@ -191,6 +186,87 @@ export default function ContactPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+        {/* Contact Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
+          {/* Location */}
+          <div className="bg-white rounded-3xl border border-gray-200 shadow-lg p-10 text-center hover:-translate-y-2 transition-all duration-300">
+            <div className="w-24 h-24 mx-auto rounded-full bg-red-50 flex items-center justify-center mb-6">
+              <span className="text-5xl">📍</span>
+            </div>
+
+            <h3 className="text-gray-500 uppercase text-lg mb-6">
+              Our Location
+            </h3>
+
+            <p className="text-2xl text-slate-900 leading-relaxed">
+              Noida Sector 62,
+              <br />
+              Uttar Pradesh, India
+            </p>
+          </div>
+
+          {/* Email */}
+          <div className="bg-white rounded-3xl border border-gray-200 shadow-lg p-10 text-center hover:-translate-y-2 transition-all duration-300">
+            <div className="w-24 h-24 mx-auto rounded-full bg-red-50 flex items-center justify-center mb-6">
+              <span className="text-5xl">✉️</span>
+            </div>
+
+            <h3 className="text-gray-500 uppercase text-lg mb-6">
+              Email Address
+            </h3>
+
+            <p className="text-2xl text-slate-900 leading-relaxed">
+              support@mishtispaces.com
+              <br />
+              info@mishtispaces.com
+            </p>
+          </div>
+
+          {/* Phone */}
+          <div className="bg-white rounded-3xl border border-gray-200 shadow-lg p-10 text-center hover:-translate-y-2 transition-all duration-300">
+            <div className="w-24 h-24 mx-auto rounded-full bg-red-50 flex items-center justify-center mb-6">
+              <span className="text-5xl">📞</span>
+            </div>
+
+            <h3 className="text-gray-500 uppercase text-lg mb-6">
+              Phone Number
+            </h3>
+
+            <p className="text-2xl text-slate-900 leading-relaxed">
+              +91 8745875061
+              <br />
+              +91 8745875061
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Google Map Section */}
+      <section className="py-16 bg-white">
+        <div className=" px-5">
+          <div className="mb-8 text-center">
+            <span className="text-blue-600 font-semibold">Our Location</span>
+
+            <h2 className="text-4xl font-bold text-slate-900 mt-2">
+              Visit Our Office
+            </h2>
+
+            <p className="text-slate-500 mt-3">
+              C-127, Sector 63, Noida, Uttar Pradesh
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-3xl shadow-xl border border-gray-200">
+            <iframe
+              src="https://maps.google.com/maps?q=C-127%20Sector%2063%20Noida&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="500"
+              style={{border: 0}}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>
