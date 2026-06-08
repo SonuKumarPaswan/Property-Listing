@@ -1,7 +1,8 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { FaQuoteRight } from "react-icons/fa";
 
 interface Testimonial {
   id: number;
@@ -57,14 +58,6 @@ const testimonials: Testimonial[] = [
 export default function CustomersSaying() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const nextSlide = () => {
     setCurrentIndex((prev) =>
       prev === testimonials.length - 1 ? 0 : prev + 1
@@ -77,12 +70,32 @@ export default function CustomersSaying() {
     );
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-center text-4xl font-bold text-slate-900 mb-12">
-          What Our Customers Say
-        </h2>
+    <section className="py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Heading */}
+        <div className="text-center mb-14">
+          <span className="text-blue-600 uppercase tracking-[4px] font-semibold">
+            Testimonials
+          </span>
+
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-4">
+            What Our Customers Say
+          </h2>
+
+          <p className="text-gray-500 mt-5 max-w-3xl mx-auto text-lg">
+            Trusted by property buyers, investors, and businesses across Noida
+            for seamless real estate solutions.
+          </p>
+        </div>
 
         <div className="relative">
           {/* Slider */}
@@ -94,27 +107,46 @@ export default function CustomersSaying() {
               }}
             >
               {testimonials.map((item) => (
-                <div
-                  key={item.id}
-                  className="min-w-full px-4"
-                >
-                  <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
-                    <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                <div key={item.id} className="min-w-full px-4">
+                  <div className="relative bg-white rounded-[32px] border border-gray-100 shadow-xl p-10 md:p-12">
+                    {/* Quote Icon */}
+                    <div className="absolute top-8 right-8 text-blue-100">
+                      <FaQuoteRight size={70} />
+                    </div>
+
+                    {/* Rating */}
+                    <div className="flex gap-1 mb-6">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <span
+                          key={star}
+                          className="text-yellow-400 text-xl"
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Review */}
+                    <p className="text-gray-600 text-lg md:text-xl leading-relaxed mb-10 max-w-4xl">
                       "{item.review}"
                     </p>
 
+                    {/* User */}
                     <div className="flex items-center gap-4">
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-16 h-16 rounded-full object-cover"
+                        className="w-16 h-16 rounded-full object-cover border-4 border-blue-100"
                       />
 
                       <div>
-                        <h3 className="font-bold text-lg text-slate-900">
+                        <h3 className="font-bold text-xl text-slate-900">
                           {item.name}
                         </h3>
-                        <p className="text-gray-500">{item.role}</p>
+
+                        <p className="text-blue-600 font-medium">
+                          {item.role}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -123,33 +155,33 @@ export default function CustomersSaying() {
             </div>
           </div>
 
-          {/* Prev Button */}
+          {/* Left Arrow */}
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 -translate-y-1/2 left-0 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"
+            className="absolute top-1/2 -translate-y-1/2 -left-3 md:-left-6 bg-white shadow-xl border border-gray-100 rounded-full w-14 h-14 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 text-gray-600"
           >
-            ❮
+            <SlArrowLeft />
           </button>
 
-          {/* Next Button */}
+          {/* Right Arrow */}
           <button
             onClick={nextSlide}
-            className="absolute top-1/2 -translate-y-1/2 right-0 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"
+            className="absolute top-1/2 -translate-y-1/2 -right-3 md:-right-6 bg-white shadow-xl border border-gray-100 rounded-full w-14 h-14 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 text-gray-600"
           >
-            ❯
+            <SlArrowRight  />
           </button>
         </div>
 
         {/* Dots */}
-        <div className="flex justify-center gap-3 mt-8">
+        <div className="flex justify-center gap-3 mt-10">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
+              className={`h-3 rounded-full transition-all duration-300 ${
                 currentIndex === index
-                  ? "bg-blue-600 w-8"
-                  : "bg-gray-300"
+                  ? "bg-blue-600 w-10"
+                  : "bg-gray-300 w-3"
               }`}
             />
           ))}
