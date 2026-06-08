@@ -11,7 +11,6 @@ import RecentSearchProperty from "@/components/home/RecentSearchProperty";
 import ServicesProvider from "@/components/home/ServicesProvider";
 import SuccessfulProjects from "@/components/home/SuccessfulProjects";
 import Navbar from "@/components/layout/Navbar";
-import NoidaOffice from "@/components/property/NoidaOffice";
 
 export default function Home() {
   return (
@@ -20,7 +19,6 @@ export default function Home() {
       <Hero />
       <div className="bg-white p-10 ">
         <RecentSearchProperty />
-        <NoidaOffice />
         <NoidaLuxuryProperty />
         <Commercial />
         <ServicesProvider />
