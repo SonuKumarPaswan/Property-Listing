@@ -11,7 +11,7 @@ const navLinks = [
     href: "/",
   },
   {
-    label: "About",
+    label: "About Us",
     href: "/about",
   },
   {
@@ -37,12 +37,16 @@ const navLinks = [
     ],
   },
   {
-    label: "Wishlist",
-    href: "/wishlist", 
+    label: "Services",
+    href: "/services", 
   },
   {
     label: "Contact Us",
     href: "/contact",
+  },
+  {
+    label: "Blog",
+    href: "/blog",
   },
 ];
 

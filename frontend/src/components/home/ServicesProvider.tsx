@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 
@@ -9,79 +11,106 @@ type Service = {
 
 const services: Service[] = [
   {
-    title: "Bed Rooms",
-    description: "Comfortable and stylish rooms designed for modern living.",
-    icon: "🏠",
+    title: "Office Space",
+    description:
+      "Premium office spaces tailored for startups, SMEs, and enterprises.",
+    icon: "🏢",
+  },
+  {
+    title: "Commercial Property",
+    description:
+      "Explore premium commercial properties in prime business locations.",
+    icon: "🏬",
   },
   {
     title: "Workspace Solutions",
-    description: "Co-working space arrangements",
-    icon: <HiMiniBuildingOffice2 size={50} />,
+    description:
+      "Flexible co-working and managed workspace solutions for businesses.",
+    icon: <HiMiniBuildingOffice2 size={40} />,
   },
   {
-    title: "Facility Management Services",
-    description: "Dedicated facility management with vendor coordination.",
+    title: "Property Leasing",
+    description:
+      "Hassle-free leasing services for offices, retail shops, and commercial spaces.",
+    icon: "📑",
+  },
+  {
+    title: "Facility Management",
+    description:
+      "Complete facility management with maintenance and vendor support.",
     icon: "🛠️",
   },
   {
-    title: "Modern Kitchen",
-    description: "Elegant kitchen spaces with smart and practical design.",
-    icon: "🍳",
+    title: "Property Investment",
+    description:
+      "Expert guidance for high-return commercial property investments.",
+    icon: "📈",
   },
   {
-    title: "Parking Space",
-    description: "Safe and convenient parking for residents and visitors.",
+    title: "Property Consultation",
+    description:
+      "Professional consultation to help you find the right property solution.",
+    icon: "💼",
+  },
+  {
+    title: "Parking Solutions",
+    description:
+      "Secure and convenient parking facilities for employees and visitors.",
     icon: "🚗",
   },
   {
     title: "24/7 Security",
-    description: "Reliable security service for complete peace of mind.",
+    description:
+      "Round-the-clock security services for complete peace of mind.",
     icon: "🛡️",
   },
 ];
 
 const ServicesProvider: React.FC = () => {
   return (
-    <section className="py-20 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 text-center">
+    <section className="py-16 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Heading */}
-        <h2 className="text-5xl md:text-6xl font-extrabold text-[#08131b] mb-4">
-          Services Provide For You
-        </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-16 leading-relaxed">
-          Discover premium property services designed to match your lifestyle needs.
-        </p>
+        <div className="text-center mb-14">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#08131b] mb-4">
+            Services Provide For You
+          </h2>
+
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Discover premium property services designed to match your lifestyle
+            needs.
+          </p>
+        </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white border-2 hover:border-blue-400 rounded-lg p-12 flex flex-col items-center justify-center shadow-[4px_2px_0_0_#000] hover:shadow-[4px_2px_0_0_#1e88e3] hover:-translate-y-1 transition-transform duration-300"
+              className="group bg-white border-2 border-gray-200 hover:border-blue-500 rounded-xl p-7 min-h-[320px] flex flex-col items-center text-center transition-all duration-300 shadow-[4px_4px_0px_0px_#000] hover:shadow-[-4px_4px_0px_0px_#2563eb] hover:-translate-y-2"
             >
               {/* Icon */}
-              <div className="w-[110px] h-[110px] bg-blue-50 text-[#1e88e5] rounded-2xl flex items-center justify-center mb-8 text-5xl">
+              <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 text-4xl">
                 {service.icon}
               </div>
 
               {/* Title */}
-              <h3 className="text-3xl font-semibold text-gray-900 mb-5">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">
                 {service.title}
               </h3>
 
               {/* Description */}
-              <p className="text-[18px] text-gray-600 leading-relaxed mb-10 text-center max-w-[280px]">
+              <p className="text-gray-600 leading-relaxed mb-8 max-w-[240px]">
                 {service.description}
               </p>
 
               {/* Learn More */}
-              <a
-                href="#"
-                className="text-lg font-medium text-gray-900 inline-flex items-center gap-2 hover:gap-3 transition-all"
-              >
+              <button className="mt-auto font-medium text-gray-900 inline-flex items-center gap-2 group-hover:text-blue-600 transition-all">
                 Learn More
-                <span className="text-2xl">→</span>
-              </a>
+                <span className="group-hover:translate-x-1 transition-transform">
+                  →
+                </span>
+              </button>
             </div>
           ))}
         </div>

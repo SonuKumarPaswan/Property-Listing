@@ -1,32 +1,28 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  {label: "Home", path: "#"},
-  {label: "Properties", path: "#"},
-  {label: "Buy", path: "#"},
-  {label: "Rent", path: "#"},
-  {label: "Sell", path: "#"},
-  {label: "About Us", path: "/about"},
-  {label: "Contact", path: "/contact"},
+  { label: "Home", path: "#" },
+  { label: "Properties", path: "#" },
+  { label: "About Us", path: "/about" },
+  { label: "Contact", path: "/contact" },
 
-  {label: "Privacy Policy", path: "/privacy-policy"},
-  {label: "Terms of Service", path: "/terms-of-service"},
-  {label: "Cookie Policy", path: "/cookie-policy"},
-  {label: "Sitemap", path: "/sitemap"},
+  { label: "Privacy Policy", path: "/privacy-policy" },
+  { label: "Terms of Service", path: "/terms-of-service" },
+  { label: "Cookie Policy", path: "/cookie-policy" },
+  { label: "Sitemap", path: "/sitemap" },
 ];
 
 const CITIES = [
-  "Mumbai",
-  "Delhi",
-  "Bengaluru",
-  "Hyderabad",
-  "Chennai",
-  "Pune",
-  "Kolkata",
-  "Ahmedabad",
+  "New Delhi",
+  "Noida",
+  "Greater Noida",
+  "Ghaziabad",
+  "Gurugram",
+  "Faridabad",
+  "Sonipat",
 ];
 
 const SOCIALS = [
@@ -111,12 +107,12 @@ function useInView(threshold = 0.15) {
           obs.disconnect();
         }
       },
-      {threshold},
+      { threshold },
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, [threshold]);
-  return {ref, inView};
+  return { ref, inView };
 }
 
 function AnimatedCounter({
@@ -127,7 +123,7 @@ function AnimatedCounter({
   suffix?: string;
 }) {
   const [count, setCount] = useState(0);
-  const {ref, inView} = useInView();
+  const { ref, inView } = useInView();
   useEffect(() => {
     if (!inView) return;
     let start = 0;
@@ -150,7 +146,7 @@ function AnimatedCounter({
 }
 
 export default function Footer() {
-  const {ref: footerRef, inView} = useInView(0.05);
+  const { ref: footerRef, inView } = useInView(0.05);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
@@ -498,16 +494,16 @@ export default function Footer() {
 
         {/* Stats bar */}
         <div className={`mh-stats-bar mh-reveal ${inView ? "visible" : ""}`}>
-          <div style={{maxWidth: 1200, margin: "0 auto", padding: "0 1.5rem"}}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 1.5rem" }}>
             <div
               className="mh-stats-grid"
-              style={{display: "grid", gridTemplateColumns: "repeat(4, 1fr)"}}
+              style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}
             >
               {[
-                {value: 12000, suffix: "+", label: "Properties Listed"},
-                {value: 8000, suffix: "+", label: "Happy Clients"},
-                {value: 50, suffix: "+", label: "Cities Covered"},
-                {value: 98, suffix: "%", label: "Satisfaction Rate"},
+                { value: 12000, suffix: "+", label: "Properties Listed" },
+                { value: 8000, suffix: "+", label: "Happy Clients" },
+                { value: 50, suffix: "+", label: "Cities Covered" },
+                { value: 98, suffix: "%", label: "Satisfaction Rate" },
               ].map((s) => (
                 <div className="mh-stat-item" key={s.label}>
                   <span className="mh-stat-num">
@@ -546,19 +542,19 @@ export default function Footer() {
               >
                 <div>
                   <Link href="/">
-                    <Image
+                    {/* <Image
                       src="/logo.png"
                       alt="Mishti Spaces Logo"
                       width={200}
-                      height={140}
+                      height={40}
                       priority
                       className="rounded-lg"
                       style={{
-                        width: "280px",
+                        width: "120px",
                         height: "auto",
                         objectFit: "contain",
                       }}
-                    />
+                    /> */}
                   </Link>
                   <div className="mh-logo-tagline">Real Estate Platform</div>
                 </div>
@@ -585,9 +581,9 @@ export default function Footer() {
                 }}
               >
                 {[
-                  {text: "support@mishtispaces.com"},
-                  {text: "+91 8745875061"},
-                  {text: "Noida, Uttar Pradesh, India"},
+                  { text: "support@mishtispaces.com" },
+                  { text: "+91 8745875061" },
+                  { text: "Noida, Uttar Pradesh, India" },
                 ].map((c) => (
                   <div
                     key={c.text}
@@ -599,14 +595,14 @@ export default function Footer() {
                       color: "#6b8fc7",
                     }}
                   >
-                    <span style={{fontSize: "0.85rem"}}></span>
+                    <span style={{ fontSize: "0.85rem" }}></span>
                     <span>{c.text}</span>
                   </div>
                 ))}
               </div>
 
               {/* Socials */}
-              <div style={{display: "flex", gap: "8px", flexWrap: "wrap"}}>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                 {SOCIALS.map((s) => (
                   <a
                     key={s.label}
@@ -627,7 +623,7 @@ export default function Footer() {
             >
               <div className="mh-section-heading">Quick links</div>
               <nav
-                style={{display: "flex", flexDirection: "column", gap: "2px"}}
+                style={{ display: "flex", flexDirection: "column", gap: "2px" }}
               >
                 {NAV_LINKS.map((l) => (
                   <a
@@ -650,7 +646,7 @@ export default function Footer() {
             >
               <div className="mh-section-heading">Property types</div>
               <nav
-                style={{display: "flex", flexDirection: "column", gap: "2px"}}
+                style={{ display: "flex", flexDirection: "column", gap: "2px" }}
               >
                 {[
                   "Apartments",
@@ -694,7 +690,7 @@ export default function Footer() {
               ) : (
                 <form
                   onSubmit={handleSubscribe}
-                  style={{display: "flex", marginBottom: "1.5rem"}}
+                  style={{ display: "flex", marginBottom: "1.5rem" }}
                 >
                   <input
                     className="mh-newsletter-input"
@@ -710,10 +706,10 @@ export default function Footer() {
                 </form>
               )}
 
-              <div className="mh-section-heading" style={{marginTop: "1.5rem"}}>
+              <div className="mh-section-heading" style={{ marginTop: "1.5rem" }}>
                 Top cities
               </div>
-              <div style={{display: "flex", flexWrap: "wrap", margin: "-3px"}}>
+              <div style={{ display: "flex", flexWrap: "wrap", margin: "-3px" }}>
                 {CITIES.map((city) => (
                   <span key={city} className="mh-city-pill">
                     <svg width="8" height="8" viewBox="0 0 8 8">
@@ -737,7 +733,7 @@ export default function Footer() {
         <div className="mh-divider" />
 
         {/* Bottom bar */}
-        <div style={{position: "relative", zIndex: 1}}>
+        <div style={{ position: "relative", zIndex: 1 }}>
           <div
             style={{
               maxWidth: 1200,
@@ -755,18 +751,18 @@ export default function Footer() {
               }}
               className="mh-bottom"
             >
-              <div style={{display: "flex", alignItems: "center"}}>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <span className="mh-pulse-dot" />© {new Date().getFullYear()}{" "}
                 Mishti Spaces. All rights reserved.
               </div>
-              <div style={{display: "flex", gap: "1.5rem", flexWrap: "wrap"}}>
+              <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
                 {NAV_LINKS.map((item) => (
                   <Link key={item.label} href={item.path}>
                     {item.label}
                   </Link>
                 ))}
               </div>
-              <div style={{fontSize: "0.78rem", color: "#2d4a6b"}}>
+              <div style={{ fontSize: "0.78rem", color: "#2d4a6b" }}>
                 Made with ♥ in India
               </div>
             </div>
