@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
-import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import {toast} from "react-hot-toast";
+import {SlArrowLeft, SlArrowRight} from "react-icons/sl";
 
 interface NoidaOfficeData {
   title?: string;
@@ -93,9 +93,7 @@ const NoidaOffice = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-96">
-        Loading...
-      </div>
+      <div className="flex justify-center items-center h-96">Loading...</div>
     );
   }
 

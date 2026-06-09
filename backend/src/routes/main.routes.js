@@ -6,7 +6,7 @@ const { route } = require('../app');
 
 // user routes
 router.use('/api/users', userRoutes);
-router.use('/api/properties', propertyRoutes);
+// router.use('/api/properties', propertyRoutes);
 
 
 module.exports = router;
