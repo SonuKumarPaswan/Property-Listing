@@ -15,7 +15,7 @@ const SignInPage = () => {
   const [errors, setErrors] = useState<{ identifier?: string; password?: string }>({});
   const [touched, setTouched] = useState<{ identifier?: boolean; password?: boolean }>({});
   const [loading, setLoading] = useState(false);
-  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);  
   const [successMsg, setSuccessMsg] = useState("");
 
   const isEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
