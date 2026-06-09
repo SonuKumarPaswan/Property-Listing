@@ -163,7 +163,7 @@ const PropertyListing = () => {
       fd.append("images", file);
     });
     console.log("Submitting form with data:", propertyData);
-    const res = await api.post("/properties", fd, {
+    const res = await api.post("/properties/", fd, {
       headers: {"Content-Type": "multipart/form-data"},
     });
     if (res.status === 201) {

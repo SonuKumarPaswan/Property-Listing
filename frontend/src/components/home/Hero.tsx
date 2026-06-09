@@ -32,7 +32,7 @@ const Hero = () => {
             your business grow.
           </p>
 
-          <Link href="/listings" className="max-w-max   bg-blue-500 hover:bg-blue-600 transition px-8 py-4 rounded-xl text-white font-semibold text-lg flex items-center gap-2">
+          <Link href="/start-listing" className="max-w-max   bg-blue-500 hover:bg-blue-600 transition px-8 py-4 rounded-xl text-white font-semibold text-lg flex items-center gap-2">
             Start Listing <span>→</span>
           </Link>
         </div>
