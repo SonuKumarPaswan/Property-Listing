@@ -1,4 +1,3 @@
-"use client";
 
 import NoidaLuxuryProperty from "@/components/home/NoidaLuxuryProperty";
 import CustomerFeedback from "@/components/property/CustomerFeedback";
@@ -62,7 +61,7 @@ const Page = () => {
         <CustomerFeedback />
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Page;

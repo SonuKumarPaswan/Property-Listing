@@ -3,7 +3,8 @@
 
 import api from '@/lib/api';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState , useRef } from 'react';
+
 
 export default function CreateProperty() {
   const [formData, setFormData] = useState({
@@ -19,12 +20,6 @@ export default function CreateProperty() {
     bathrooms: 2,
     amenities: [] as string[],
   });
-
-  const [images, setImages] = useState<string[]>([
-    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
-    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
-    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
-  ]);
 
   const amenityOptions = [
     'Swimming Pool', 'Gym', 'Parking', 'Garden', 'Balcony', 
@@ -64,6 +59,33 @@ export default function CreateProperty() {
     }
     alert('Property listing submitted successfully! (Demo)');
   };
+
+
+  const [images, setImages] = useState<File[]>([]);           // Actual files
+const [imagePreviews, setImagePreviews] = useState<string[]>([]); // Preview URLs
+const fileInputRef = useRef<HTMLInputElement>(null);
+
+const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = Array.from(e.target.files || []);
+  const validFiles = files.filter(file => file.type.startsWith('image/'));
+
+  if (validFiles.length === 0) return;
+
+  setImages(prev => [...prev, ...validFiles]);
+
+  const newPreviews = validFiles.map(file => URL.createObjectURL(file));
+  setImagePreviews(prev => [...prev, ...newPreviews]);
+};
+
+const removeImage = (index: number) => {
+  URL.revokeObjectURL(imagePreviews[index]); // Free memory
+  setImages(prev => prev.filter((_, i) => i !== index));
+  setImagePreviews(prev => prev.filter((_, i) => i !== index));
+};
+
+const triggerFileUpload = () => {
+  fileInputRef.current?.click();
+};
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
@@ -291,13 +313,13 @@ export default function CreateProperty() {
             <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 mb-6">
               <div className="h-64 relative">
                 <Image 
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c"
+                  src="/Office.jpeg"
                   alt="office Space Preview" 
                   className="w-full h-full object-cover"
                   width={100}
                   height={100}
                 />
-                <div className="absolute top-4 left-4 bg-white/90 text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+                <div className="absolute top-4 left-4 bg-white/90 text-xs text-black font-medium px-3 py-1 rounded-full flex items-center gap-1">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   Available
                 </div>
@@ -331,32 +353,60 @@ export default function CreateProperty() {
               </div>
             </div>
 
-            {/* Image Gallery Preview */}
-            <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold">Property Images</h3>
-                <button 
-                  className="text-rose-600 text-sm font-medium hover:underline"
-                  onClick={() => alert('Image upload coming soon!')}
-                >
-                  + Add More
-                </button>
-              </div>
-              
-              <div className="grid grid-cols-3 gap-3">
-                {images.map((img, i) => (
-                  <div key={i} className="aspect-square rounded-2xl overflow-hidden border border-gray-100">
-                    <Image src={img} alt="" className="w-full h-full object-cover" width={100} height={100} />
-                  </div>
-                ))}
-                <div 
-                  onClick={() => alert('Image upload coming soon!')}
-                  className="aspect-square rounded-2xl border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-rose-300 transition"
-                >
-                  <span className="text-4xl text-gray-300">+</span>
-                </div>
-              </div>
-            </div>
+            {/* Image Gallery Preview - Enhanced with Real Upload */}
+<div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+  <div className="flex justify-between items-center mb-4">
+    <h3 className="font-semibold">Property Images</h3>
+    <span className="text-sm text-gray-500">
+      {imagePreviews.length} / 10 photos
+    </span>
+  </div>
+
+  <div className="grid grid-cols-3 gap-3">
+    {/* Existing Uploaded Images */}
+    {imagePreviews.map((preview, index) => (
+      <div key={index} className="relative group aspect-square rounded-2xl overflow-hidden border border-gray-100">
+        <Image 
+          src={preview} 
+          alt={`Property image ${index + 1}`} 
+          fill 
+          className="object-cover" 
+        />
+        <button
+          onClick={() => removeImage(index)}
+          className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white w-6 h-6 rounded-full flex items-center justify-center text-lg opacity-0 group-hover:opacity-100 transition-all shadow-md"
+        >
+          ×
+        </button>
+      </div>
+    ))}
+
+    {/* Add More Button */}
+    <div
+      onClick={triggerFileUpload}
+      className="aspect-square rounded-2xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors"
+    >
+      <span className="text-5xl text-gray-300 mb-1">+</span>
+      <span className="text-sm font-medium text-gray-500">Add More</span>
+    </div>
+  </div>
+
+  {/* Hidden File Input */}
+  <input
+    ref={fileInputRef}
+    type="file"
+    multiple
+    accept="image/*"
+    onChange={handleImageUpload}
+    className="hidden"
+  />
+
+  <p className="text-xs text-gray-500 mt-4 text-center">
+    {imagePreviews.length === 0 
+      ? "Upload high-quality images (Minimum 3 recommended)" 
+      : "Click on images to remove • JPG, PNG, max 10MB each"}
+  </p>
+</div>
 
             <div className="mt-8 text-center text-xs text-gray-400">
               Your listing will be reviewed within 24 hours

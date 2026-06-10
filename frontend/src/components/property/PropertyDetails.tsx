@@ -2,7 +2,9 @@
 
 import {useState} from "react";
 
-const PropertyDetails = ({property}) => {
+
+
+const PropertyDetails = ({property}: { property: any }) => {
   const [activeTab, setActiveTab] = useState("description");
 
   const tabs = [
@@ -116,7 +118,7 @@ const PropertyDetails = ({property}) => {
               className="flex justify-between border p-4 rounded-lg bg-gray-50 hover:shadow-lg"
             >
               <span className="capitalize text-gray-600">{key}</span>
-              <span className="font-medium">{value}</span>
+              {/* <span className="font-medium">{value}</span> */}
             </div>
           ))}
         </div>
@@ -133,7 +135,7 @@ const PropertyDetails = ({property}) => {
               "power_backup",
               "cctv",
             ]
-          ).map((amenity, i) => (
+          ).map((amenity: string, i: number) => (
             <div
               key={i}
               className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl hover:shadow-lg border"

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, X } from "lucide-react";
 
-const Sidebar = ({ property }) => {
+const Sidebar = ({ property }:{ property: any }) => {
   const [open, setOpen] = useState(false);
 
   return (
