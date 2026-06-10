@@ -1,17 +1,29 @@
-import { createContext, useState } from "react";
+"use client";
 
-const FilterContext = createContext();
+import { createContext, useContext, useState } from "react";
 
-export const PropertyProvider = ({children })=>{
-    const[filters,setFilters]=useState({
-        location:"",
-        minPrice:0,
-        maxPrice:10000,
-        properType:"",
-    })
-    return(
-        <PropertyProvider.Provider>
-            
-        </PropertyProvider.Provider>
-    )
-}
+const FilterContext = createContext(null);
+
+export const PropertyProvider = ({ children }) => {
+  const [filters, setFilters] = useState({
+    location: "",
+    minPrice: 0,
+    maxPrice: 10000,
+    propertyType: "",
+  });
+
+  return (
+    <FilterContext.Provider
+      value={{
+        filters,
+        setFilters,
+      }}
+    >
+      {children}
+    </FilterContext.Provider>
+  );
+};
+
+export const usePropertyFilter = () => {
+  return useContext(FilterContext);
+};

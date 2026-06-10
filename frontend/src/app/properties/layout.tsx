@@ -1,13 +1,14 @@
-export default function PropertyLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { PropertyProvider } from "@/context/PropertyContext";
+
+
+export default function RootLayout({ children }) {
   return (
-    <div>
-      <main>
-        {children}
-      </main>
-    </div>
+    <html lang="en">
+      <body>
+        <PropertyProvider>
+          {children}
+        </PropertyProvider>
+      </body>
+    </html>
   );
 }
