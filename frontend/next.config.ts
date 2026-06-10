@@ -12,8 +12,12 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
       {
-        protocol: 'https',
-        hostname: 'picsum.photos', // optional backup
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+      {
+        protocol: "https",
+        hostname: "flowbite.s3.amazonaws.com",
       },
     ],
   },

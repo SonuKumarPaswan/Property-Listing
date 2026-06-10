@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Property {
   id: string;
@@ -64,7 +65,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
 
         <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
           <div>Updated {property.updated}</div>
-          <a href="#" className="text-blue-600 hover:underline font-medium">View Listing →</a>
+          <Link href="/properties/${property.title}" className="text-blue-600 hover:underline font-medium">View Listing →</Link>
         </div>
       </div>
     </div>
@@ -189,7 +190,7 @@ const PropertyListings: React.FC = () => {
         </div>
 
         {/* Property Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {sampleProperties.map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
