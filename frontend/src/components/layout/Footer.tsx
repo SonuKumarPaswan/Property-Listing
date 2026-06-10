@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
   { label: "Home", path: "#" },
-  { label: "Properties", path: "#" },
+  { label: "Properties", path: "/properties" },
   { label: "About Us", path: "/about" },
   { label: "Contact", path: "/contact" },
 
@@ -657,7 +657,7 @@ export default function Footer() {
                   "PG / Hostels",
                   "Builder Floors",
                 ].map((t) => (
-                  <a key={t} href="#" className="mh-navlink">
+                  <a key={t} href="/properties" className="mh-navlink">
                     <span className="mh-dot" />
                     {t}
                   </a>
