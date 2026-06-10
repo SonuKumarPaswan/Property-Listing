@@ -13,7 +13,7 @@ import SuccessfulProjects from "@/components/home/SuccessfulProjects";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import Navbar from "@/components/layout/Navbar";
 import NoidaOffice from "@/components/property/NoidaOffice";
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 
 export const metadata: Metadata = {
   title:
@@ -68,7 +68,6 @@ export default function Home() {
       <SuccessfulProjects />
 
       <RecentSearchProperty />
-
     </div>
   );
 }

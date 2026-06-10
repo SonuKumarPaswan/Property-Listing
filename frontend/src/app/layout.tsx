@@ -1,13 +1,12 @@
-import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
-import "./globals.css";
-import Footer from "@/components/layout/Footer";
-import Navbar from "@/components/layout/Navbar";
-import MotionProvider from "./providers/MotionProvider";
 import Login from "@/components/common/Login";
-import CustomCursor from "@/components/common/CustomCursor";
 import ScrollProgress from "@/components/common/ScrollProgress";
 import AIAssistant from "@/components/layout/AIAssistant";
+import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import MotionProvider from "./providers/MotionProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -100,7 +99,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <body className="min-h-full flex flex-col bg-sor-default">
         <MotionProvider>
           <ScrollProgress />
-          <CustomCursor />
           <Navbar />
           <main className="flex-1 smooth-ui mt-16  ">{children}</main>
           <Login />
