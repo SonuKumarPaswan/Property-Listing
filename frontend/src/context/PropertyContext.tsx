@@ -1,11 +1,34 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+} from "react";
 
-const FilterContext = createContext(null);
+type FilterState = {
+  location: string;
+  minPrice: number;
+  maxPrice: number;
+  propertyType: string;
+};
 
-export const PropertyProvider = ({ children }) => {
-  const [filters, setFilters] = useState({
+type FilterContextType = {
+  filters: FilterState;
+  setFilters: React.Dispatch<React.SetStateAction<FilterState>>;
+};
+
+const FilterContext = createContext<FilterContextType | null>(null);
+
+interface PropertyProviderProps {
+  children: ReactNode;
+}
+
+export const PropertyProvider = ({
+  children,
+}: PropertyProviderProps) => {
+  const [filters, setFilters] = useState<FilterState>({
     location: "",
     minPrice: 0,
     maxPrice: 10000,
@@ -13,17 +36,20 @@ export const PropertyProvider = ({ children }) => {
   });
 
   return (
-    <FilterContext.Provider
-      value={{
-        filters,
-        setFilters,
-      }}
-    >
+    <FilterContext.Provider value={{ filters, setFilters }}>
       {children}
     </FilterContext.Provider>
   );
 };
 
 export const usePropertyFilter = () => {
-  return useContext(FilterContext);
+  const context = useContext(FilterContext);
+
+  if (!context) {
+    throw new Error(
+      "usePropertyFilter must be used within PropertyProvider"
+    );
+  }
+
+  return context;
 };
