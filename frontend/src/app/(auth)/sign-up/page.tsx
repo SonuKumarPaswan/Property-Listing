@@ -838,10 +838,11 @@ export default function SignupPage() {
 
   return (
     <>
-      <link
+      <Link
         href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap"
         rel="stylesheet"
       />
+      
       <style>{`
         @keyframes twinkle { 0%,100%{opacity:.16} 50%{opacity:.72} }
         @keyframes spin     { to{transform:rotate(360deg)} }

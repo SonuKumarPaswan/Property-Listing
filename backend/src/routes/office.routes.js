@@ -6,7 +6,7 @@ const { createOffice } = require("../controllers/office.controller");
 
 
 
-router.post( "/", createOffice)
+router.post("/", createOffice)
 
 
 module.exports = router;
