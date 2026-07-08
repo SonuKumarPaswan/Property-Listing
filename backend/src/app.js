@@ -6,8 +6,8 @@ app.use(cors({
     origin: [
         "http://localhost:3000",
         "http://localhost:3001",
-        "http://www.mishtispaces.com/",
-        "https://mishtispaces.com/",
+        "http://www.mishtispaces.com",
+        "https://mishtispaces.com",
         "https://mishti-houses.vercel.app"
      ],
     methods: ["GET", "POST", "PUT", "DELETE"],
