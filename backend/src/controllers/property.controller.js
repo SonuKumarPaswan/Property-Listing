@@ -168,7 +168,7 @@ const createProperty = async (req, res) => {
 const updateProperty = async (req, res) => {
   try {
     console.log("📦 Body:", req.body);      // ✅ add karo
-    console.log("📁 Files:", req.files);    
+    console.log("📁 Files:", req.files);
     const property = await Property.findByIdAndUpdate(
       req.params.id,
       { ...req.body, updatedAt: Date.now() },
@@ -216,14 +216,14 @@ const searchProperties = async (req, res) => {
 
     const query = {};
 
-    if (keyword)     query.$or = [
-      { title:       { $regex: keyword, $options: "i" } },
+    if (keyword) query.$or = [
+      { title: { $regex: keyword, $options: "i" } },
       { description: { $regex: keyword, $options: "i" } },
     ];
-    if (type)        query.type        = type;
-    if (status)      query.status      = status;
+    if (type) query.type = type;
+    if (status) query.status = status;
     if (listingType) query.listingType = listingType;
-    if (city)        query["location.city"] = { $regex: city, $options: "i" };
+    if (city) query["location.city"] = { $regex: city, $options: "i" };
     if (minPrice || maxPrice) query.price = {
       ...(minPrice && { $gte: Number(minPrice) }),
       ...(maxPrice && { $lte: Number(maxPrice) }),
@@ -232,14 +232,14 @@ const searchProperties = async (req, res) => {
       ...(minArea && { $gte: Number(minArea) }),
       ...(maxArea && { $lte: Number(maxArea) }),
     };
-    if (bedrooms)  query["details.bedrooms"]  = { $gte: Number(bedrooms) };
+    if (bedrooms) query["details.bedrooms"] = { $gte: Number(bedrooms) };
     if (bathrooms) query["details.bathrooms"] = { $gte: Number(bathrooms) };
 
-    const sortOrder  = order === "desc" ? -1 : 1;
-    const sortField  = sortBy || "createdAt";
-    const pageNum    = parseInt(page)  || 1;
-    const limitNum   = parseInt(limit) || 10;
-    const skip       = (pageNum - 1) * limitNum;
+    const sortOrder = order === "desc" ? -1 : 1;
+    const sortField = sortBy || "createdAt";
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
 
     const [properties, total] = await Promise.all([
       Property.find(query).sort({ [sortField]: sortOrder }).skip(skip).limit(limitNum),
@@ -265,6 +265,6 @@ const searchProperties = async (req, res) => {
 
 module.exports = {
   getAllProperties, getPropertyById,
-  createProperty,   updateProperty,
-  deleteProperty,  searchProperties,
+  createProperty, updateProperty,
+  deleteProperty, searchProperties,
 };

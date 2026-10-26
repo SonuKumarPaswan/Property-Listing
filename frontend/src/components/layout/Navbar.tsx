@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {useState, useEffect, useRef} from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 const navLinks = [
@@ -11,14 +11,14 @@ const navLinks = [
     href: "/",
   },
   {
-    label: "About Us",
+    label: "About Us",  
     href: "/about",
   },
   {
     label: "Properties",
     href: "/properties",
     dropdown: [
-      {label: "Buy", href: "/properties/buy", desc: "Ready-to-move homes"},
+      { label: "Buy", href: "/properties/buy", desc: "Ready-to-move homes" },
       {
         label: "Rent",
         href: "/properties/rent",
@@ -36,7 +36,7 @@ const navLinks = [
       },
     ],
   },
- 
+
   {
     label: "Contact Us",
     href: "/contact",
@@ -399,11 +399,11 @@ export default function Navbar() {
             gap: 16,
           }}
         >
-        
+
           <Link
             href="/"
             className="mh-logo mh-nav-item"
-            style={{animationDelay: "0s"}}
+            style={{ animationDelay: "0s" }}
           >
             <div className="mh-logo-full">
               <Image
@@ -411,22 +411,22 @@ export default function Navbar() {
                 alt="Mishti Houses Logo"
                 width={160}
                 height={148}
-                style={{objectFit: "contain", width: "auto", height: "178px"}}
+                style={{ objectFit: "contain", width: "auto", height: "178px" }}
                 priority
               />
             </div>
           </Link>
 
-        
+
           <div
             className="hidden md:flex items-center gap-1"
-            style={{flex: 1, justifyContent: "center"}}
+            style={{ flex: 1, justifyContent: "center" }}
           >
             {navLinks.map((link) => (
               <div
                 key={link.label}
                 className="mh-nav-item"
-                style={{position: "relative"}}
+                style={{ position: "relative" }}
                 onMouseEnter={() =>
                   link.dropdown && handleMouseEnter(link.label)
                 }
@@ -443,7 +443,7 @@ export default function Navbar() {
                   {link.dropdown && (
                     <svg
                       className="mh-link-arrow"
-                      style={{width: 14, height: 14}}
+                      style={{ width: 14, height: 14 }}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -485,7 +485,7 @@ export default function Navbar() {
             ))}
           </div>
 
-         
+
           <div className="hidden md:flex items-center gap-4 mh-nav-item">
 
             {!isLoggedIn ? (
@@ -517,7 +517,7 @@ export default function Navbar() {
               </button>
             )}
 
-           
+
           </div>
 
           <button
@@ -581,7 +581,7 @@ export default function Navbar() {
           </span>
         </div>
 
-        <div style={{flex: 1}}>
+        <div style={{ flex: 1 }}>
           {navLinks.map((link) => (
             <div key={link.label}>
               <Link
@@ -589,7 +589,7 @@ export default function Navbar() {
                 className="mh-mobile-link"
                 onClick={() => setMobileOpen(false)}
               >
-               
+
                 <span>{link.label}</span>
                 {link.label === "Wishlist" && (
                   <span
@@ -608,7 +608,7 @@ export default function Navbar() {
                 )}
               </Link>
               {link.dropdown && (
-                <div style={{paddingLeft: 52, marginBottom: 8}}>
+                <div style={{ paddingLeft: 52, marginBottom: 8 }}>
                   {link.dropdown.map((sub) => (
                     <Link
                       key={sub.label}
@@ -639,7 +639,7 @@ export default function Navbar() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap:10,
+            gap: 10,
             marginTop: 24,
             paddingTop: 24,
             borderTop: "1px solid rgba(255,255,255,0.08)",
@@ -648,7 +648,7 @@ export default function Navbar() {
           <Link
             href="/sign-in"
             className="mh-btn-login"
-            style={{textAlign: "center"}}
+            style={{ textAlign: "center" }}
             onClick={() => setMobileOpen(false)}
           >
             Log In
@@ -656,7 +656,7 @@ export default function Navbar() {
           <Link
             href="/sign-up"
             className="mh-btn-login"
-            style={{textAlign: "center"}}
+            style={{ textAlign: "center" }}
             onClick={() => setMobileOpen(false)}
           >
             Sign-Up

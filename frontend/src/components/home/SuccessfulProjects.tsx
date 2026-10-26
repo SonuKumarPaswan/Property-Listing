@@ -2,7 +2,36 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { motion, Variants } from "framer-motion";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ANIMATION VARIANTS (Matches About Us Page)
+───────────────────────────────────────────────────────────────────────────── */
+const subtleFadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  }),
+};
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   REUSABLE UI COMPONENTS (White & Blue Palette)
+───────────────────────────────────────────────────────────────────────────── */
+function PillBadge({ text }: { text: string }) {
+  return (
+    <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#2043B0]">
+      <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
+      <span>{text}</span>
+    </div>
+  );
+}
 
 const projects = [
   {
@@ -52,92 +81,125 @@ const SuccessfulProjects = () => {
 
   const scrollLeft = () => {
     scrollRef.current?.scrollBy({
-      left: -320,
+      left: -380,
       behavior: "smooth",
     });
   };
 
   const scrollRight = () => {
     scrollRef.current?.scrollBy({
-      left: 320,
+      left: 380,
       behavior: "smooth",
     });
   };
 
   return (
-    <section className="py-12 px-4 md:px-10 lg:px-10 bg-gray-50">
-      {/* Heading */}
-      <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-4">
-        <div>
-          <h1 className="text-4xl font-bold text-gray-800">
-            Successful Projects
-          </h1>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
+      `}</style>
 
-          <p className="text-gray-600 mt-3 max-w-3xl">
-            Discover our successful real estate projects that have transformed
-            landscapes and created thriving communities.
-          </p>
-        </div>
+      <section className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB] text-[#172554] overflow-hidden antialiased">
+        {/* Subtle Ambient Decorative Shape */}
+        <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[350px] w-[600px] rounded-full bg-[#2043B0]/5 blur-3xl" />
 
-        {/* Arrows */}
-        <div className="flex gap-3">
-          <button
-            onClick={scrollLeft}
-            className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 text-gray-700"
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Section Header */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={subtleFadeUp}
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12"
           >
-            <SlArrowLeft />
-          </button>
-
-          <button
-            onClick={scrollRight}
-            className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 text-gray-700"
-          >
-            <SlArrowRight />
-          </button>
-        </div>
-      </div>
-
-      {/* Slider */}
-      <div
-        ref={scrollRef}
-        className="flex gap-3 overflow-x-auto scroll-smooth scrollbar-hide overflow-x-hidden"
-      >
-        {projects.map((project, index) => (
-          <Link
-            key={index}
-            href={`/projects/${project.slug}`}
-            className="min-w-[300px] max-w-[280px] flex-shrink-0"
-          >
-            <div className="bg-white rounded-md overflow-hidden shadow-md  h-[350px]">
-              {/* Image */}
-              <div className="overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                  {project.title}
-                </h2>
-
-                <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">
-                 {project.description.slice(0, 200)}
-                </p>
-
-                <div className="mt-4 flex items-center text-blue-600 font-semibold group-hover:gap-3 gap-2 transition-all">
-                  View Project
-                  <span>→</span>
-                </div>
-              </div>
+            <div className="max-w-2xl">
+              <PillBadge text="Proven Portfolio" />
+              <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-[Cinzel] font-bold tracking-tight text-[#172554] leading-tight">
+                Successful <span className="text-[#2043B0]">Projects</span>
+              </h2>
+              <p className="mt-3.5 text-base sm:text-lg text-[#4B5563] leading-relaxed font-sans">
+                Discover our successful real estate projects that have transformed
+                landscapes and created thriving communities.
+              </p>
             </div>
-          </Link>
-        ))}
-      </div>
-    </section>
+
+            {/* Slider Navigation Arrows */}
+            <div className="flex items-center gap-3 shrink-0 self-start md:self-end">
+              <button
+                type="button"
+                onClick={scrollLeft}
+                aria-label="Previous projects"
+                className="h-11 w-11 rounded-full border border-[#E5E7EB] bg-white text-[#172554] shadow-xs hover:border-[#2043B0] hover:bg-[#2043B0] hover:text-white transition-all duration-300 flex items-center justify-center cursor-pointer active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={scrollRight}
+                aria-label="Next projects"
+                className="h-11 w-11 rounded-full border border-[#E5E7EB] bg-white text-[#172554] shadow-xs hover:border-[#2043B0] hover:bg-[#2043B0] hover:text-white transition-all duration-300 flex items-center justify-center cursor-pointer active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Project Slider */}
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto scroll-smooth py-4 px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.slug}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={subtleFadeUp}
+                custom={index * 0.08}
+                className="shrink-0"
+              >
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group block w-[290px] sm:w-[340px] md:w-[360px] h-[430px] sm:h-[450px] focus:outline-none"
+                >
+                  <div className="h-full flex flex-col bg-white rounded-xl border border-[#E5E7EB] overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    {/* Image Wrapper */}
+                    <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-blue-50/50">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      />
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-[Cinzel] font-bold text-[#172554] group-hover:text-[#2043B0] transition-colors duration-200 line-clamp-1">
+                          {project.title}
+                        </h3>
+                        <p className="mt-2.5 text-sm text-[#4B5563] leading-relaxed line-clamp-3 font-sans">
+                          {project.description.slice(0, 200)}
+                        </p>
+                      </div>
+
+                      {/* View Project Action */}
+                      <div className="mt-6 pt-4 border-t border-[#E5E7EB]/80 flex items-center justify-between text-sm font-semibold text-[#2043B0]">
+                        <span>View Project</span>
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
