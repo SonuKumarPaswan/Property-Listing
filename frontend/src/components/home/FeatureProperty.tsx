@@ -47,7 +47,7 @@ const FeaturedProperty = () => {
       location: "Cleveland, United States",
       price: "₹2,12,120",
       image:
-        "https://reanty.themes-studio.com/assets/img/feature/feature-img2.jpg",
+        "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.35_PM_2.jpg",
     },
     {
       title: "Green Apartment",
@@ -56,7 +56,7 @@ const FeaturedProperty = () => {
       location: "Cleveland, United States",
       price: "₹2,32,120",
       image:
-        "https://reanty.themes-studio.com/assets/img/feature/feature-img3.jpg",
+        "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076257/WhatsApp_Image_2026-10-26_at_5.48.21_PM_1.jpg",
     },
     {
       title: "Modern Villa",
@@ -92,7 +92,7 @@ const FeaturedProperty = () => {
       location: "Arizona, United States",
       price: "₹2,42,120",
       image:
-        "https://reanty.themes-studio.com/assets/img/feature/feature-img2.jpg",
+        "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076258/WhatsApp_Image_2026-10-26_at_5.48.27_PM_2.jpg",
     },
   ];
 
