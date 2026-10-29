@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { SUCCESSFUL_PROJECTS } from "@/data/projects";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    ANIMATION VARIANTS (Matches About Us Page)
@@ -33,48 +34,7 @@ function PillBadge({ text }: { text: string }) {
   );
 }
 
-const projects = [
-  {
-    title: "Luxury Apartment Complex",
-    slug: "luxury-apartment-complex",
-    image:
-      "https://reanty.themes-studio.com/assets/img/feature/feature-img3.jpg",
-    description:
-      "A state-of-the-art residential complex offering unparalleled amenities and breathtaking views.",
-  },
-  {
-    title: "Modern Office Park",
-    slug: "modern-office-park",
-    image:
-      "https://reanty.themes-studio.com/assets/img/feature/feature-img4.jpg",
-    description:
-      "A cutting-edge commercial space designed to foster innovation and collaboration.",
-  },
-  {
-    title: "Eco-Friendly Housing Development",
-    slug: "eco-friendly-housing-development",
-    image:
-      "https://reanty.themes-studio.com/assets/img/feature/feature-img5.jpg",
-    description:
-      "A sustainable housing project that combines modern living with environmental responsibility.",
-  },
-  {
-    title: "Business Hub",
-    slug: "business-hub",
-    image:
-      "https://reanty.themes-studio.com/assets/img/feature/feature-img2.jpg",
-    description:
-      "Premium commercial hub built for growing businesses and startups.",
-  },
-  {
-    title: "Corporate Tower",
-    slug: "corporate-tower",
-    image:
-      "https://reanty.themes-studio.com/assets/img/feature/feature-img1.jpg",
-    description:
-      "A modern business tower offering premium office spaces and facilities.",
-  },
-];
+const projects = SUCCESSFUL_PROJECTS;
 
 const SuccessfulProjects = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -161,7 +121,7 @@ const SuccessfulProjects = () => {
                 className="shrink-0"
               >
                 <Link
-                  href={`/projects/${project.slug}`}
+                  href={project.href}
                   className="group block w-[290px] sm:w-[340px] md:w-[360px] h-[430px] sm:h-[450px] focus:outline-none"
                 >
                   <div className="h-full flex flex-col bg-white rounded-xl border border-[#E5E7EB] overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">

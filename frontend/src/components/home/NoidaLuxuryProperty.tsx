@@ -48,7 +48,7 @@ const properties = [
     slug: "premium-commercial-hub",
     location: "Sector 18, Noida",
     price: "₹ 2.10 Cr",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+    image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076252/WhatsApp_Image_2026-10-26_at_5.43.04_PM.jpg",
   },
   {
     id: 3,
@@ -56,7 +56,7 @@ const properties = [
     slug: "corporate-business-center",
     location: "Noida Extension",
     price: "₹ 95 Lakh",
-    image: "https://images.unsplash.com/photo-1460317442991-0ec209397118",
+    image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076250/WhatsApp_Image_2026-10-26_at_5.40.08_PM.jpg",
   },
   {
     id: 5,
@@ -64,7 +64,7 @@ const properties = [
     slug: "business-tower",
     location: "Sector 137, Noida",
     price: "₹ 1.50 Cr",
-    image: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2",
+    image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076255/WhatsApp_Image_2026-10-26_at_5.46.49_PM_1.jpg",
   },
   {
     id: 7,
@@ -72,7 +72,7 @@ const properties = [
     slug: "skyline-corporate-plaza",
     location: "Sector 142, Noida",
     price: "₹ 1.85 Cr",
-    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+    image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076251/WhatsApp_Image_2026-10-26_at_5.42.03_PM.jpg",
   },
 ];
 
