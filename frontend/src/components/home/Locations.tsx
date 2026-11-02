@@ -57,11 +57,11 @@ export default function Locations() {
             whileInView="visible"
             viewport={{ once: true, margin: "-40px" }}
             variants={subtleFadeUp}
-            className="mb-12 text-center max-w-2xl mx-auto"
+            className="mb-10 text-center max-w-2xl mx-auto"
           >
             <PillBadge text="Prime Destinations" />
 
-            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-[Cinzel] font-bold tracking-tight text-[#172554] leading-tight">
+            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-[Cinzel] font-bold tracking-tight text-[#172554] leading-tight">
               Popular <span className="text-[#2043B0]">Locations</span>
             </h2>
 
@@ -84,13 +84,16 @@ export default function Locations() {
                 custom={index * 0.08}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="group cursor-pointer rounded-2xl border border-[#E5E7EB] bg-white px-7 py-4 sm:py-5 shadow-xs transition-all duration-300 hover:border-blue-300 hover:bg-[#F5F7FF] hover:shadow-md hover:shadow-blue-900/5 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20 flex items-center gap-3"
+                className="group cursor-pointer rounded border border-[#E5E7EB] bg-white px-7 py-4 sm:py-5 shadow-xs
+                 transition-all duration-300 hover:border-blue-300 hover:bg-[#F5F7FF] hover:shadow-md
+                  hover:shadow-blue-900/5 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20 flex items-center gap-3"
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#F5F7FF] text-[#2043B0] transition-colors duration-300 group-hover:bg-[#2043B0] group-hover:text-white border border-blue-100">
                   <MapPin className="h-4 w-4" />
                 </div>
 
-                <span className="text-base sm:text-lg font-semibold text-[#172554] transition-colors duration-300 group-hover:text-[#2043B0]">
+                <span className="text-base sm:text-lg font-semibold text-[#172554]
+                 transition-colors duration-300 group-hover:text-[#2043B0]">
                   {location}
                 </span>
               </motion.div>

@@ -55,7 +55,8 @@ export default function WhyChooseUs() {
 
       <section className="relative py-16 sm:py-20 lg:py-24 bg-white text-[#172554] overflow-hidden antialiased">
         {/* Subtle Ambient Decorative Shape */}
-        <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[320px] w-[600px] rounded-full bg-[#2043B0]/5 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[320px] w-[600px]
+         rounded-full bg-[#2043B0]/5 blur-3xl" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
@@ -88,7 +89,7 @@ export default function WhyChooseUs() {
                   custom={index * 0.08}
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="group rounded-2xl border border-[#E5E7EB] bg-white p-7 sm:p-8 text-center shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer"
+                  className="group rounded` border border-[#E5E7EB] bg-white p-7 sm:p-8 text-center shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer"
                 >
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100/70 border border-blue-200/50 text-[#2043B0] transition-all duration-300 group-hover:bg-[#2043B0] group-hover:text-white shadow-xs">
                     <Icon className="h-7 w-7 transition-colors duration-300" />

@@ -45,10 +45,9 @@ const subtleFadeUp: Variants = {
 ───────────────────────────────────────────────────────────────────────────── */
 function PillBadge({ text }: { text: string }) {
   return (
-    <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] 
-    px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#2043B0]">
-      <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
-      <span>{text}</span>
+    <div className="inline-flex max-w-full items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0]">
+      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
+      <span className="break-words text-center">{text}</span>
     </div>
   );
 }
@@ -73,17 +72,18 @@ function SectionHeading({
       whileInView="visible"
       viewport={{ once: true, margin: "-60px" }}
       variants={subtleFadeUp}
-      className={`mb-12 ${isCenter ? "text-center max-w-3xl mx-auto" : "max-w-2xl"}`}
+      className={`mb-10 sm:mb-12 ${isCenter ? "text-center max-w-3xl mx-auto" : "max-w-2xl"}`}
     >
       <PillBadge text={badge} />
-      <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-[Cinzel] font-bold tracking-tight text-[#172554] leading-tight">
+      <h2 className="mt-3.5 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-[Cinzel] font-bold tracking-tight 
+      text-[#172554] leading-tight break-words">
         {title}{" "}
         {highlight && (
           <span className="text-[#2043B0] font-bold">{highlight}</span>
         )}
       </h2>
       {description && (
-        <p className="mt-4 text-base sm:text-lg text-[#4B5563] leading-relaxed">
+        <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-[#4B5563] leading-relaxed break-words">
           {description}
         </p>
       )}
@@ -104,9 +104,9 @@ function CleanCard({
     <motion.div
       whileHover={{ y: -3 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className={`rounded border p-6 sm:p-7 transition-all duration-300 ${highlight
-          ? "border-blue-300 bg-white shadow-md shadow-blue-900/5 ring-1 ring-blue-100"
-          : "border-[#E5E7EB] bg-white shadow-xs hover:border-blue-300 hover:shadow-md"
+      className={`rounded border p-4 sm:p-6 lg:p-7 transition-all duration-300 min-w-0 ${highlight
+        ? "border-blue-300 bg-white shadow-md shadow-blue-900/5 ring-1 ring-blue-100"
+        : "border-[#E5E7EB] bg-white shadow-xs hover:border-blue-300 hover:shadow-md"
         } ${className}`}
     >
       {children}
@@ -124,21 +124,21 @@ export default function AboutPage() {
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
       `}</style>
 
-      <main className="min-h-screen bg-white text-[#172554] selection:bg-[#2043B0] selection:text-white antialiased">
+      <main className="min-h-screen w-full overflow-x-hidden bg-white text-[#172554] selection:bg-[#2043B0] selection:text-white antialiased">
         {/* ══════════════════════════════════════════
             1 · HERO SECTION (Pure White-and-Blue, No Images)
         ══════════════════════════════════════════ */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-white to-white px-6 pt-32 pb-20 sm:pt-40 sm:pb-24 text-center">
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-white to-white px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 text-center">
           {/* Subtle blue ambient decorative shapes only (No image) */}
-          <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[380px] w-[650px] rounded-full bg-[#2043B0]/5 blur-3xl" />
-          <div className="pointer-events-none absolute right-[10%] top-20 h-48 w-48 rounded-full bg-blue-100/50 blur-2xl" />
+          <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[260px] sm:h-[380px] w-[90%] max-w-[650px] rounded-full bg-[#2043B0]/5 blur-2xl sm:blur-3xl" />
+          <div className="pointer-events-none absolute right-[5%] sm:right-[10%] top-20 h-36 w-36 sm:h-48 sm:w-48 rounded-full bg-blue-100/50 blur-xl sm:blur-2xl" />
 
-          <div className="relative z-10 mx-auto max-w-4xl">
+          <div className="relative z-10 mx-auto max-w-4xl min-w-0">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-6 flex justify-center"
+              className="mb-5 sm:mb-6 flex justify-center"
             >
               <PillBadge text="Digital Real Estate Platform · Launching 2026" />
             </motion.div>
@@ -147,18 +147,18 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: "easeInOut" }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[Cinzel] font-bold leading-tight tracking-tight text-[#172554]"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-[Cinzel] font-bold leading-tight sm:leading-tight tracking-tight text-[#172554] break-words"
             >
               About{" "}
-              <span className="text-[#2043B0] font-bold">Mishti Spaces</span>
+              <span className="text-[#2043B0] font-semibold">Mishti Spaces</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.25, ease: "easeInOut" }}
-              className="mx-auto mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-[#4B5563] leading-relaxed font-sans"
-            >
+              className="mx-auto mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl text-[#4B5563] 
+              leading-relaxed font-sans break-words">
               A new kind of real estate platform — built to connect buyers, sellers,
               owners, and renters across India through transparency, technology, and
               genuine trust. Your dream home is out there. We make finding it effortless.
@@ -168,17 +168,20 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35, ease: "easeInOut" }}
-              className="mt-10 flex flex-wrap items-center justify-center gap-4"
+              className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs 
+              sm:max-w-none mx-auto"
             >
               <Link
                 href="/properties"
-                className="bg-[#2043B0] hover:bg-blue-700 transition px-8 py-3.5 rounded text-white font-semibold text-base inline-flex items-center gap-2 shadow-sm shadow-blue-900/20"
+                className="w-full sm:w-auto bg-[#2043B0] hover:bg-blue-700 transition px-6 sm:px-8 py-3 sm:py-3.5 rounded
+                 text-white font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-sm
+                  shadow-blue-900/20"
               >
-                Explore Properties <ArrowRight className="h-4 w-4" />
+                Explore Properties <ArrowRight className="h-4 w-4 shrink-0" />
               </Link>
               <a
                 href="#story"
-                className="border border-[#E5E7EB] bg-white hover:bg-[#F5F7FF] hover:border-blue-300 transition px-8 py-3.5 rounded text-[#172554] font-semibold text-base inline-flex items-center gap-2 shadow-xs"
+                className="w-full sm:w-auto border border-[#E5E7EB] bg-white hover:bg-[#F5F7FF] hover:border-blue-300 transition px-6 sm:px-8 py-3 sm:py-3.5 rounded text-[#172554] font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-xs"
               >
                 Our Story
               </a>
@@ -189,8 +192,8 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             2 · STATISTICS SECTION (White Background)
         ══════════════════════════════════════════ */}
-        <section className="relative border-y border-[#E5E7EB] bg-white px-6 py-12 sm:py-16">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4">
+        <section className="relative border-y border-[#E5E7EB] bg-white px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
             {[
               { value: "50,000+", label: "Properties", icon: Building2 },
               { value: "30+", label: "Cities", icon: MapPin },
@@ -206,15 +209,15 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   variants={subtleFadeUp}
                   custom={i * 0.08}
-                  className="flex flex-col items-center text-center p-6 rounded border border-[#E5E7EB] bg-[#F5F7FF] shadow-xs hover:border-blue-200 transition-colors"
+                  className="flex flex-col items-center justify-center text-center p-3.5 sm:p-5 lg:p-6 rounded border border-[#E5E7EB] bg-[#F5F7FF] shadow-xs hover:border-blue-200 transition-colors min-w-0"
                 >
-                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-[#2043B0]">
-                    <Icon className="h-5 w-5" />
+                  <div className="mb-2 sm:mb-3 flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-xl bg-blue-100 text-[#2043B0] shrink-0">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <span className="text-3xl sm:text-4xl font-[Cinzel] font-bold text-[#2043B0] tracking-tight">
+                  <span className="text-2xl sm:text-3xl lg:text-4xl font-[Cinzel] font-bold text-[#2043B0] tracking-tight break-words">
                     {stat.value}
                   </span>
-                  <span className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#172554]">
+                  <span className="mt-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#172554] break-words">
                     {stat.label}
                   </span>
                 </motion.div>
@@ -226,7 +229,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             3 · PLATFORM OVERVIEW (White Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-white">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-white">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               badge="Platform Overview"
@@ -235,29 +238,30 @@ export default function AboutPage() {
               description="Mishti Spaces is not a brokerage. It is not an agency. It is a technology-first platform that brings the entire property search and transaction journey into one clean, transparent digital space."
             />
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 lg:grid-cols-2">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={subtleFadeUp}
               >
-                <CleanCard className="h-full bg-[#F5F7FF] border-[#E5E7EB]">
-                  <div className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
-                    Technology First
+                <CleanCard className="h-full flex flex-col bg-[#F5F7FF] border-[#E5E7EB]">
+                  <div className="mb-3 sm:mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider 
+                  text-[#2043B0]">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
+                    <span>Technology First</span>
                   </div>
-                  <h3 className="mb-4 text-2xl font-[Cinzel] font-bold text-[#172554]">
+                  <h3 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-[Cinzel] font-bold text-[#172554] break-words">
                     Not a Broker. A Platform.
                   </h3>
-                  <p className="leading-relaxed text-[#4B5563]">
+                  <p className="leading-relaxed text-[#4B5563] text-sm sm:text-base break-words">
                     Traditional real estate is broken. It is fragmented, opaque, and
                     driven by middlemen who benefit from information asymmetry. Mishti
                     Spaces was built to flip that model entirely. We are a digital
                     infrastructure layer — connecting buyers directly with sellers, and
                     renters directly with owners, without friction or artificial barriers.
                   </p>
-                  <p className="mt-4 leading-relaxed text-[#4B5563]">
+                  <p className="mt-3 sm:mt-4 leading-relaxed text-[#4B5563] text-sm sm:text-base break-words">
                     Agents and property owners can list on our platform, but the platform
                     itself is neutral, transparent, and always in the user&apos;s corner. Every
                     feature we ship, every policy we set, serves one goal: making the right
@@ -273,12 +277,12 @@ export default function AboutPage() {
                 variants={subtleFadeUp}
                 custom={0.1}
               >
-                <CleanCard className="h-full bg-[#F5F7FF] border-[#E5E7EB]">
-                  <div className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
-                    Community Focus
+                <CleanCard className="h-full flex flex-col bg-[#F5F7FF] border-[#E5E7EB]">
+                  <div className="mb-3 sm:mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
+                    <span>Community Focus</span>
                   </div>
-                  <h3 className="mb-4 text-2xl font-[Cinzel] font-bold text-[#172554]">
+                  <h3 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-[Cinzel] font-bold text-[#172554] break-words">
                     Who the Platform Serves
                   </h3>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -302,10 +306,10 @@ export default function AboutPage() {
                     ].map((item) => (
                       <div
                         key={item.role}
-                        className="rounded-2xl border border-[#E5E7EB] bg-white p-4 transition-colors hover:border-blue-300 shadow-xs"
+                        className="rounded border border-[#E5E7EB] bg-white p-3.5 sm:p-4 transition-colors hover:border-blue-300 shadow-xs min-w-0"
                       >
                         <p className="text-sm font-bold text-[#2043B0] font-[Cinzel]">{item.role}</p>
-                        <p className="mt-1 text-xs leading-relaxed text-[#4B5563]">
+                        <p className="mt-1 text-xs leading-relaxed text-[#4B5563] break-words">
                           {item.desc}
                         </p>
                       </div>
@@ -320,7 +324,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             4 · OUR STORY (Light-Blue Background)
         ══════════════════════════════════════════ */}
-        <section id="story" className="relative px-6 py-20 sm:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
+        <section id="story" className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               badge="Our Story"
@@ -328,7 +332,7 @@ export default function AboutPage() {
               highlight="2025 and Beyond"
             />
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {[
                 {
                   year: "2025",
@@ -353,15 +357,16 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   variants={subtleFadeUp}
                   custom={i * 0.1}
+                  className={i === 2 ? "md:col-span-2 lg:col-span-1" : ""}
                 >
                   <CleanCard className="h-full flex flex-col bg-white">
-                    <div className="mb-4 inline-flex items-center gap-2 self-start rounded-md bg-blue-100 px-3 py-1 text-xs font-semibold text-[#2043B0]">
+                    <div className="mb-3 sm:mb-4 inline-flex items-center gap-2 self-start rounded-md bg-blue-100 px-3 py-1 text-xs font-semibold text-[#2043B0]">
                       {item.year}
                     </div>
-                    <h3 className="mb-3 text-xl font-[Cinzel] font-bold text-[#172554]">
+                    <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-[Cinzel] font-bold text-[#172554] break-words">
                       {item.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-[#4B5563] flex-1">
+                    <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 break-words">
                       {item.desc}
                     </p>
                   </CleanCard>
@@ -374,16 +379,17 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={subtleFadeUp}
-              className="mt-10"
+              className="mt-8 sm:mt-10"
             >
-              <div className="relative overflow-hidden rounded border border-blue-200 bg-white p-8 sm:p-10 text-center shadow-xs">
-                <Quote className="mx-auto mb-4 h-8 w-8 text-[#2043B0]" />
-                <p className="mx-auto max-w-3xl text-base sm:text-lg leading-relaxed text-[#172554] italic font-sans font-medium">
+              <div className="relative overflow-hidden rounded border border-blue-200 bg-white p-5 sm:p-8 lg:p-10 text-center shadow-xs">
+                <Quote className="mx-auto mb-3 sm:mb-4 h-6 w-6 sm:h-8 sm:w-8 text-[#2043B0] shrink-0" />
+                <p className="mx-auto max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-[#172554]
+                 italic font-sans font-medium break-words">
                   &ldquo;We did not build Mishti Spaces to be another listing directory. We built it to be
                   the platform every Indian turns to when a property decision matters — because for
                   most families, it is the most important decision of their lives.&rdquo;
                 </p>
-                <p className="mt-4 text-sm font-bold tracking-wide text-[#2043B0] font-[Cinzel]">
+                <p className="mt-3 sm:mt-4 text-xs sm:text-sm font-bold tracking-wide text-[#2043B0] font-[Cinzel] break-words">
                   — Mishti Spaces Founding Team
                 </p>
               </div>
@@ -394,7 +400,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             5 · WHAT WE OFFER (White Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-white">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-white">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               badge="What We Offer"
@@ -403,7 +409,7 @@ export default function AboutPage() {
               description="From initial discovery to final decision — Mishti Spaces covers every part of the property journey with purpose-built features."
             />
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {[
                 {
                   num: "01",
@@ -445,13 +451,13 @@ export default function AboutPage() {
                   custom={i * 0.06}
                 >
                   <CleanCard className="h-full flex flex-col bg-white">
-                    <div className="mb-4 text-sm font-bold tracking-widest text-[#2043B0] font-[Cinzel]">
+                    <div className="mb-3 sm:mb-4 text-xs sm:text-sm font-bold tracking-widest text-[#2043B0] font-[Cinzel]">
                       {item.num}
                     </div>
-                    <h3 className="mb-2 text-lg font-[Cinzel] font-bold text-[#172554]">
+                    <h3 className="mb-2 text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">
                       {item.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                    <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                       {item.desc}
                     </p>
                   </CleanCard>
@@ -464,34 +470,34 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             6 · WHY CHOOSE US (Light-Blue Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-center">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={subtleFadeUp}
-                className="lg:col-span-5"
+                className="lg:col-span-5 min-w-0"
               >
                 <PillBadge text="Why Choose Us" />
-                <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-[Cinzel] font-bold text-[#172554] leading-tight">
+                <h2 className="mt-3.5 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-[Cinzel] font-bold text-[#172554] leading-tight break-words">
                   The Mishti Spaces{" "}
                   <span className="text-[#2043B0]">Difference</span>
                 </h2>
-                <p className="mt-4 text-base sm:text-lg text-[#4B5563] leading-relaxed font-sans">
+                <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-[#4B5563] leading-relaxed font-sans break-words">
                   In a market saturated with platforms that overpromise and underdeliver,
                   Mishti Spaces is being built on fundamentally different principles —
                   ones that put the user&apos;s interest first, always.
                 </p>
-                <p className="mt-3 text-base text-[#4B5563] leading-relaxed font-sans">
+                <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm md:text-base text-[#4B5563] leading-relaxed font-sans break-words">
                   We are not measuring success by the number of listings we accumulate.
                   We measure it by how many people found the right property, made a
                   confident decision, and had an experience worth recommending.
                 </p>
               </motion.div>
 
-              <div className="flex flex-col gap-3.5 lg:col-span-7">
+              <div className="flex flex-col gap-3 sm:gap-3.5 lg:col-span-7 min-w-0">
                 {[
                   {
                     title: "Verified First, Listed Second",
@@ -521,14 +527,14 @@ export default function AboutPage() {
                     viewport={{ once: true }}
                     variants={subtleFadeUp}
                     custom={i * 0.06}
-                    className="flex items-start gap-4 rounded border border-[#E5E7EB] bg-white p-4 sm:p-5 transition-colors duration-200 hover:border-blue-300 shadow-xs"
+                    className="flex items-start gap-3 sm:gap-4  border border-[#E5E7EB] bg-white p-3.5 sm:p-5 transition-colors duration-200 hover:border-blue-300 shadow-xs min-w-0"
                   >
-                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-[#2043B0]">
+                    <div className="mt-0.5 flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-[#2043B0]">
                       <CheckCircle2 className="h-4 w-4" />
                     </div>
-                    <div>
-                      <h3 className="font-bold text-[#172554] text-base font-[Cinzel]">{item.title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-[#4B5563] font-sans">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-bold text-[#172554] text-sm sm:text-base font-[Cinzel] break-words">{item.title}</h3>
+                      <p className="mt-1 text-xs sm:text-sm leading-relaxed text-[#4B5563] font-sans break-words">
                         {item.desc}
                       </p>
                     </div>
@@ -542,7 +548,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             7 · PLATFORM FEATURES (White Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-white">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-white">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               badge="Platform Features"
@@ -550,7 +556,7 @@ export default function AboutPage() {
               highlight="Effortless Discovery"
             />
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
               {[
                 {
                   icon: Search,
@@ -584,13 +590,13 @@ export default function AboutPage() {
                     custom={i * 0.08}
                   >
                     <CleanCard className="h-full flex flex-col bg-white">
-                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-[#2043B0]">
+                      <div className="mb-3 sm:mb-4 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-xl bg-blue-100 text-[#2043B0] shrink-0">
                         <Icon className="h-5 w-5" />
                       </div>
-                      <h3 className="mb-2 font-bold text-[#172554] text-base font-[Cinzel]">
+                      <h3 className="mb-2 font-bold text-[#172554] text-base font-[Cinzel] break-words">
                         {item.title}
                       </h3>
-                      <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                      <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                         {item.desc}
                       </p>
                     </CleanCard>
@@ -604,31 +610,31 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             8 · MISSION & VISION (Light-Blue Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={subtleFadeUp}
               >
-                <div className="h-full rounded border border-blue-200 bg-white p-8 sm:p-9 shadow-xs">
+                <div className="h-full rounded border border-blue-200 bg-white p-5 sm:p-7 md:p-8 lg:p-9 shadow-xs min-w-0">
                   <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
-                    <Target className="h-4 w-4" />
-                    Our Mission
+                    <Target className="h-4 w-4 shrink-0" />
+                    <span>Our Mission</span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#172554]">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-[Cinzel] font-bold text-[#172554] break-words">
                     Make Property Discovery{" "}
                     <span className="text-[#2043B0]">Honest and Simple</span>
                   </h3>
-                  <p className="mt-4 leading-relaxed text-[#4B5563] font-sans">
+                  <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base leading-relaxed text-[#4B5563] font-sans break-words">
                     Our mission is to build the most transparent, trustworthy, and accessible
                     property platform in India. We exist to remove the friction, opacity, and
                     anxiety that surrounds property decisions — and replace it with clarity,
                     confidence, and control for every user.
                   </p>
-                  <p className="mt-4 leading-relaxed text-[#4B5563] font-sans">
+                  <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base leading-relaxed text-[#4B5563] font-sans break-words">
                     We are building for the first-time buyer in a Tier-2 city who does not
                     know where to start. For the NRI investing from abroad who needs to trust
                     the data. For the young professional renting in a new city who just wants
@@ -644,23 +650,23 @@ export default function AboutPage() {
                 variants={subtleFadeUp}
                 custom={0.1}
               >
-                <div className="h-full rounded border border-[#E5E7EB] bg-white p-8 sm:p-9 shadow-xs">
+                <div className="h-full rounded border border-[#E5E7EB] bg-white p-5 sm:p-7 md:p-8 lg:p-9 shadow-xs min-w-0">
                   <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
-                    <Compass className="h-4 w-4" />
-                    Our Vision
+                    <Compass className="h-4 w-4 shrink-0" />
+                    <span>Our Vision</span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#172554]">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-[Cinzel] font-bold text-[#172554] break-words">
                     India&apos;s Most Trusted{" "}
                     <span className="text-[#2043B0]">Property Platform</span>
                   </h3>
-                  <p className="mt-4 leading-relaxed text-[#4B5563] font-sans">
+                  <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base leading-relaxed text-[#4B5563] font-sans break-words">
                     We envision a future where every property decision in India — from a studio
                     rental to a commercial investment — begins and ends on Mishti Spaces. Not
                     because we forced ourselves into the market, but because we earned the trust
                     of users through consistently superior experience and relentlessly honest
                     practices.
                   </p>
-                  <p className="mt-4 leading-relaxed text-[#4B5563] font-sans">
+                  <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base leading-relaxed text-[#4B5563] font-sans break-words">
                     In our vision, Mishti Spaces is not just a website or an app. It is the
                     infrastructure layer of Indian real estate — the platform that defines
                     what transparency, discovery, and trust look like in this industry for
@@ -675,7 +681,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             9 · GOALS & FOCUS (White Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-white">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-white">
           <div className="mx-auto max-w-6xl">
             {/* GOALS */}
             <SectionHeading
@@ -685,7 +691,7 @@ export default function AboutPage() {
               description="Every goal we set is paired with a roadmap and a team committed to seeing it through — without cutting corners on quality or trust."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {[
                 {
                   num: "01",
@@ -727,13 +733,13 @@ export default function AboutPage() {
                   custom={i * 0.06}
                 >
                   <CleanCard className="h-full flex flex-col bg-white">
-                    <div className="mb-4 text-sm font-bold tracking-widest text-[#2043B0] font-[Cinzel]">
+                    <div className="mb-3 sm:mb-4 text-xs sm:text-sm font-bold tracking-widest text-[#2043B0] font-[Cinzel]">
                       {item.num}
                     </div>
-                    <h3 className="mb-2 text-lg font-[Cinzel] font-bold text-[#172554]">
+                    <h3 className="mb-2 text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">
                       {item.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                    <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                       {item.desc}
                     </p>
                   </CleanCard>
@@ -742,14 +748,14 @@ export default function AboutPage() {
             </div>
 
             {/* FOCUS */}
-            <div className="mt-20">
+            <div className="mt-14 sm:mt-20">
               <SectionHeading
                 badge="Focus"
                 title="Where We Put Our"
                 highlight="Energy"
               />
 
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                 {[
                   {
                     title: "User Experience Above All Else",
@@ -777,10 +783,10 @@ export default function AboutPage() {
                     custom={i * 0.08}
                   >
                     <CleanCard className="h-full border-l-4 border-l-[#2043B0] bg-[#F5F7FF]">
-                      <h3 className="mb-3 text-lg font-[Cinzel] font-bold text-[#172554]">
+                      <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">
                         {item.title}
                       </h3>
-                      <p className="text-sm leading-relaxed text-[#4B5563] font-sans">
+                      <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] font-sans break-words">
                         {item.desc}
                       </p>
                     </CleanCard>
@@ -794,7 +800,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             10 · CORE VALUES (Light-Blue Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               badge="Core Values"
@@ -802,7 +808,7 @@ export default function AboutPage() {
               highlight="Define Us"
             />
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
               {[
                 {
                   title: "Trust",
@@ -830,11 +836,11 @@ export default function AboutPage() {
                   custom={i * 0.08}
                 >
                   <CleanCard className="h-full flex flex-col bg-white">
-                    <div className="mb-4 h-1 w-8 rounded bg-[#2043B0]" />
-                    <h3 className="mb-2 text-lg font-[Cinzel] font-bold text-[#172554]">
+                    <div className="mb-3 sm:mb-4 h-1 w-8 rounded bg-[#2043B0]" />
+                    <h3 className="mb-2 text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">
                       {item.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                    <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                       {item.desc}
                     </p>
                   </CleanCard>
@@ -847,7 +853,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             11 · OUR TEAM (White Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-white">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-white">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               badge="Our Team"
@@ -857,15 +863,15 @@ export default function AboutPage() {
             />
 
             {/* Engineering */}
-            <div className="mb-12">
-              <div className="mb-6 flex items-center gap-3">
+            <div className="mb-10 sm:mb-12">
+              <div className="mb-5 sm:mb-6 flex items-center gap-3">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#2043B0] font-[Cinzel]">
                   Engineering
                 </span>
                 <div className="h-px flex-1 bg-[#E5E7EB]" />
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 <motion.div
                   initial="hidden"
                   whileInView="visible"
@@ -873,14 +879,14 @@ export default function AboutPage() {
                   variants={subtleFadeUp}
                 >
                   <CleanCard highlight className="h-full flex flex-col border-blue-200">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2043B0] font-[Cinzel] font-bold text-white shadow-sm">
+                    <div className="mb-3 sm:mb-4 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-[#2043B0] font-[Cinzel] font-bold text-white shadow-sm shrink-0">
                       AD
                     </div>
-                    <h3 className="text-lg font-[Cinzel] font-bold text-[#172554]">Akanshu Dutt</h3>
-                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
+                    <h3 className="text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">Akanshu Dutt</h3>
+                    <p className="mb-2 sm:mb-3 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#2043B0] break-words">
                       Full Stack Developer
                     </p>
-                    <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                    <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                       Akanshu leads the entire technical vision and execution at Mishti Spaces.
                       He designed the platform architecture, leads the engineering team, and makes
                       the high-stakes technology decisions that define what the product can do.
@@ -899,14 +905,14 @@ export default function AboutPage() {
                   custom={0.08}
                 >
                   <CleanCard className="h-full flex flex-col">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0]">
+                    <div className="mb-3 sm:mb-4 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0] shrink-0">
                       SK
                     </div>
-                    <h3 className="text-lg font-[Cinzel] font-bold text-[#172554]">Sonu Kumar Paswan</h3>
-                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
+                    <h3 className="text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">Sonu Kumar Paswan</h3>
+                    <p className="mb-2 sm:mb-3 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#2043B0] break-words">
                       Backend Developer
                     </p>
-                    <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                    <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                       Sonu drives the development of the platform&apos;s most critical user-facing features,
                       from the search engine to the property listing dashboard. His command of both
                       frontend and backend systems means he can own complete product features end-to-end
@@ -921,16 +927,17 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   variants={subtleFadeUp}
                   custom={0.16}
+                  className="sm:col-span-2 lg:col-span-1"
                 >
                   <CleanCard className="h-full flex flex-col">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0]">
+                    <div className="mb-3 sm:mb-4 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0] shrink-0">
                       FE
                     </div>
-                    <h3 className="text-lg font-[Cinzel] font-bold text-[#172554]">Frontend Engineering</h3>
-                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
+                    <h3 className="text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">Frontend Engineering</h3>
+                    <p className="mb-2 sm:mb-3 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#2043B0] break-words">
                       UI and Experience Engineers
                     </p>
-                    <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                    <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                       A team of frontend engineers who own the visual and interactive layer of Mishti Spaces.
                       They translate design into production-grade, responsive, and accessible code using Next.js
                       and Tailwind CSS — ensuring that every user, on any device, gets an experience that feels
@@ -942,15 +949,15 @@ export default function AboutPage() {
             </div>
 
             {/* Product & Design */}
-            <div className="mb-12">
-              <div className="mb-6 flex items-center gap-3">
+            <div className="mb-10 sm:mb-12">
+              <div className="mb-5 sm:mb-6 flex items-center gap-3">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#2043B0] font-[Cinzel]">
                   Product and Design
                 </span>
                 <div className="h-px flex-1 bg-[#E5E7EB]" />
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {[
                   {
                     initials: "PM",
@@ -978,16 +985,17 @@ export default function AboutPage() {
                     viewport={{ once: true }}
                     variants={subtleFadeUp}
                     custom={i * 0.08}
+                    className={i === 2 ? "sm:col-span-2 lg:col-span-1" : ""}
                   >
                     <CleanCard className="h-full flex flex-col">
-                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0]">
+                      <div className="mb-3 sm:mb-4 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0] shrink-0">
                         {member.initials}
                       </div>
-                      <h3 className="text-lg font-[Cinzel] font-bold text-[#172554]">{member.name}</h3>
-                      <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
+                      <h3 className="text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">{member.name}</h3>
+                      <p className="mb-2 sm:mb-3 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#2043B0] break-words">
                         {member.role}
                       </p>
-                      <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                      <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                         {member.desc}
                       </p>
                     </CleanCard>
@@ -998,14 +1006,14 @@ export default function AboutPage() {
 
             {/* Operations & Growth */}
             <div>
-              <div className="mb-6 flex items-center gap-3">
+              <div className="mb-5 sm:mb-6 flex items-center gap-3">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#2043B0] font-[Cinzel]">
                   Operations and Growth
                 </span>
                 <div className="h-px flex-1 bg-[#E5E7EB]" />
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {[
                   {
                     initials: "RE",
@@ -1033,16 +1041,17 @@ export default function AboutPage() {
                     viewport={{ once: true }}
                     variants={subtleFadeUp}
                     custom={i * 0.08}
+                    className={i === 2 ? "sm:col-span-2 lg:col-span-1" : ""}
                   >
                     <CleanCard className="h-full flex flex-col">
-                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0]">
+                      <div className="mb-3 sm:mb-4 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl border border-blue-200 bg-[#F5F7FF] font-[Cinzel] font-bold text-[#2043B0] shrink-0">
                         {member.initials}
                       </div>
-                      <h3 className="text-lg font-[Cinzel] font-bold text-[#172554]">{member.name}</h3>
-                      <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#2043B0]">
+                      <h3 className="text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] break-words">{member.name}</h3>
+                      <p className="mb-2 sm:mb-3 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#2043B0] break-words">
                         {member.role}
                       </p>
-                      <p className="text-sm leading-relaxed text-[#4B5563] flex-1 font-sans">
+                      <p className="text-xs sm:text-sm leading-relaxed text-[#4B5563] flex-1 font-sans break-words">
                         {member.desc}
                       </p>
                     </CleanCard>
@@ -1056,7 +1065,7 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             12 · FUTURE PLANS (Light-Blue Background)
         ══════════════════════════════════════════ */}
-        <section className="relative px-6 py-20 sm:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
+        <section className="relative px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 bg-[#F5F7FF] border-y border-[#E5E7EB]">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               badge="Future Plans"
@@ -1065,7 +1074,7 @@ export default function AboutPage() {
               description="We are not building for the next quarter. We are building for the next decade — with technology choices and product decisions that compound in value."
             />
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
               {[
                 {
                   icon: Sparkles,
@@ -1102,15 +1111,15 @@ export default function AboutPage() {
                     variants={subtleFadeUp}
                     custom={i * 0.08}
                   >
-                    <CleanCard className="h-full bg-white">
-                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-[#2043B0]">
+                    <CleanCard className="h-full flex flex-col bg-white">
+                      <div className="mb-3 sm:mb-4 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-lg sm:rounded-xl bg-blue-100 text-[#2043B0] shrink-0">
                         <Icon className="h-5 w-5" />
                       </div>
-                      <h3 className="mb-3 text-xl font-[Cinzel] font-bold text-[#172554]">
+                      <h3 className="mb-2 sm:mb-3 text-lg sm:text-xl font-[Cinzel] font-bold text-[#172554] break-words">
                         {plan.title}
                       </h3>
-                      <p className="leading-relaxed text-[#4B5563] text-sm font-sans">{plan.p1}</p>
-                      <p className="mt-3 leading-relaxed text-[#4B5563] text-sm font-sans">{plan.p2}</p>
+                      <p className="leading-relaxed text-[#4B5563] text-xs sm:text-sm font-sans break-words">{plan.p1}</p>
+                      <p className="mt-2.5 sm:mt-3 leading-relaxed text-[#4B5563] text-xs sm:text-sm font-sans break-words">{plan.p2}</p>
                     </CleanCard>
                   </motion.div>
                 );
@@ -1122,19 +1131,19 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={subtleFadeUp}
-              className="mt-8 rounded-2xl border border-[#E5E7EB] bg-white p-6 sm:p-8 shadow-xs"
+              className="mt-8 rounded border border-[#E5E7EB] bg-white p-5 sm:p-8 shadow-xs"
             >
-              <div className="grid grid-cols-1 gap-6 text-center sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:gap-6 text-center sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#E5E7EB]">
                 {[
                   { value: "250+", label: "Target Cities by 2028" },
                   { value: "5L+", label: "Listings Target" },
                   { value: "10M+", label: "Users Served" },
-                ].map((s) => (
-                  <div key={s.label} className="p-2">
-                    <p className="text-3xl sm:text-4xl font-[Cinzel] font-bold text-[#2043B0]">
+                ].map((s, idx) => (
+                  <div key={s.label} className={`p-2 min-w-0 ${idx > 0 ? "pt-4 sm:pt-2" : ""}`}>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-[Cinzel] font-bold text-[#2043B0] break-words">
                       {s.value}
                     </p>
-                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-[#172554]">
+                    <p className="mt-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#172554] break-words">
                       {s.label}
                     </p>
                   </div>
@@ -1147,49 +1156,49 @@ export default function AboutPage() {
         {/* ══════════════════════════════════════════
             13 · CALL TO ACTION (Clean White & Blue, No Image)
         ══════════════════════════════════════════ */}
-        <section id="explore" className="relative bg-[#2043B0] text-white overflow-hidden px-6 py-24 sm:py-32 text-center">
+        <section id="explore" className="relative bg-[#2043B0] text-white overflow-hidden px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24 lg:py-32 text-center">
           {/* Subtle blue ambient circle decoration only (No image) */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[320px] sm:h-[500px] w-[320px] sm:w-[500px] rounded-full bg-blue-500/20 blur-3xl" />
 
-          <div className="relative z-10 mx-auto max-w-4xl">
+          <div className="relative z-10 mx-auto max-w-4xl min-w-0">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={subtleFadeUp}
             >
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-100 backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-white" />
-                <span>Start Today</span>
+              <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-blue-100 backdrop-blur-md">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white" />
+                <span className="break-words">Start Today</span>
               </div>
 
-              <h2 className="mt-5 text-3xl sm:text-5xl md:text-6xl font-[Cinzel] font-bold text-white tracking-tight leading-tight">
+              <h2 className="mt-4 sm:mt-5 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-[Cinzel] font-bold text-white tracking-tight leading-tight break-words">
                 Your Dream Home <span className="text-blue-200">Is Waiting</span>
               </h2>
 
-              <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-blue-100 leading-relaxed font-sans">
+              <p className="mx-auto mt-4 sm:mt-6 max-w-2xl text-xs sm:text-sm md:text-base lg:text-lg text-blue-100 leading-relaxed font-sans break-words">
                 Whether you are searching for your first home, listing a property, or
                 exploring what the market looks like — Mishti Spaces is the platform built
                 to make that journey simpler, faster, and more trustworthy than anything
                 you have experienced before.
               </p>
 
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
                 <Link
                   href="/properties"
-                  className="bg-white hover:bg-gray-100 transition px-8 py-3.5 rounded-xl text-[#2043B0] font-semibold text-base inline-flex items-center gap-2 shadow-sm"
+                  className="w-full sm:w-auto bg-white hover:bg-gray-100 transition px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-[#2043B0] font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-sm"
                 >
-                  Explore Properties <ArrowRight className="h-4 w-4" />
+                  Explore Properties <ArrowRight className="h-4 w-4 shrink-0" />
                 </Link>
                 <Link
                   href="/properties"
-                  className="border border-white/40 hover:bg-white/10 transition px-8 py-3.5 rounded-xl text-white font-semibold text-base inline-flex items-center gap-2"
+                  className="w-full sm:w-auto border border-white/40 hover:bg-white/10 transition px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-white font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2"
                 >
                   Start Your Search
                 </Link>
               </div>
 
-              <div className="mx-auto mt-14 grid max-w-md grid-cols-3 gap-4 border-t border-white/20 pt-8">
+              <div className="mx-auto mt-10 sm:mt-14 grid max-w-lg grid-cols-3 gap-2 sm:gap-4 border-t border-white/20 pt-6 sm:pt-8">
                 {[
                   { v: "< 2 hrs", l: "Response Time", icon: Clock },
                   { v: "30+", l: "Cities", icon: MapPin },
@@ -1197,10 +1206,10 @@ export default function AboutPage() {
                 ].map((s) => {
                   const Icon = s.icon;
                   return (
-                    <div key={s.l} className="text-center">
-                      <Icon className="mx-auto mb-1.5 h-5 w-5 text-blue-200" />
-                      <p className="text-xl sm:text-2xl font-[Cinzel] font-bold text-white">{s.v}</p>
-                      <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-blue-100">
+                    <div key={s.l} className="text-center min-w-0">
+                      <Icon className="mx-auto mb-1 sm:mb-1.5 h-4 w-4 sm:h-5 sm:w-5 text-blue-200 shrink-0" />
+                      <p className="text-base sm:text-xl md:text-2xl font-[Cinzel] font-bold text-white break-words">{s.v}</p>
+                      <p className="mt-0.5 text-[9px] sm:text-xs font-semibold uppercase tracking-wider text-blue-100 break-words leading-tight">
                         {s.l}
                       </p>
                     </div>

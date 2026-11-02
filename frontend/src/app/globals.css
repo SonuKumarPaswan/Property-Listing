@@ -6,6 +6,20 @@
   color-scheme: light;
 }
 
+
+html,
 body {
   @apply bg-[#020617] text-white;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer */
 }
+
+
+
+/* Hide scrollbar but keep scrolling enabled */
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+

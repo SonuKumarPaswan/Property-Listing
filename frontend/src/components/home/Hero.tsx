@@ -26,7 +26,7 @@ const Hero = () => {
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-[Cinzel] leading-tight tracking-tight text-white">
             Find The{" "}
             <motion.span className="text-[#2043B0] font-semibold inline-flex ">
-              {"Perfect Office Space".split("").map((char, index) => (
+              {"Perfect Office".split("").map((char, index) => (
                 <motion.span
                   key={index}
                   whileHover={{
@@ -45,7 +45,7 @@ const Hero = () => {
               ))}
             </motion.span>{" "}
 
-            For Your Business.
+            Space For Your Business.
           </h1>
 
 

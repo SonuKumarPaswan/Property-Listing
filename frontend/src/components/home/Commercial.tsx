@@ -108,11 +108,13 @@ export default function Commercial() {
                   custom={index * 0.1}
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="group rounded-2xl border border-[#E5E7EB] bg-white p-7 sm:p-8 shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col justify-between"
+                  className="group rounded border border-[#E5E7EB] bg-white p-7 sm:p-8 shadow-xs hover:border-blue-300
+                   hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
                     {/* Icon Container */}
-                    <div className="w-14 h-14 rounded-2xl bg-blue-100/70 border border-blue-200/50 flex items-center justify-center mb-6 text-[#2043B0] group-hover:bg-[#2043B0] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <div className="w-14 h-14 rounded-2xl bg-blue-100/70 border border-blue-200/50 flex items-center justify-center
+                     mb-6 text-[#2043B0] group-hover:bg-[#2043B0] group-hover:text-white transition-all duration-300 shadow-xs">
                       <Icon className="w-7 h-7 transition-colors duration-300" />
                     </div>
 

@@ -87,7 +87,8 @@ const CompletedProjects = () => {
         className="relative py-16 sm:py-20 lg:py-24 bg-white text-[#172554] overflow-hidden antialiased"
       >
         {/* Subtle Ambient Decorative Shape */}
-        <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[350px] w-[600px] rounded-full bg-[#2043B0]/5 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[350px] w-[600px] rounded-full
+         bg-[#2043B0]/5 blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
@@ -122,11 +123,14 @@ const CompletedProjects = () => {
                 custom={index * 0.08}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="group rounded-2xl border border-[#E5E7EB] bg-white p-7 sm:p-8 text-center shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col justify-between"
+                className="group rounded border border-[#E5E7EB] bg-white p-7 sm:p-8 text-center shadow-xs hover:border-blue-300
+                 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   {/* Icon */}
-                  <div className="w-16 h-16 mx-auto rounded-2xl bg-[#F5F7FF] border border-blue-100 flex items-center justify-center text-3xl text-[#2043B0] mb-6 group-hover:bg-[#2043B0] group-hover:text-white transition-all duration-300 shadow-xs">
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-[#F5F7FF] border border-blue-100 flex items-center 
+                  justify-center text-3xl text-[#2043B0] mb-6 group-hover:bg-[#2043B0] group-hover:text-white transition-all 
+                  duration-300 shadow-xs">
                     {item.icon}
                   </div>
 

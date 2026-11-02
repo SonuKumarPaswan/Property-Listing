@@ -139,7 +139,7 @@ const ServicesProvider: React.FC = () => {
                 custom={index * 0.06}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="group rounded-2xl border border-[#E5E7EB] bg-white p-7 sm:p-8 shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col items-center text-center justify-between"
+                className="group rounded border border-[#E5E7EB] bg-white p-7 sm:p-8 shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300 flex flex-col items-center text-center justify-between"
               >
                 <div className="flex flex-col items-center w-full">
                   {/* Icon Container */}
@@ -162,7 +162,8 @@ const ServicesProvider: React.FC = () => {
                 <div className="mt-auto pt-4 border-t border-[#E5E7EB]/60 w-full flex justify-center">
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-[#2043B0] group-hover:text-blue-700 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 text-sm font-semibold
+                     text-[#2043B0] group-hover:text-blue-700 transition-colors cursor-pointer"
                   >
                     <span>Learn More</span>
                     <span className="transition-transform duration-300 group-hover:translate-x-1">

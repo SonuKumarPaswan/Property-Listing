@@ -8,6 +8,7 @@ import Gallery from "@/components/property/Gallery";
 import NoidaOffice from "@/components/property/NoidaOffice";
 import PropertyDetails from "@/components/property/PropertyDetails";
 import Sidebar from "@/components/property/Sidebar";
+import SharedPropertyListings from "@/components/property/SharedPropertyListings";
 
 interface PageProps {
   params: Promise<{
@@ -17,6 +18,47 @@ interface PageProps {
 
 const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
+
+  // Safeguard: In case Next.js dev server catches static routes under [slug]
+  if (slug === "buy") {
+    return (
+      <SharedPropertyListings
+        mode="sale"
+        title="Properties for Sale"
+        description="Explore verified residential flats, luxury villas, commercial spaces, and plots available for purchase across India."
+      />
+    );
+  }
+
+  if (slug === "rent") {
+    return (
+      <SharedPropertyListings
+        mode="rent"
+        title="Properties for Rent"
+        description="Discover verified rental flats, studios, and residential homes across prime cities."
+      />
+    );
+  }
+
+  if (slug === "commercial") {
+    return (
+      <SharedPropertyListings
+        mode="commercial"
+        title="Commercial Properties"
+        description="Explore grade-A office spaces, corporate towers, and commercial shops in prime business districts."
+      />
+    );
+  }
+
+  if (slug === "new") {
+    return (
+      <SharedPropertyListings
+        mode="new"
+        title="New Project Developments"
+        description="Newly launched and upcoming development complexes and residential projects with modern amenities."
+      />
+    );
+  }
 
   // Find the property using its slug
   let property = PROPERTIES.find(

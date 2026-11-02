@@ -17,6 +17,7 @@ export interface IProperty {
   images: { url: string; isPrimary?: boolean }[];
   isVerified: boolean;
   isFeatured: boolean;
+  isNewProject?: boolean;
 }
 
 export const PROPERTIES: IProperty[] = [
@@ -417,7 +418,8 @@ export const PROPERTIES: IProperty[] = [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647905/WhatsApp_Image_2026-10-13_at_11.25.12_AM.jpg", isPrimary: false },
     ],
     isVerified: true,
-    isFeatured: true,
+    isFeatured: true,
+    isNewProject: true,
   },
   {
     _id: "22",
@@ -474,7 +476,8 @@ export const PROPERTIES: IProperty[] = [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647906/WhatsApp_Image_2026-10-13_at_11.25.13_AM_1.jpg", isPrimary: false },
     ],
     isVerified: true,
-    isFeatured: true,
+    isFeatured: true,
+    isNewProject: true,
   },
   {
     _id: "25",
@@ -512,7 +515,8 @@ export const PROPERTIES: IProperty[] = [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647905/WhatsApp_Image_2026-10-13_at_11.25.12_AM_1.jpg", isPrimary: false },
     ],
     isVerified: true,
-    isFeatured: true,
+    isFeatured: true,
+    isNewProject: true,
   },
   {
     _id: "27",
@@ -569,7 +573,8 @@ export const PROPERTIES: IProperty[] = [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076251/WhatsApp_Image_2026-10-26_at_5.40.34_PM.jpg", isPrimary: false },
     ],
     isVerified: true,
-    isFeatured: false,
+    isFeatured: false,
+    isNewProject: true,
   },
   {
     _id: "30",
@@ -588,7 +593,8 @@ export const PROPERTIES: IProperty[] = [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.35_PM_2.jpg", isPrimary: false },
     ],
     isVerified: true,
-    isFeatured: true,
+    isFeatured: true,
+    isNewProject: true,
   },
   {
     _id: "31",
@@ -607,6 +613,7 @@ export const PROPERTIES: IProperty[] = [
       { url: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80", isPrimary: false },
     ],
     isVerified: true,
-    isFeatured: true,
+    isFeatured: true,
+    isNewProject: true,
   },
 ];

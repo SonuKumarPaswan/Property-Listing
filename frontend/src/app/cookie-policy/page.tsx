@@ -26,8 +26,8 @@ const Reveal: React.FC<{ children: React.ReactNode; delay?: number; className?: 
     return (
         <div ref={ref} className={className} style={{
             opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(28px)",
-            transition: `opacity 0.65s cubic-bezier(.22,1,.36,1) ${delay}ms, transform 0.65s cubic-bezier(.22,1,.36,1) ${delay}ms`,
+            transform: inView ? "translateY(0)" : "translateY(24px)",
+            transition: `opacity 0.6s cubic-bezier(.22,1,.36,1) ${delay}ms, transform 0.6s cubic-bezier(.22,1,.36,1) ${delay}ms`,
         }}>
             {children}
         </div>
@@ -37,25 +37,25 @@ const Reveal: React.FC<{ children: React.ReactNode; delay?: number; className?: 
 // ─── Cookie SVG illustration ──────────────────────────────────────────────────
 const CookieSVG: React.FC<{ size?: number; className?: string }> = ({ size = 64, className = "" }) => (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-        <circle cx="32" cy="32" r="28" fill="#3B82F6" fillOpacity="0.08" stroke="#3B82F6" strokeWidth="1.5" strokeOpacity="0.4" />
-        <circle cx="22" cy="24" r="3.5" fill="#3B82F6" opacity="0.7" />
-        <circle cx="38" cy="20" r="2.5" fill="#22d3ee" opacity="0.6" />
-        <circle cx="42" cy="34" r="3" fill="#3B82F6" opacity="0.5" />
-        <circle cx="28" cy="38" r="2.5" fill="#60A5FA" opacity="0.6" />
-        <circle cx="18" cy="36" r="2" fill="#22d3ee" opacity="0.45" />
-        <circle cx="34" cy="46" r="3" fill="#3B82F6" opacity="0.55" />
-        <circle cx="44" cy="26" r="2" fill="#93C5FD" opacity="0.7" />
-        <path d="M26 28 Q32 22 38 28 Q32 34 26 28Z" fill="#3B82F6" opacity="0.1" />
-        <circle cx="32" cy="32" r="28" stroke="#22d3ee" strokeWidth="1" strokeDasharray="4 4" strokeOpacity="0.2" />
+        <circle cx="32" cy="32" r="28" fill="#2043B0" fillOpacity="0.08" stroke="#2043B0" strokeWidth="1.5" strokeOpacity="0.3" />
+        <circle cx="22" cy="24" r="3.5" fill="#2043B0" opacity="0.7" />
+        <circle cx="38" cy="20" r="2.5" fill="#2043B0" opacity="0.6" />
+        <circle cx="42" cy="34" r="3" fill="#2043B0" opacity="0.5" />
+        <circle cx="28" cy="38" r="2.5" fill="#3B82F6" opacity="0.6" />
+        <circle cx="18" cy="36" r="2" fill="#2043B0" opacity="0.45" />
+        <circle cx="34" cy="46" r="3" fill="#2043B0" opacity="0.55" />
+        <circle cx="44" cy="26" r="2" fill="#3B82F6" opacity="0.7" />
+        <path d="M26 28 Q32 22 38 28 Q32 34 26 28Z" fill="#2043B0" opacity="0.1" />
+        <circle cx="32" cy="32" r="28" stroke="#2043B0" strokeWidth="1" strokeDasharray="4 4" strokeOpacity="0.2" />
     </svg>
 );
 
 // ─── Cookie type data ─────────────────────────────────────────────────────────
 const cookieTypes = [
-    { label: "Essential",  desc: "Platform login & security",     always: true,  emoji: "🔒" },
-    { label: "Analytics",  desc: "Usage patterns & performance",  always: false, emoji: "📊" },
-    { label: "Functional", desc: "Saved searches & preferences",  always: false, emoji: "⚙️" },
-    { label: "Marketing",  desc: "Relevant property promotions",  always: false, emoji: "📣" },
+    { label: "Essential", desc: "Platform login & security", always: true, emoji: "🔒" },
+    { label: "Analytics", desc: "Usage patterns & performance", always: false, emoji: "📊" },
+    { label: "Functional", desc: "Saved searches & preferences", always: false, emoji: "⚙️" },
+    { label: "Marketing", desc: "Relevant property promotions", always: false, emoji: "📣" },
 ];
 
 // ─── Policy sections ──────────────────────────────────────────────────────────
@@ -83,9 +83,9 @@ const sections = [
 ];
 
 const rights = [
-    { icon: "📋", title: "Right to Access",  body: "Request a full export of all personal data we hold about you at any time." },
+    { icon: "📋", title: "Right to Access", body: "Request a full export of all personal data we hold about you at any time." },
     { icon: "✏️", title: "Right to Correct", body: "Update or rectify any inaccurate personal information stored on our platform." },
-    { icon: "🗑️", title: "Right to Delete",  body: "Ask us to permanently erase your data. We'll action all requests within 72 hours." },
+    { icon: "🗑️", title: "Right to Delete", body: "Ask us to permanently erase your data. We'll action all requests within 72 hours." },
 ];
 
 // ─── Main page ────────────────────────────────────────────────────────────────
@@ -94,7 +94,7 @@ export default function CookiePolicyPage() {
         Analytics: true, Functional: true, Marketing: false,
     });
     const [bannerDismissed, setBannerDismissed] = useState(false);
-    const [heroLoaded, setHeroLoaded]           = useState(false);
+    const [heroLoaded, setHeroLoaded] = useState(false);
 
     useEffect(() => {
         const t = setTimeout(() => setHeroLoaded(true), 80);
@@ -102,286 +102,203 @@ export default function CookiePolicyPage() {
     }, []);
 
     const heroStyle = (delay: number): React.CSSProperties => ({
-        opacity:    heroLoaded ? 1 : 0,
-        transform:  heroLoaded ? "none" : "translateY(22px)",
-        transition: `all 0.7s cubic-bezier(.22,1,.36,1) ${delay}ms`,
+        opacity: heroLoaded ? 1 : 0,
+        transform: heroLoaded ? "none" : "translateY(16px)",
+        transition: `all 0.6s cubic-bezier(.22,1,.36,1) ${delay}ms`,
     });
 
     return (
         <>
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600&display=swap');
-        *, body { font-family: 'Manrope', sans-serif; }
-        :root   { color-scheme: dark; }
-        html    { scroll-behavior: smooth; }
-
-        ::-webkit-scrollbar       { width: 5px; }
-        ::-webkit-scrollbar-track { background: #040d18; }
-        ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 6px; }
-
-        .grid-bg {
-          background-image:
-            linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
-          background-size: 50px 50px;
-        }
-
-        @keyframes float-a {
-          0%,100% { transform: translateY(0px)   rotate(0deg);  }
-          33%     { transform: translateY(-14px)  rotate(3deg);  }
-          66%     { transform: translateY(-7px)   rotate(-2deg); }
-        }
-        @keyframes float-b {
-          0%,100% { transform: translateY(0px)   rotate(0deg);  }
-          50%     { transform: translateY(-18px)  rotate(-4deg); }
-        }
-        @keyframes float-c {
-          0%,100% { transform: translateY(0px)  rotate(0deg); }
-          40%     { transform: translateY(-9px)  rotate(5deg); }
-        }
-        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes banner-up {
-          from { transform: translateY(120%); opacity: 0; }
-          to   { transform: translateY(0);    opacity: 1; }
-        }
-        @keyframes glow-pulse {
-          0%,100% { opacity: 0.4; }
-          50%     { opacity: 1;   }
-        }
-
-        .fa { animation: float-a 6s ease-in-out infinite; }
-        .fb { animation: float-b 8s ease-in-out infinite; }
-        .fc { animation: float-c 5s ease-in-out infinite; }
-        .spin-slow { animation: spin-slow 22s linear infinite; }
-        .spin-rev  { animation: spin-slow 30s linear infinite reverse; }
-        .banner-in { animation: banner-up 0.55s cubic-bezier(.22,1,.36,1) forwards; }
-        .glow-line { animation: glow-pulse 3s ease-in-out infinite; }
-
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
+        
         .card-lift {
-          transition: transform 0.3s cubic-bezier(.22,1,.36,1),
-                      border-color 0.3s ease,
-                      box-shadow 0.3s ease;
+          transition: transform 0.25s cubic-bezier(.22,1,.36,1),
+                      border-color 0.25s ease,
+                      box-shadow 0.25s ease;
         }
         .card-lift:hover {
-          transform: translateY(-5px);
-          border-color: rgba(59,130,246,0.35) !important;
-          box-shadow: 0 20px 48px rgba(59,130,246,0.12);
+          transform: translateY(-3px);
+          border-color: #93C5FD !important;
+          box-shadow: 0 10px 25px -5px rgba(32, 67, 176, 0.08);
         }
-        .toggle-thumb { transition: transform 0.25s cubic-bezier(.22,1,.36,1); }
-        .toggle-track { transition: background 0.25s ease; }
       `}</style>
 
-            <div className="min-h-screen bg-[#061A2D] grid-bg text-white overflow-x-hidden">
+            <main className="min-h-screen bg-white text-[#172554] antialiased selection:bg-[#2043B0] selection:text-white overflow-x-hidden">
 
-                {/* ── Ambient glows ──────────────────────────────────────────── */}
-                <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-                    <div className="absolute -top-48 -left-48 w-[600px] h-[600px] rounded-full bg-[#3B82F6]/[0.055] blur-[110px]" />
-                    <div className="absolute top-[40%] -right-64 w-[450px] h-[450px] rounded-full bg-[#0D6269]/[0.07] blur-[130px]" />
-                    <div className="absolute bottom-20 left-1/3 w-[320px] h-[320px] rounded-full bg-[#1d4ed8]/[0.04] blur-[90px]" />
-                </div>
+                {/* ══════════════════════════════════════════
+                    1 · HERO SECTION (White & Light Blue)
+                ══════════════════════════════════════════ */}
+                <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-white to-white px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 text-center">
+                    {/* Subtle ambient decorative shapes */}
+                    <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[260px] sm:h-[360px] w-[90%]
+                     max-w-[650px] rounded-full bg-[#2043B0]/5 blur-2xl sm:blur-3xl" />
+                    <div className="pointer-events-none absolute right-[5%] sm:right-[10%] top-20 h-36 w-36 sm:h-48 sm:w-48 
+                    rounded-full bg-blue-100/50 blur-xl sm:blur-2xl" />
 
-                <section className="relative pt-14 min-h-[88vh] flex items-center overflow-hidden">
-
-                    {/* Spinning geometric rings */}
-                    <div className="pointer-events-none absolute inset-0">
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-[#3B82F6]/[0.06] spin-slow" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[#22d3ee]/[0.04] spin-rev" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-[#3B82F6]/[0.08]" />
-                        {[...Array(5)].map((_, r) =>
-                            [...Array(11)].map((_, c) => (
-                                <div key={`${r}-${c}`}
-                                    className="absolute w-0.5 h-0.5 rounded-full bg-[#3B82F6]/20"
-                                    style={{ top: `${12 + r * 16}%`, left: `${5 + c * 9}%` }} />
-                            ))
-                        )}
-                    </div>
-
-                    {/* Floating cookies */}
-                    <div className="fa absolute top-24 left-[7%] opacity-55"><CookieSVG size={80} /></div>
-                    <div className="fb absolute top-36 right-[9%] opacity-45" style={{ animationDelay: "1s" }}><CookieSVG size={60} /></div>
-                    <div className="fc absolute bottom-32 left-[17%] opacity-35" style={{ animationDelay: "0.5s" }}><CookieSVG size={48} /></div>
-                    <div className="fa absolute bottom-24 right-[18%] opacity-30" style={{ animationDelay: "2s" }}><CookieSVG size={40} /></div>
-                    <div className="fb absolute top-1/2 right-[4%] opacity-25" style={{ animationDelay: "1.5s" }}><CookieSVG size={32} /></div>
-
-                    {/* Hero content */}
-                    <div className="relative z-10 max-w-6xl mx-auto px-6 py-28 text-center w-full">
-
-                        {/* Legal badge — matches ToS style */}
-                        <div style={heroStyle(0)}
-                            className="inline-flex items-center gap-2 border border-[#3B82F6]/25 bg-[#3B82F6]/[0.08] text-[#93C5FD] text-[11px] font-semibold px-3.5 py-1.5 rounded-full mb-8">
-                            🍪 &nbsp;Data Privacy & Transparency · Effective April 2, 2026
+                    <div className="relative z-10 max-w-4xl mx-auto">
+                        {/* Pill badge */}
+                        <div style={heroStyle(0)} className="mb-5 sm:mb-6 flex justify-center">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200
+                             bg-[#F5F7FF] px-3.5 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold 
+                             uppercase tracking-wider text-[#2043B0] shadow-xs">
+                                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
+                                <span>🍪 Data Privacy & Transparency · Effective April 2, 2026</span>
+                            </div>
                         </div>
 
-                        {/* Headline */}
-                        <h1 style={{ ...heroStyle(150), fontFamily: "'Syne',sans-serif" }}
-                            className="text-5xl sm:text-6xl lg:text-[78px] font-bold leading-[1.05] tracking-tight mb-6">
-                            Our Cookie
-                            <br />
-                            <span className="bg-gradient-to-r from-[#3B82F6] to-[#22d3ee] bg-clip-text text-transparent">
-                                Policy
-                            </span>
+                        {/* Heading */}
+                        <h1 style={{ ...heroStyle(120) }}
+                            className="text-3xl sm:text-5xl md:text-6xl font-[Cinzel] font-bold tracking-tight text-[#172554] leading-tight mb-4 sm:mb-6">
+                            Our Cookie{" "}
+                            <span className="text-[#2043B0]">Policy</span>
                         </h1>
 
-                        {/* Sub */}
-                        <p style={heroStyle(300)} className="text-[#94A3B8] text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-12">
-                            We believe your privacy is a right, not a privilege. Here's exactly how MishtiSpaces.com uses cookies — with full transparency.
+                        {/* Description */}
+                        <p style={heroStyle(240)} className="text-sm sm:text-base md:text-lg text-[#4B5563] max-w-2xl mx-auto leading-relaxed mb-10 sm:mb-12">
+                            We believe your privacy is a right, not a privilege. Here&apos;s exactly how MishtiSpaces.com uses cookies — with full transparency.
                         </p>
 
-                        {/* Stat pills — same style as ToS meta pills */}
-                        <div style={heroStyle(450)} className="flex flex-wrap justify-center gap-2.5">
+                        {/* Four statistics cards */}
+                        <div style={heroStyle(360)} className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto">
                             {[
-                                { v: "4",    label: "Cookie Types" },
-                                { v: "0",    label: "Data Sold"    },
-                                { v: "100%", label: "Encrypted"    },
-                                { v: "24hr", label: "Opt-out SLA"  },
+                                { v: "4", label: "Cookie Types" },
+                                { v: "0", label: "Data Sold" },
+                                { v: "100%", label: "Encrypted" },
+                                { v: "24hr", label: "Opt-out SLA" },
                             ].map((s) => (
                                 <div key={s.label}
-                                    className="flex flex-col items-center bg-white/[0.04] border border-white/[0.07] rounded-lg px-5 py-3 hover:border-[#3B82F6]/30 transition-colors">
-                                    <span className="text-2xl font-bold bg-gradient-to-r from-[#3B82F6] to-[#22d3ee] bg-clip-text text-transparent"
-                                        style={{ fontFamily: "'Syne',sans-serif" }}>
+                                    className="card-lift flex flex-col items-center justify-center p-4 sm:p-5 rounded border border-[#E5E7EB] bg-white shadow-xs">
+                                    <span className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#2043B0]">
                                         {s.v}
                                     </span>
-                                    <span className="text-[10px] text-white/30 uppercase tracking-widest mt-0.5">{s.label}</span>
+                                    <span className="text-[11px] font-semibold text-[#172554] uppercase tracking-wider mt-1">
+                                        {s.label}
+                                    </span>
                                 </div>
                             ))}
                         </div>
                     </div>
-
-                    {/* Bottom wave + glow line */}
-                    <div className="absolute bottom-0 inset-x-0 pointer-events-none">
-                        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-                            <path d="M0 40 Q180 0 360 40 Q540 80 720 40 Q900 0 1080 40 Q1260 80 1440 40 L1440 80 L0 80Z"
-                                fill="#061A2D" />
-                        </svg>
-                        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#3B82F6]/30 to-transparent glow-line" />
-                    </div>
                 </section>
 
-                {/* ── Section heading ─────────────────────────────────────────── */}
-                <section className="relative z-10 max-w-6xl mx-auto px-6 pt-20 pb-4">
-                    <Reveal className="text-center mb-14">
-                        <p className="text-[11px] uppercase tracking-widest text-[#3B82F6] font-semibold mb-3">
-                            What You Should Know
-                        </p>
-                        <h2 className="text-4xl sm:text-5xl font-bold text-white" style={{ fontFamily: "'Syne',sans-serif" }}>
-                            Privacy, explained{" "}
-                            <span className="bg-gradient-to-r from-[#3B82F6] to-[#22d3ee] bg-clip-text text-transparent">
-                                plainly.
-                            </span>
-                        </h2>
-                    </Reveal>
-                </section>
-
-                {/* ── Policy cards — exact AnimSection card style from ToS ──── */}
-                <section className="relative z-10 max-w-6xl mx-auto px-6 pb-20">
-                    <div className="grid md:grid-cols-2 gap-4">
-                        {sections.map((s, i) => (
-                            <Reveal key={s.num} delay={i * 70}>
-                                <div className="card-lift group relative rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-sm overflow-hidden h-full">
-                                    {/* Top glow line on hover */}
-                                    <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3B82F6]/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                                    {/* Section label strip */}
-                                    <div className="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-white/[0.05]">
-                                        <div className="w-9 h-9 rounded-lg bg-[#3B82F6]/10 border border-[#3B82F6]/20 flex items-center justify-center text-base flex-shrink-0">
-                                            {s.icon}
-                                        </div>
-                                        <div>
-                                            <span className="text-[10px] font-bold uppercase tracking-widest text-[#3B82F6]/60">{s.num}</span>
-                                            <h3 className="font-bold text-white text-[15px] leading-tight"
-                                                style={{ fontFamily: "'Syne',sans-serif" }}>
-                                                {s.title}
-                                            </h3>
-                                        </div>
-                                    </div>
-
-                                    <div className="px-6 py-5">
-                                        <p className="text-[#94A3B8] text-[14px] leading-[1.85]">{s.text}</p>
-                                    </div>
-
-                                    {/* Subtle watermark */}
-                                    <div className="absolute bottom-3 right-3 opacity-[0.035] pointer-events-none">
-                                        <CookieSVG size={60} />
-                                    </div>
-                                </div>
-                            </Reveal>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ── Divider ─────────────────────────────────────────────────── */}
-                <div className="relative z-10 max-w-6xl mx-auto px-6">
-                    <div className="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-                </div>
-
-                {/* ── Cookie controls ──────────────────────────────────────────── */}
-                <section className="relative z-10 py-20">
-                    <div className="max-w-3xl mx-auto px-6">
-                        <Reveal className="text-center mb-12">
-                            <p className="text-[11px] uppercase tracking-widest text-[#3B82F6] font-semibold mb-3">Your Control</p>
-                            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4" style={{ fontFamily: "'Syne',sans-serif" }}>
-                                Manage Your{" "}
-                                <span className="bg-gradient-to-r from-[#3B82F6] to-[#22d3ee] bg-clip-text text-transparent">
-                                    Cookies
-                                </span>
+                {/* ══════════════════════════════════════════
+                    2 · POLICY INFORMATION CARDS
+                ══════════════════════════════════════════ */}
+                <section className="relative px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-white border-t border-[#E5E7EB]">
+                    <div className="max-w-6xl mx-auto">
+                        <Reveal className="text-center mb-10 sm:mb-12">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-3.5 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0] mb-3">
+                                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
+                                <span>What You Should Know</span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-[Cinzel] font-bold tracking-tight text-[#172554]">
+                                Privacy, Explained <span className="text-[#2043B0]">Plainly</span>
                             </h2>
-                            <p className="text-[#94A3B8] text-sm leading-relaxed max-w-md mx-auto">
+                        </Reveal>
+
+                        <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
+                            {sections.map((s, i) => (
+                                <Reveal key={s.num} delay={i * 80}>
+                                    <div className="card-lift h-full flex flex-col  border border-[#E5E7EB] bg-white p-6 sm:p-7 shadow-xs">
+                                        {/* Card Header */}
+                                        <div className="flex items-center gap-3.5 pb-4 border-b border-[#E5E7EB]">
+                                            <div className="w-10 h-10 rounded-xl bg-[#F5F7FF] border border-blue-100 flex items-center justify-center text-lg flex-shrink-0">
+                                                {s.icon}
+                                            </div>
+                                            <div>
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-[#2043B0]">
+                                                    Section {s.num}
+                                                </span>
+                                                <h3 className="font-[Cinzel] font-bold text-base sm:text-lg text-[#172554] leading-snug">
+                                                    {s.title}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        {/* Card Body */}
+                                        <div className="pt-4 flex-1">
+                                            <p className="text-sm text-[#4B5563] leading-relaxed">
+                                                {s.text}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Reveal>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* ══════════════════════════════════════════
+                    3 · MANAGE YOUR COOKIES PANEL
+                ══════════════════════════════════════════ */}
+                <section id="manage-cookies" className="relative px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-[#F5F7FF] border-t border-[#E5E7EB]">
+                    <div className="max-w-3xl mx-auto">
+                        <Reveal className="text-center mb-8 sm:mb-10">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-white px-3.5 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0] mb-3">
+                                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
+                                <span>Your Control</span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-[Cinzel] font-bold tracking-tight text-[#172554] mb-3">
+                                Manage Your <span className="text-[#2043B0]">Cookies</span>
+                            </h2>
+                            <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed max-w-lg mx-auto">
                                 Toggle each cookie category on or off. Essential cookies are always active to keep the platform running securely.
                             </p>
                         </Reveal>
 
                         <Reveal delay={100}>
-                            <div className="rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-sm overflow-hidden">
+                            <div className="rounded border border-[#E5E7EB] bg-white shadow-sm overflow-hidden">
                                 {cookieTypes.map((ct, i) => (
                                     <div key={ct.label}
-                                        className={`flex items-center justify-between px-6 py-5 ${i < cookieTypes.length - 1 ? "border-b border-white/[0.05]" : ""}`}>
-                                        <div className="flex items-center gap-4">
-                                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm flex-shrink-0 ${
-                                                ct.always
-                                                    ? "bg-[#3B82F6]/15 border border-[#3B82F6]/25"
-                                                    : "bg-white/[0.04] border border-white/[0.07]"
-                                            }`}>
+                                        className={`flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 ${i < cookieTypes.length - 1 ? "border-b border-[#E5E7EB]" : ""}`}>
+                                        <div className="flex items-center gap-3.5 sm:gap-4 min-w-0 pr-3">
+                                            <div className="w-10 h-10 rounded-xl bg-[#F5F7FF] border border-blue-100 flex items-center justify-center text-base flex-shrink-0">
                                                 {ct.emoji}
                                             </div>
-                                            <div>
-                                                <p className="font-semibold text-white text-sm">{ct.label}</p>
-                                                <p className="text-[12px] text-white/35">{ct.desc}</p>
+                                            <div className="min-w-0">
+                                                <p className="font-semibold text-sm sm:text-base text-[#172554] truncate">{ct.label}</p>
+                                                <p className="text-xs text-[#4B5563] truncate sm:whitespace-normal">{ct.desc}</p>
                                             </div>
                                         </div>
 
                                         {ct.always ? (
-                                            <span className="text-[11px] font-bold uppercase tracking-widest text-[#3B82F6] bg-[#3B82F6]/[0.08] border border-[#3B82F6]/20 px-3 py-1 rounded-full">
+                                            <span className="inline-flex items-center text-[11px] font-bold uppercase tracking-wider text-[#2043B0] bg-blue-50 border border-blue-200 px-3 py-1 rounded-full shrink-0">
                                                 Always On
                                             </span>
                                         ) : (
                                             <button
+                                                type="button"
+                                                role="switch"
+                                                aria-checked={Boolean(accepted[ct.label])}
                                                 onClick={() => setAccepted((p) => ({ ...p, [ct.label]: !p[ct.label] }))}
-                                                className={`toggle-track relative w-12 h-6 rounded-full flex-shrink-0 ${
-                                                    accepted[ct.label] ? "bg-[#3B82F6]" : "bg-white/[0.08]"
-                                                }`}
+                                                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#2043B0] focus:ring-offset-2 ${accepted[ct.label] ? "bg-[#2043B0]" : "bg-[#E5E7EB]"
+                                                    }`}
                                                 aria-label={`Toggle ${ct.label}`}
                                             >
-                                                <span className={`toggle-thumb absolute top-0.5 w-5 h-5 rounded-full bg-white shadow shadow-black/30 ${
-                                                    accepted[ct.label] ? "translate-x-6" : "translate-x-0.5"
-                                                }`} />
+                                                <span
+                                                    className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${accepted[ct.label] ? "translate-x-5" : "translate-x-0"
+                                                        }`}
+                                                />
                                             </button>
                                         )}
                                     </div>
                                 ))}
 
                                 {/* Action bar */}
-                                <div className="px-6 py-4 bg-white/[0.02] border-t border-white/[0.05] flex flex-col sm:flex-row gap-3 items-center justify-between">
-                                    <p className="text-[12px] text-white/25">Changes take effect within 24 hours.</p>
-                                    <div className="flex gap-2">
+                                <div className="px-5 sm:px-6 py-4 bg-[#F5F7FF] border-t border-[#E5E7EB] flex flex-col sm:flex-row gap-3 items-center justify-between">
+                                    <p className="text-xs text-[#4B5563]">Changes take effect within 24 hours.</p>
+                                    <div className="flex gap-2.5 w-full sm:w-auto">
                                         <button
+                                            type="button"
                                             onClick={() => setAccepted({ Analytics: false, Functional: false, Marketing: false })}
-                                            className="px-4 py-2 rounded-xl border border-white/[0.1] text-white/50 hover:text-white hover:border-white/20 text-xs font-medium transition-colors"
+                                            className="flex-1 sm:flex-none px-4 py-2 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F5F7FF] hover:border-blue-300 text-[#172554] text-xs font-semibold transition-all shadow-2xs"
                                         >
                                             Reject All
                                         </button>
                                         <button
+                                            type="button"
                                             onClick={() => setAccepted({ Analytics: true, Functional: true, Marketing: true })}
-                                            className="px-5 py-2 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-xs font-bold transition-colors shadow-lg shadow-[#3B82F6]/25"
+                                            className="flex-1 sm:flex-none px-5 py-2 rounded-xl bg-[#2043B0] hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm shadow-blue-900/10"
                                         >
                                             Accept All
                                         </button>
@@ -392,111 +309,123 @@ export default function CookiePolicyPage() {
                     </div>
                 </section>
 
-                {/* ── Divider ─────────────────────────────────────────────────── */}
-                <div className="relative z-10 max-w-6xl mx-auto px-6">
-                    <div className="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-                </div>
+                {/* ══════════════════════════════════════════
+                    4 · DATA RIGHTS SECTION
+                ══════════════════════════════════════════ */}
+                <section className="relative px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-white border-t border-[#E5E7EB]">
+                    <div className="max-w-6xl mx-auto">
+                        <Reveal className="text-center mb-10 sm:mb-12">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200
+                             bg-[#F5F7FF] px-3.5 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider
+                              text-[#2043B0] mb-3">
+                                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
+                                <span>Data Rights</span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-[Cinzel] font-bold tracking-tight text-[#172554]">
+                                Your Data <span className="text-[#2043B0]">Rights</span>
+                            </h2>
+                        </Reveal>
 
-                {/* ── Data Rights ──────────────────────────────────────────────── */}
-                <section className="relative z-10 max-w-6xl mx-auto px-6 py-20">
-                    <Reveal className="text-center mb-10">
-                        <p className="text-[11px] uppercase tracking-widest text-[#3B82F6] font-semibold mb-3">Data Rights</p>
-                        <h2 className="text-3xl sm:text-4xl font-bold text-white" style={{ fontFamily: "'Syne',sans-serif" }}>
-                            Your Data Rights
-                        </h2>
-                    </Reveal>
-                    <div className="grid sm:grid-cols-3 gap-4">
-                        {rights.map((r, i) => (
-                            <Reveal key={r.title} delay={i * 90}>
-                                <div className="card-lift group relative rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-sm p-6 text-center h-full overflow-hidden">
-                                    <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3B82F6]/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                    <div className="text-3xl mb-4">{r.icon}</div>
-                                    <h3 className="font-bold text-white mb-2" style={{ fontFamily: "'Syne',sans-serif" }}>{r.title}</h3>
-                                    <p className="text-[#94A3B8] text-[13.5px] leading-relaxed">{r.body}</p>
-                                </div>
-                            </Reveal>
-                        ))}
+                        <div className="grid sm:grid-cols-3 gap-5 sm:gap-6">
+                            {rights.map((r, i) => (
+                                <Reveal key={r.title} delay={i * 90}>
+                                    <div className="card-lift h-full  border border-[#E5E7EB] bg-white p-6 sm:p-7 text-center shadow-xs">
+                                        <div className="mx-auto w-12 h-12 rounded-xl bg-[#F5F7FF] border border-blue-100 flex items-center justify-center text-2xl mb-4">
+                                            {r.icon}
+                                        </div>
+                                        <h3 className="font-[Cinzel] font-bold text-base sm:text-lg text-[#172554] mb-2">
+                                            {r.title}
+                                        </h3>
+                                        <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed">
+                                            {r.body}
+                                        </p>
+                                    </div>
+                                </Reveal>
+                            ))}
+                        </div>
                     </div>
                 </section>
 
-                {/* ── CTA — same style as ToS bottom CTA ──────────────────────── */}
-                <Reveal>
-                    <section className="relative z-10 max-w-6xl mx-auto px-6 pb-28">
-                        <div className="relative rounded-2xl overflow-hidden border border-[#3B82F6]/20">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540] via-[#061A2D] to-[#0D3355]" />
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(59,130,246,0.18),transparent_55%)]" />
-                            <div className="absolute inset-0 grid-bg opacity-60" />
+                {/* ══════════════════════════════════════════
+                    5 · PRIVACY CONTACT CTA
+                ══════════════════════════════════════════ */}
+                <section className="relative px-4 sm:px-6 lg:px-8 pb-20 sm:pb-24 bg-white">
+                    <div className="max-w-6xl mx-auto">
+                        <Reveal>
+                            <div className="relative  overflow-hidden border border-blue-200 bg-gradient-to-br from-[#F5F7FF] via-white to-blue-50/50 p-6 sm:p-10 shadow-xs">
+                                <div className="pointer-events-none absolute -right-20 -bottom-20 w-64 h-64 rounded-full bg-blue-100/40 blur-3xl" />
 
-                            {/* Floating cookies decoration */}
-                            <div className="fa absolute top-6 left-8 opacity-[0.12] pointer-events-none"><CookieSVG size={64} /></div>
-                            <div className="fb absolute bottom-6 right-8 opacity-[0.08] pointer-events-none"><CookieSVG size={80} /></div>
-                            <div className="fc absolute top-1/2 left-2 -translate-y-1/2 opacity-[0.06] pointer-events-none"><CookieSVG size={44} /></div>
-
-                            <div className="relative px-8 py-10 flex flex-col sm:flex-row items-center gap-6">
-                                <div className="flex-1 text-center sm:text-left">
-                                    <div className="inline-flex items-center gap-2 mb-3 text-[#93C5FD] text-[10px] uppercase tracking-widest font-semibold">
-                                        🍪 Questions?
+                                <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                    <div className="flex-1 text-center sm:text-left">
+                                        <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-white px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0] mb-3 shadow-2xs">
+                                            <span>🍪 Questions?</span>
+                                        </div>
+                                        <h2 className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#172554] mb-2 leading-tight">
+                                            We&apos;re here to help.
+                                        </h2>
+                                        <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed max-w-md">
+                                            For any privacy questions, data requests, or cookie-related concerns, reach our dedicated privacy team directly.
+                                        </p>
                                     </div>
-                                    <h2 className="text-2xl sm:text-[28px] font-bold text-white mb-2 leading-tight"
-                                        style={{ fontFamily: "'Syne',sans-serif" }}>
-                                        We're here to help.
-                                    </h2>
-                                    <p className="text-[#94A3B8] text-sm leading-relaxed max-w-sm">
-                                        For any privacy questions, data requests, or cookie-related concerns, reach our dedicated privacy team directly.
-                                    </p>
-                                </div>
-                                <div className="flex flex-col gap-3 flex-shrink-0">
-                                    <a href="mailto:privacy@mishtSpaces.com"
-                                        className="flex items-center gap-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-sm px-8 py-3 rounded-full transition-all duration-200 shadow-[0_0_24px_rgba(59,130,246,0.35)] hover:shadow-[0_0_32px_rgba(59,130,246,0.5)]">
-                                        📧 &nbsp;privacy@mishtSpaces.com
-                                    </a>
-                                    <p className="text-white/20 text-[11px] text-center">
-                                        Sector-63, Noida, 201301, India
-                                    </p>
+
+                                    <div className="flex flex-col items-center sm:items-end gap-2 shrink-0">
+                                        <a href="mailto:privacy@mishtSpaces.com"
+                                            className="inline-flex items-center gap-2 bg-[#2043B0] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm px-6 sm:px-8 py-3 rounded-xl transition-all shadow-sm shadow-blue-900/10">
+                                            📧 &nbsp;privacy@mishtSpaces.com
+                                        </a>
+                                        <p className="text-[#4B5563] text-[11px] text-center sm:text-right">
+                                            Sector-63, Noida, 201301, India
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                </Reveal>
+                        </Reveal>
+                    </div>
+                </section>
 
-
-                {/* ── Cookie consent banner ──────────────────────────────────── */}
+                {/* ══════════════════════════════════════════
+                    6 · COOKIE CONSENT BANNER
+                ══════════════════════════════════════════ */}
                 {!bannerDismissed && (
-                    <div className="banner-in fixed bottom-5 inset-x-4 sm:inset-x-auto sm:left-auto sm:right-5 sm:max-w-sm z-50">
-                        <div className="rounded-2xl border border-white/[0.09] bg-[#0A1F35]/95 backdrop-blur-xl shadow-2xl shadow-black/50 overflow-hidden">
-                            <div className="h-px bg-gradient-to-r from-transparent via-[#3B82F6]/40 to-transparent" />
-                            <div className="px-5 pt-5 pb-4">
-                                <div className="flex items-start gap-3">
-                                    <span className="text-2xl">🍪</span>
+                    <div className="fixed bottom-5 inset-x-4 sm:inset-x-auto sm:left-auto sm:right-6 sm:max-w-md z-50">
+                        <div className="rounded-2xl border border-[#E5E7EB] bg-white/95 backdrop-blur-md shadow-xl shadow-blue-950/10 overflow-hidden">
+                            <div className="h-1 bg-gradient-to-r from-[#2043B0] via-blue-400 to-[#2043B0]" />
+                            <div className="p-5">
+                                <div className="flex items-start gap-3.5">
+                                    <span className="text-2xl shrink-0">🍪</span>
                                     <div>
-                                        <p className="font-semibold text-white text-sm mb-1"
-                                            style={{ fontFamily: "'Syne',sans-serif" }}>
+                                        <p className="font-[Cinzel] font-bold text-[#172554] text-sm mb-1">
                                             We use cookies
                                         </p>
-                                        <p className="text-[#94A3B8] text-[12px] leading-relaxed">
+                                        <p className="text-xs text-[#4B5563] leading-relaxed">
                                             We use cookies to personalise your property search, analyse usage, and ensure platform security. Your data is never sold.
                                         </p>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="px-5 pb-4 flex gap-2">
-                                <button
-                                    onClick={() => setBannerDismissed(true)}
-                                    className="flex-1 border border-white/[0.1] text-white/50 hover:text-white hover:border-white/20 text-xs font-medium py-2 rounded-xl transition-colors"
-                                >
-                                    Manage
-                                </button>
-                                <button
-                                    onClick={() => setBannerDismissed(true)}
-                                    className="flex-1 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-xs font-bold py-2 rounded-xl transition-colors shadow-lg shadow-[#3B82F6]/25"
-                                >
-                                    Accept All
-                                </button>
+                                <div className="mt-4 flex gap-2.5">
+                                    <button
+                                        type="button"
+                                        onClick={() => setBannerDismissed(true)}
+                                        className="flex-1 border border-[#E5E7EB] bg-white hover:bg-[#F5F7FF] hover:border-blue-300 text-[#172554] text-xs font-semibold py-2.5 rounded-xl transition-all shadow-2xs"
+                                    >
+                                        Manage
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setAccepted({ Analytics: true, Functional: true, Marketing: true });
+                                            setBannerDismissed(true);
+                                        }}
+                                        className="flex-1 bg-[#2043B0] hover:bg-blue-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all shadow-sm shadow-blue-900/10"
+                                    >
+                                        Accept All
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 )}
-            </div>
+            </main>
         </>
     );
 }
