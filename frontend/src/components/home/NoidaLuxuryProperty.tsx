@@ -180,10 +180,10 @@ const NoidaLuxuryProperty = () => {
               >
                 <Link
                   href={`/properties/${property.slug}`}
-                  className="group block h-full rounded-2xl border border-[#E5E7EB] bg-white p-3.5 sm:p-4 shadow-xs transition-all duration-300 hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20"
+                  className="group block h-full rounded border border-[#E5E7EB] bg-white p-3.5 sm:p-4 shadow-xs transition-all duration-300 hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20"
                 >
                   {/* Property Image Container */}
-                  <div className="relative h-56 sm:h-60 w-full overflow-hidden rounded-xl bg-[#F5F7FF]">
+                  <div className="relative h-56 sm:h-60 w-full overflow-hidden rounded bg-[#F5F7FF]">
                     <img
                       src={property.image}
                       alt={property.title}

@@ -124,7 +124,7 @@ const SuccessfulProjects = () => {
                   href={project.href}
                   className="group block w-[290px] sm:w-[340px] md:w-[360px] h-[430px] sm:h-[450px] focus:outline-none"
                 >
-                  <div className="h-full flex flex-col bg-white rounded-xl border border-[#E5E7EB] overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                  <div className="h-full flex flex-col bg-white rounded border border-[#E5E7EB] overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     {/* Image Wrapper */}
                     <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-blue-50/50">
                       <img

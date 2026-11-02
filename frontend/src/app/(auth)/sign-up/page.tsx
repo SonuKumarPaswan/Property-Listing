@@ -1,9 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import {
+  User,
+  Mail,
+  Phone,
+  Lock,
+  ShieldCheck,
+  Building2,
+  FileText,
+  Home,
+  Briefcase,
+  Eye,
+  EyeOff,
+  CheckCircle2,
+  AlertCircle,
+  ArrowRight,
+  X,
+} from "lucide-react";
 import api from "@/lib/api";
+
+// ─── Animation Variants (Matches Mishti Spaces About Us & Sign-In Page) ──────
+const subtleFadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  }),
+};
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Role = "buyer" | "agent";
@@ -30,341 +62,94 @@ interface Errors {
   agreeTerms?: string;
 }
 
-// ─── SVG Icons (no emoji) ─────────────────────────────────────────────────────
-const IconUser = () => (
+// ─── Restyled City Skyline (Matches Sign-In Page Exact SVG) ─────────────────
+const CitySkylineSVG = () => (
   <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"
-    />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-const IconMail = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-    />
-  </svg>
-);
-const IconPhone = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-    />
-  </svg>
-);
-const IconLock = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-    <path strokeLinecap="round" d="M7 11V7a5 5 0 0110 0v4" />
-  </svg>
-);
-const IconShield = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-    />
-  </svg>
-);
-const IconBuilding = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-    />
-  </svg>
-);
-const IconClipboard = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-    />
-  </svg>
-);
-const IconEyeOpen = () => (
-  <svg
-    width="17"
-    height="17"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-    />
-  </svg>
-);
-const IconEyeClosed = () => (
-  <svg
-    width="17"
-    height="17"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-    />
-  </svg>
-);
-const IconHome = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-    />
-  </svg>
-);
-const IconBriefcase = () => (
-  <svg
-    width="15"
-    height="15"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-    />
-  </svg>
-);
-const IconSpinner = () => (
-  <svg
-    style={{ animation: "spin 1s linear infinite" }}
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-  >
-    <circle
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="rgba(255,255,255,0.3)"
-      strokeWidth="3"
-    />
-    <path
-      d="M12 2a10 10 0 0110 10"
-      stroke="#fff"
-      strokeWidth="3"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-const IconCheckMark = () => (
-  <svg
-    width="14"
-    height="14"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2.5}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-);
-
-// ─── City Skyline ─────────────────────────────────────────────────────────────
-const CitySVG = () => (
-  <svg
-    viewBox="0 0 760 480"
+    viewBox="0 0 760 380"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{ width: "100%", maxHeight: 400, opacity: 0.38 }}
+    className="w-full max-h-[340px] pointer-events-none select-none"
+    preserveAspectRatio="xMidYBottom meet"
   >
+    {/* Base buildings */}
     {[
-      { x: 10, w: 52, h: 255 },
-      { x: 68, w: 38, h: 188 },
-      { x: 112, w: 62, h: 315 },
-      { x: 180, w: 48, h: 242 },
-      { x: 234, w: 78, h: 395 },
-      { x: 318, w: 52, h: 282 },
-      { x: 376, w: 68, h: 350 },
-      { x: 450, w: 44, h: 215 },
-      { x: 500, w: 88, h: 370 },
-      { x: 594, w: 52, h: 265 },
-      { x: 652, w: 38, h: 190 },
-      { x: 696, w: 52, h: 300 },
+      { x: 10, w: 52, h: 220, fill: "#E2E8F0" },
+      { x: 68, w: 38, h: 160, fill: "#DBEAFE" },
+      { x: 112, w: 62, h: 270, fill: "#EFF6FF" },
+      { x: 180, w: 48, h: 210, fill: "#E2E8F0" },
+      { x: 234, w: 78, h: 340, fill: "#DBEAFE" },
+      { x: 318, w: 52, h: 240, fill: "#EFF6FF" },
+      { x: 376, w: 68, h: 300, fill: "#E2E8F0" },
+      { x: 450, w: 44, h: 185, fill: "#DBEAFE" },
+      { x: 500, w: 88, h: 320, fill: "#EFF6FF" },
+      { x: 594, w: 52, h: 230, fill: "#E2E8F0" },
+      { x: 652, w: 38, h: 165, fill: "#DBEAFE" },
+      { x: 696, w: 54, h: 260, fill: "#EFF6FF" },
     ].map((b, i) => (
       <rect
         key={i}
         x={b.x}
-        y={480 - b.h}
+        y={380 - b.h}
         width={b.w}
         height={b.h}
-        fill={i % 3 === 0 ? "#152848" : i % 3 === 1 ? "#193260" : "#0f2040"}
-        rx={2}
+        fill={b.fill}
+        stroke="#CBD5E1"
+        strokeWidth="1"
+        rx="2"
       />
     ))}
+
+    {/* Windows */}
     {[
-      [25, 290],
-      [36, 248],
-      [125, 182],
-      [125, 222],
-      [125, 260],
-      [248, 138],
-      [248, 176],
-      [248, 215],
-      [263, 160],
-      [263, 198],
-      [388, 148],
-      [388, 188],
-      [388, 226],
-      [403, 168],
-      [513, 160],
-      [513, 198],
-      [527, 180],
-      [527, 218],
-      [608, 228],
-      [700, 168],
-      [700, 208],
+      [25, 230],
+      [36, 260],
+      [125, 160],
+      [125, 200],
+      [125, 240],
+      [145, 180],
+      [145, 220],
+      [248, 100],
+      [248, 140],
+      [248, 180],
+      [248, 220],
+      [268, 120],
+      [268, 160],
+      [268, 200],
+      [268, 240],
+      [388, 130],
+      [388, 170],
+      [388, 210],
+      [408, 150],
+      [408, 190],
+      [515, 120],
+      [515, 160],
+      [515, 200],
+      [540, 140],
+      [540, 180],
+      [608, 200],
+      [608, 240],
+      [710, 170],
+      [710, 210],
+      [710, 250],
     ].map(([x, y], i) => (
       <rect
         key={i}
         x={x}
         y={y}
-        width={8}
-        height={12}
-        rx={1}
-        fill={i % 3 === 0 ? "#00c6ff" : i % 3 === 1 ? "#1e6bff" : "#4da6ff"}
-        opacity={0.72}
+        width={7}
+        height={10}
+        rx="1"
+        fill={i % 2 === 0 ? "#93C5FD" : "#60A5FA"}
+        opacity={0.65}
       />
     ))}
-    <rect x={0} y={479} width={760} height={1} fill="rgba(30,107,255,0.16)" />
-    <ellipse
-      cx={380}
-      cy={480}
-      rx={370}
-      ry={52}
-      fill="url(#sg)"
-      opacity={0.22}
-    />
-    <defs>
-      <radialGradient id="sg" cx="50%" cy="100%" r="50%">
-        <stop offset="0%" stopColor="#1e6bff" />
-        <stop offset="100%" stopColor="transparent" />
-      </radialGradient>
-    </defs>
+
+    {/* Ground baseline */}
+    <line x1="0" y1="379" x2="760" y2="379" stroke="#E5E7EB" strokeWidth="2" />
   </svg>
 );
 
-const Particles = () => (
-  <div
-    style={{
-      position: "absolute",
-      inset: 0,
-      pointerEvents: "none",
-      zIndex: 1,
-      overflow: "hidden",
-    }}
-  >
-    {[
-      { left: "14%", top: "18%", size: 3, delay: "0s", dur: "4s" },
-      { left: "72%", top: "32%", size: 2, delay: "1.2s", dur: "5.5s" },
-      { left: "44%", top: "55%", size: 4, delay: "2.1s", dur: "3.8s" },
-      { left: "86%", top: "14%", size: 2, delay: "0.6s", dur: "6s" },
-      { left: "28%", top: "76%", size: 3, delay: "1.8s", dur: "4.2s" },
-    ].map((p, i) => (
-      <div
-        key={i}
-        style={{
-          position: "absolute",
-          left: p.left,
-          top: p.top,
-          width: p.size,
-          height: p.size,
-          borderRadius: "50%",
-          background: "#1e6bff",
-          animation: `twinkle ${p.dur} ${p.delay} infinite`,
-        }}
-      />
-    ))}
-  </div>
-);
-
-// ─── Password strength ─────────────────────
+// ─── Password Strength Helper ────────────────────────────────────────────────
 function getStrength(pw: string) {
   let s = 0;
   if (pw.length >= 8) s++;
@@ -372,344 +157,18 @@ function getStrength(pw: string) {
   if (/[0-9]/.test(pw)) s++;
   if (/[^a-zA-Z0-9]/.test(pw)) s++;
   const map = [
-    { label: "", color: "#dce3f0" },
-    { label: "Weak", color: "#ff4f6a" },
-    { label: "Fair", color: "#ffa94d" },
-    { label: "Good", color: "#00c6a0" },
-    { label: "Strong", color: "#1e6bff" },
+    { label: "", color: "#E5E7EB" },
+    { label: "Weak", color: "#EF4444" },
+    { label: "Fair", color: "#F59E0B" },
+    { label: "Good", color: "#10B981" },
+    { label: "Strong", color: "#2043B0" },
   ];
   return { score: s, ...map[s] };
 }
 
-// ─── Styles ────────────────────────────────
-const S: Record<string, React.CSSProperties> = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    fontFamily: "'DM Sans', sans-serif",
-    background: "#0a1628",
-    overflow: "hidden",
-  },
-  left: {
-    width: "52%",
-    minHeight: "100vh",
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    padding: "36px 48px 48px",
-    background: "linear-gradient(160deg,#0a1628 0%,#0d1f3c 55%,#091522 100%)",
-    overflow: "hidden",
-  },
-  cityBg: {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    alignItems: "flex-end",
-    justifyContent: "center",
-    pointerEvents: "none",
-    zIndex: 0,
-  },
-  logoRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    position: "relative",
-    zIndex: 2,
-  },
-  logoBox: {
-    width: 44,
-    height: 44,
-    background: "linear-gradient(135deg,#1e6bff,#00c6ff)",
-    borderRadius: 10,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    boxShadow: "0 4px 20px rgba(30,107,255,0.42)",
-  },
-  logoName: {
-    fontSize: 22,
-    fontWeight: 800,
-    color: "#fff",
-    fontFamily: "'Syne', sans-serif",
-    letterSpacing: "-0.5px",
-    lineHeight: 1.1,
-  },
-  logoSub: { fontSize: 11, color: "#00c6ff", fontWeight: 500 },
-  hero: { position: "relative", zIndex: 2, paddingBottom: 28 },
-  badge: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: 6,
-    background: "rgba(30,107,255,0.13)",
-    border: "1px solid rgba(30,107,255,0.3)",
-    borderRadius: 20,
-    padding: "5px 14px",
-    marginBottom: 20,
-    fontSize: 11,
-    fontWeight: 600,
-    color: "#4da6ff",
-    letterSpacing: "0.08em",
-    textTransform: "uppercase" as const,
-  },
-  h1: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: 46,
-    fontWeight: 800,
-    color: "#fff",
-    lineHeight: 1.1,
-    letterSpacing: "-1px",
-    marginBottom: 14,
-  },
-  accent: {
-    background: "linear-gradient(90deg,#1e6bff,#00c6ff)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    backgroundClip: "text",
-  },
-  heroP: {
-    fontSize: 14,
-    color: "#7a94b8",
-    lineHeight: 1.75,
-    maxWidth: 370,
-    marginBottom: 30,
-  },
-  statsRow: { display: "flex", gap: 28 },
-  statNum: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: 26,
-    fontWeight: 800,
-    color: "#fff",
-  },
-  statLbl: { fontSize: 12, color: "#7a94b8", marginTop: 2 },
-  right: {
-    width: "48%",
-    minHeight: "100vh",
-    background: "#f2f5fb",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "40px 32px",
-    overflowY: "auto" as const,
-  },
-  card: { width: "100%", maxWidth: 476 },
-  cardTitle: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: 27,
-    fontWeight: 800,
-    color: "#0a1628",
-    marginBottom: 4,
-    letterSpacing: "-0.4px",
-  },
-  cardSub: { fontSize: 14, color: "#6b7f9e", marginBottom: 26 },
-  tabs: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    background: "#e4e9f3",
-    borderRadius: 13,
-    padding: 4,
-    marginBottom: 26,
-    gap: 3,
-  },
-  tab: {
-    padding: "11px 0",
-    borderRadius: 10,
-    border: "none",
-    background: "transparent",
-    cursor: "pointer",
-    fontSize: 13,
-    fontWeight: 600,
-    color: "#6b7f9e",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 7,
-    transition: "all 0.22s ease",
-    fontFamily: "'DM Sans', sans-serif",
-  },
-  tabActive: {
-    background: "#fff",
-    color: "#1e6bff",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.09)",
-  },
-  twoCol: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 14,
-    marginBottom: 14,
-  },
-  field: { marginBottom: 14 },
-  lbl: {
-    display: "block",
-    fontSize: 10.5,
-    fontWeight: 700,
-    color: "#0a1628",
-    letterSpacing: "0.09em",
-    textTransform: "uppercase" as const,
-    marginBottom: 7,
-  },
-  wrap: { position: "relative", display: "flex", alignItems: "center" },
-  icoL: {
-    position: "absolute",
-    left: 13,
-    color: "#9aafcc",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-  },
-  input: {
-    width: "100%",
-    padding: "12px 12px 12px 40px",
-    border: "1.5px solid #d8e1f0",
-    borderRadius: 11,
-    fontSize: 14,
-    color: "#0a1628",
-    background: "#fff",
-    outline: "none",
-    transition: "all 0.18s",
-    fontFamily: "'DM Sans', sans-serif",
-  },
-  inputErr: { borderColor: "#ff4f6a", background: "#fff8f9" },
-  inputOk: { borderColor: "#00c6a0" },
-  eyeBtn: {
-    position: "absolute",
-    right: 11,
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    color: "#9aafcc",
-    display: "flex",
-    alignItems: "center",
-    padding: 4,
-  },
-  errMsg: {
-    fontSize: 11.5,
-    color: "#ff4f6a",
-    marginTop: 5,
-    display: "flex",
-    alignItems: "center",
-    gap: 4,
-    fontWeight: 500,
-  },
-  okMsg: {
-    fontSize: 11.5,
-    color: "#00c6a0",
-    marginTop: 5,
-    display: "flex",
-    alignItems: "center",
-    gap: 4,
-    fontWeight: 500,
-  },
-  strengthRow: { display: "flex", alignItems: "center", gap: 4, marginTop: 8 },
-  strengthSeg: {
-    flex: 1,
-    height: 3,
-    borderRadius: 3,
-    background: "#dce3f0",
-    transition: "background 0.28s",
-  },
-  checkRow: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: 10,
-    marginBottom: 18,
-    marginTop: 2,
-  },
-  checkbox: {
-    width: 17,
-    height: 17,
-    marginTop: 2,
-    accentColor: "#1e6bff",
-    cursor: "pointer",
-    flexShrink: 0,
-  },
-  checkLbl: { fontSize: 13, color: "#6b7f9e", lineHeight: 1.55 },
-  lnk: { color: "#1e6bff", textDecoration: "none", fontWeight: 600 },
-  divRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-    marginBottom: 14,
-    marginTop: 4,
-  },
-  divLine: { flex: 1, height: 1, background: "#d8e1f0" },
-  divTxt: {
-    fontSize: 11.5,
-    color: "#9aafcc",
-    fontWeight: 600,
-    letterSpacing: "0.05em",
-  },
-  submitBtn: {
-    width: "100%",
-    padding: "14px",
-    background: "linear-gradient(90deg,#1e6bff,#1055d4)",
-    border: "none",
-    borderRadius: 12,
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: 700,
-    cursor: "pointer",
-    marginBottom: 14,
-    letterSpacing: "0.02em",
-    fontFamily: "'DM Sans', sans-serif",
-    boxShadow: "0 4px 18px rgba(30,107,255,0.36)",
-    transition: "all 0.2s",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-  },
-  googleBtn: {
-    width: "100%",
-    padding: "13px",
-    background: "#fff",
-    border: "1.5px solid #d8e1f0",
-    borderRadius: 12,
-    color: "#0a1628",
-    fontSize: 14,
-    fontWeight: 600,
-    cursor: "pointer",
-    fontFamily: "'DM Sans', sans-serif",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-    transition: "all 0.18s",
-    marginBottom: 20,
-  },
-  bottomTxt: { textAlign: "center" as const, fontSize: 13, color: "#6b7f9e" },
-  bottomLnk: {
-    color: "#1e6bff",
-    fontWeight: 700,
-    textDecoration: "none",
-    marginLeft: 4,
-  },
-  successBox: {
-    textAlign: "center" as const,
-    padding: "44px 24px",
-    background: "linear-gradient(135deg,#f0fdf9,#eaf3ff)",
-    borderRadius: 16,
-    border: "1.5px solid #00c6a0",
-  },
-  toast: {
-    position: "fixed" as const,
-    bottom: 30,
-    right: 28,
-    background: "#fff",
-    borderRadius: 14,
-    padding: "15px 20px",
-    boxShadow: "0 8px 36px rgba(0,0,0,0.13)",
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-    zIndex: 1000,
-    border: "1px solid #d8e1f0",
-    minWidth: 270,
-  },
-};
-
-// ─── Component ──────────────────────────────────────────
+// ─── Main Sign-Up Component ──────────────────────────────────────────────────
 export default function SignupPage() {
+  const router = useRouter();
   const [role, setRole] = useState<Role>("buyer");
   const [showPw, setShowPw] = useState(false);
   const [showCpw, setShowCpw] = useState(false);
@@ -733,31 +192,48 @@ export default function SignupPage() {
 
   const pw = getStrength(form.password);
 
+  // Auto-dismiss toast after 6 seconds
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => {
+        setToast(null);
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
   const validate = (): Errors => {
     const e: Errors = {};
     if (!form.fullName.trim()) e.fullName = "Full name is required";
     else if (form.fullName.trim().length < 2) e.fullName = "Name is too short";
+
     if (!form.email.trim()) e.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address";
+
     if (!form.phone.trim()) e.phone = "Phone number is required";
-    else if (!/^\+?[\d\s\-()\u200c]{8,15}$/.test(form.phone))
+    else if (!/^\+?[\d\s\-()]{8,15}$/.test(form.phone))
       e.phone = "Enter a valid phone number";
+
     if (!form.password) e.password = "Password is required";
     else if (form.password.length < 8)
       e.password = "Minimum 8 characters required";
     else if (pw.score < 2) e.password = "Password is too weak";
+
     if (!form.confirmPassword)
       e.confirmPassword = "Please confirm your password";
     else if (form.password !== form.confirmPassword)
       e.confirmPassword = "Passwords do not match";
+
     if (role === "agent") {
       if (!form.agencyName.trim()) e.agencyName = "Agency name is required";
       if (!form.licenseNumber.trim())
         e.licenseNumber = "License number is required";
     }
+
     if (!form.agreeTerms)
       e.agreeTerms = "You must accept the terms to continue";
+
     return e;
   };
 
@@ -798,6 +274,7 @@ export default function SignupPage() {
         password: form.password,
         role: backendRole,
       });
+
       if (res.status === 201) {
         console.log("Registration successful:", res.data);
         setToast(res.data.message || "Registration successful! Please log in.");
@@ -806,12 +283,15 @@ export default function SignupPage() {
         console.error("Registration failed:", res.data);
         setToast(res.data.message || "Registration failed. Please try again.");
       }
-
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as {
+        response?: { data?: { message?: string; error?: string } };
+        message?: string;
+      };
       const errorMessage =
-        error?.response?.data?.message ||   // backend message
-        error?.response?.data?.error ||     // fallback
-        error.message ||                    // axios default
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        err?.message ||
         "Something went wrong";
 
       setToast(errorMessage);
@@ -826,505 +306,694 @@ export default function SignupPage() {
     setTouched({});
   };
 
-  const fStyle = (name: string): React.CSSProperties => ({
-    ...S.input,
-    ...(errors[name as keyof Errors] && touched[name] ? S.inputErr : {}),
-    ...(!errors[name as keyof Errors] &&
-      touched[name] &&
-      form[name as keyof FormData]
-      ? S.inputOk
-      : {}),
-  });
+  const handleGoogleSignUp = () => {
+    setToast(
+      "Google Sign-Up is currently in development. Please sign up using the form below."
+    );
+  };
+
+  const getInputClass = (name: keyof Errors, isPasswordWithButton = false) => {
+    const isErr = touched[name] && errors[name];
+    const rightPadding = isPasswordWithButton ? "pr-11" : "pr-4";
+    return `w-full pl-10 ${rightPadding} py-3 rounded-xl border text-sm sm:text-base text-[#172554] placeholder-[#4B5563]/50 bg-white transition-all duration-200 outline-none shadow-2xs ${isErr
+      ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100 bg-red-50/20"
+      : "border-[#E5E7EB] hover:border-blue-300 focus:border-[#2043B0] focus:ring-2 focus:ring-[#2043B0]/15"
+      }`;
+  };
 
   return (
     <>
-      <Link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap"
-        rel="stylesheet"
-      />
-      
       <style>{`
-        @keyframes twinkle { 0%,100%{opacity:.16} 50%{opacity:.72} }
-        @keyframes spin     { to{transform:rotate(360deg)} }
-        @keyframes fadeUp   { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes slideIn  { from{opacity:0;transform:translateX(-22px)} to{opacity:1;transform:translateX(0)} }
-        .lp-in   { animation:slideIn .62s ease both; }
-        .cd-in   { animation:fadeUp  .52s .16s ease both; }
-        .f-in    { animation:fadeUp  .36s ease both; }
-        input:focus { border-color:#1e6bff!important; box-shadow:0 0 0 3px rgba(30,107,255,.1); }
-        .sbtn:hover  { transform:translateY(-2px); box-shadow:0 8px 28px rgba(30,107,255,.52)!important; }
-        .sbtn:active { transform:translateY(0); }
-        .gbtn:hover  { border-color:#1e6bff!important; box-shadow:0 2px 10px rgba(30,107,255,.1); }
-        .rtab:hover  { color:#1e6bff!important; }
-        @media(max-width:860px){ .lp-r{display:none!important} .rp-r{width:100%!important} }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
       `}</style>
 
-      <div style={S.page}>
-        {/* LEFT */}
-        <div style={S.left} className="lp-in lp-r">
-          <Particles />
-          <div style={S.cityBg}>
-            <CitySVG />
+      <div className="min-h-screen flex bg-[#F5F7FF] font-sans antialiased text-[#172554] selection:bg-[#2043B0] selection:text-white overflow-x-hidden">
+        {/* ═════════════════════════════════════════════════════════════════════
+            LEFT PANEL: Desktop & Laptop Branding (Matches Sign-In Page Style)
+        ═════════════════════════════════════════════════════════════════════ */}
+        <div className="hidden lg:flex flex-col justify-between w-1/2 relative overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-[#F8FAFC] to-white p-8 xl:p-12 2xl:p-16 border-r border-[#E5E7EB]">
+          {/* Subtle Ambient Decorative Shapes */}
+          <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[380px] w-[380px] rounded-full bg-[#2043B0]/5 blur-3xl" />
+          <div className="pointer-events-none absolute -right-16 bottom-1/3 h-[300px] w-[300px] rounded-full bg-blue-100/50 blur-2xl" />
+
+          {/* City skyline illustration in subtle blue/light grey */}
+          <div className="absolute inset-x-0 bottom-0 pointer-events-none opacity-40 flex items-end justify-center">
+            <CitySkylineSVG />
           </div>
 
+          {/* Top Brand Logo */}
+          <div className="relative z-10">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="h-11 w-11 rounded-xl bg-[#2043B0] flex items-center justify-center text-white shadow-xs group-hover:bg-blue-700 transition-colors">
+                <Building2 className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <span className="text-xl font-bold font-[Cinzel] text-[#172554] tracking-tight block">
+                  Mishti Spaces
+                </span>
+                <span className="text-[11px] font-semibold tracking-wider uppercase text-[#2043B0] block">
+                  Real Estate Platform
+                </span>
+              </div>
+            </Link>
+          </div>
 
-
-          <div className="relative z-10 px-10 pb-12">
-            <div
-              className="inline-block px-3 py-1 rounded-full text-xs font-extrabold mb-4 tracking-widest uppercase"
-              style={{ background: "rgba(37,99,235,0.3)", color: "#93c5fd", border: "1px solid rgba(37,99,235,0.4)" }}
-            >
-              Real Estate Platform
+          {/* Headline + Value Proposition + Statistics */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={subtleFadeUp}
+            className="relative z-10 my-auto py-8"
+          >
+            {/* Real Estate Platform Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#2043B0] mb-6 shadow-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
+              <span>Real Estate Platform</span>
             </div>
-            <h2 className="text-7xl  font-extrabold font-sans text-white leading-tight mb-4">
-            Find Your<br />
-            <span style={{ color: "#3b82f6" }}>Dream Property</span><br />
-            Today
-          </h2>
-            <p className="text-sm leading-relaxed mb-8" style={{ color: "#94a3b8" }}>
-              Buy, sell or rent properties easily with Mishti Spaces. Thousands of verified listings across India.
+
+            {/* Main Headline */}
+            <h2 className="text-4xl xl:text-5xl font-[Cinzel] font-bold text-[#172554] leading-[1.18] tracking-tight mb-5">
+              Find Your
+              <br />
+              <span className="text-[#2043B0]">Dream Property</span>
+              <br />
+              Today
+            </h2>
+
+            {/* Description - Balanced Spacing matching Sign-In */}
+            <p className="text-sm xl:text-base leading-relaxed text-[#4B5563] mb-8 max-w-md font-sans">
+              Buy, sell or rent properties easily with Mishti Spaces. Thousands
+              of verified listings across India.
             </p>
-            <div style={S.statsRow}>
+
+            {/* Statistics Row */}
+            <div className="grid grid-cols-3 gap-3.5 pt-6 border-t border-[#E5E7EB] max-w-lg">
               {[
-                ["12K+", "Properties"],
-                ["8K+", "Happy Clients"],
-                ["50+", "Cities"],
-              ].map(([n, l]) => (
-                <div key={l} style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={S.statNum}>{n}</span>
-                  <span style={S.statLbl}>{l}</span>
+                { value: "12K+", label: "Properties" },
+                { value: "8K+", label: "Happy Clients" },
+                { value: "50+", label: "Cities" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-xl border border-[#E5E7EB] bg-white/90 backdrop-blur-xs p-3.5 shadow-xs transition-all duration-300 hover:border-blue-300 hover:bg-white"
+                >
+                  <div className="text-xl xl:text-2xl font-[Cinzel] font-bold text-[#2043B0] tracking-tight">
+                    {s.value}
+                  </div>
+                  <div className="text-xs text-[#172554] mt-1 uppercase tracking-wider font-semibold">
+                    {s.label}
+                  </div>
                 </div>
               ))}
             </div>
+          </motion.div>
+
+          {/* Left Panel Footer Note */}
+          <div className="relative z-10 text-xs text-[#4B5563]">
+            © {new Date().getFullYear()} Mishti Spaces. Verified Real Estate
+            Platform.
           </div>
         </div>
 
-        {/* RIGHT */}
-        <div style={S.right} className="rp-r">
-          <div style={S.card} className="cd-in">
-            <h2 style={S.cardTitle}>Create your account</h2>
-            <p style={S.cardSub}>Join thousands of property seekers today</p>
+        {/* ═════════════════════════════════════════════════════════════════════
+            RIGHT PANEL: Sign-Up Form (Clean White & Blue Mishti Spaces Theme)
+        ═════════════════════════════════════════════════════════════════════ */}
+        <div className="flex-1 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-8 sm:py-12 relative bg-[#F5F7FF] overflow-y-auto">
+          {/* Subtle Ambient Decorative Shapes */}
+          <div className="pointer-events-none absolute right-10 top-10 h-72 w-72 rounded-full bg-[#2043B0]/5 blur-3xl" />
+          <div className="pointer-events-none absolute left-10 bottom-10 h-72 w-72 rounded-full bg-blue-100/50 blur-2xl" />
 
-            {/* Role tabs: Buyer | Agent only */}
-            <div style={S.tabs}>
-              {[
-                {
-                  key: "buyer" as Role,
-                  label: "Property Buyer",
-                  icon: <IconHome />,
-                },
-                {
-                  key: "agent" as Role,
-                  label: "Real Estate Agent",
-                  icon: <IconBriefcase />,
-                },
-              ].map((r) => (
-                <button
-                  key={r.key}
-                  type="button"
-                  className="rtab"
-                  style={{ ...S.tab, ...(role === r.key ? S.tabActive : {}) }}
-                  onClick={() => switchRole(r.key)}
-                >
-                  {r.icon} {r.label}
-                </button>
-              ))}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={subtleFadeUp}
+            className="relative w-full max-w-md sm:max-w-lg lg:max-w-xl bg-white rounded-2xl border border-[#E5E7EB] shadow-xs hover:border-blue-200 transition-all duration-300 p-6 sm:p-8 lg:p-9 z-10 my-auto"
+          >
+            {/* Mobile / Tablet Brand Header */}
+            <div className="lg:hidden mb-6 flex items-center justify-center gap-2.5">
+              <Link href="/" className="inline-flex items-center gap-2.5">
+                <div className="h-9 w-9 rounded-xl bg-[#2043B0] flex items-center justify-center text-white shadow-xs">
+                  <Building2 className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-lg font-bold font-[Cinzel] text-[#172554] tracking-tight">
+                  Mishti Spaces
+                </span>
+              </Link>
             </div>
 
+            {/* Form Header */}
+            <div className="mb-6 sm:mb-8 text-left">
+              <h1 className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#172554] tracking-tight">
+                Create your account
+              </h1>
+              <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-[#4B5563] leading-relaxed">
+                Join thousands of verified property buyers and agents today
+              </p>
+            </div>
+
+            {/* Role Switch Tabs: Property Buyer | Real Estate Agent */}
+            <div className="grid grid-cols-2 gap-2 p-1.5 mb-6 rounded-xl bg-[#F5F7FF] border border-[#E5E7EB]">
+              <button
+                type="button"
+                onClick={() => switchRole("buyer")}
+                className={`py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${role === "buyer"
+                  ? "bg-white text-[#2043B0] border border-blue-200 shadow-xs"
+                  : "text-[#4B5563] hover:text-[#172554] hover:bg-white/60 border border-transparent"
+                  }`}
+              >
+                <Home className="w-4 h-4 shrink-0" />
+                <span>Property Buyer</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => switchRole("agent")}
+                className={`py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${role === "agent"
+                  ? "bg-white text-[#2043B0] border border-blue-200 shadow-xs"
+                  : "text-[#4B5563] hover:text-[#172554] hover:bg-white/60 border border-transparent"
+                  }`}
+              >
+                <Briefcase className="w-4 h-4 shrink-0" />
+                <span>Real Estate Agent</span>
+              </button>
+            </div>
+
+            {/* Success State View */}
             {success ? (
-              <div style={S.successBox}>
-                <div
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: "50%",
-                    background: "rgba(0,198,160,0.13)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 auto 16px",
-                  }}
-                >
-                  <svg
-                    width="26"
-                    height="26"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="#00c6a0"
-                    strokeWidth={2.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
+              <div className="text-center py-6 sm:py-8">
+                <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mb-5 shadow-xs">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3
-                  style={{
-                    fontFamily: "'Syne',sans-serif",
-                    fontSize: 21,
-                    color: "#0a1628",
-                    marginBottom: 8,
-                  }}
-                >
+                <h2 className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#172554] tracking-tight mb-2.5">
                   Account Created!
-                </h3>
-                <p style={{ color: "#6b7f9e", fontSize: 14, marginBottom: 22 }}>
-                  Welcome to MishtiSpaces as a{" "}
-                  <strong style={{ color: "#1e6bff" }}>
+                </h2>
+                <p className="text-sm sm:text-base text-[#4B5563] leading-relaxed max-w-sm mx-auto mb-8">
+                  Welcome to Mishti Spaces as a{" "}
+                  <strong className="text-[#2043B0] font-semibold">
                     {role === "buyer" ? "Property Buyer" : "Real Estate Agent"}
                   </strong>
-                  . Check your email to verify your account.
+                  . Your account has been registered successfully.
                 </p>
-                <button
-                  className="sbtn"
-                  style={{
-                    ...S.submitBtn,
-                    width: "auto",
-                    padding: "12px 28px",
-                    display: "inline-flex",
-                  }}
-                  onClick={() => {
-                    setSuccess(false);
-                    setForm(emptyForm);
-                    setTouched({});
-                  }}
-                >
-                  Create Another Account
-                </button>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                  <Link
+                    href="/sign-in"
+                    className="w-full sm:w-auto px-6 py-3 sm:py-3.5 rounded-xl bg-[#2043B0] hover:bg-blue-700 text-white font-semibold text-sm sm:text-base transition-all shadow-md shadow-blue-900/10 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Proceed to Sign In</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSuccess(false);
+                      setForm(emptyForm);
+                      setTouched({});
+                      setErrors({});
+                    }}
+                    className="w-full sm:w-auto px-6 py-3 sm:py-3.5 rounded-xl bg-white border border-[#E5E7EB] hover:bg-[#F5F7FF] hover:border-blue-300 text-[#172554] font-semibold text-sm sm:text-base transition-all cursor-pointer"
+                  >
+                    Create Another Account
+                  </button>
+                </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate>
-                {/* Full Name + Email */}
-                <div style={S.twoCol}>
-                  <div className="f-in" style={{ animationDelay: "0.04s" }}>
-                    <label style={S.lbl}>Full Name</label>
-                    <div style={S.wrap}>
-                      <span style={S.icoL}>
-                        <IconUser />
+              <form onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-5">
+                {/* Full Name & Email Address - Stacked on mobile, 2 columns on sm+ */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Full Name */}
+                  <div>
+                    <label
+                      htmlFor="fullName"
+                      className="block text-xs font-semibold text-[#172554] uppercase tracking-wider mb-2"
+                    >
+                      Full Name
+                    </label>
+                    <div className="relative group">
+                      <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                        <User className="w-4 h-4" />
                       </span>
                       <input
+                        id="fullName"
                         name="fullName"
+                        type="text"
                         value={form.fullName}
                         onChange={handleChange}
                         onBlur={() => handleBlur("fullName")}
                         placeholder="Your full name"
-                        style={fStyle("fullName")}
                         autoComplete="name"
+                        className={getInputClass("fullName")}
                       />
                     </div>
-                    {errors.fullName && touched.fullName && (
-                      <div style={S.errMsg}>{errors.fullName}</div>
+                    {touched.fullName && errors.fullName && (
+                      <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                        <span>{errors.fullName}</span>
+                      </p>
                     )}
                   </div>
-                  <div className="f-in" style={{ animationDelay: "0.08s" }}>
-                    <label style={S.lbl}>Email Address</label>
-                    <div style={S.wrap}>
-                      <span style={S.icoL}>
-                        <IconMail />
+
+                  {/* Email Address */}
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-xs font-semibold text-[#172554] uppercase tracking-wider mb-2"
+                    >
+                      Email Address
+                    </label>
+                    <div className="relative group">
+                      <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                        <Mail className="w-4 h-4" />
                       </span>
                       <input
+                        id="email"
                         name="email"
                         type="email"
                         value={form.email}
                         onChange={handleChange}
                         onBlur={() => handleBlur("email")}
                         placeholder="you@example.com"
-                        style={fStyle("email")}
                         autoComplete="email"
+                        className={getInputClass("email")}
                       />
                     </div>
-                    {errors.email && touched.email && (
-                      <div style={S.errMsg}>{errors.email}</div>
+                    {touched.email && errors.email && (
+                      <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                        <span>{errors.email}</span>
+                      </p>
                     )}
                   </div>
                 </div>
 
-                {/* Phone */}
-                <div style={S.field} className="f-in">
-                  <label style={S.lbl}>Phone Number</label>
-                  <div style={S.wrap}>
-                    <span style={S.icoL}>
-                      <IconPhone />
+                {/* Phone Number */}
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-xs font-semibold text-[#172554] uppercase tracking-wider mb-2"
+                  >
+                    Phone Number
+                  </label>
+                  <div className="relative group">
+                    <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                      <Phone className="w-4 h-4" />
                     </span>
                     <input
+                      id="phone"
                       name="phone"
+                      type="tel"
                       value={form.phone}
                       onChange={handleChange}
                       onBlur={() => handleBlur("phone")}
-                      placeholder="+91 XXXXX XXXXX"
-                      style={fStyle("phone")}
+                      placeholder="+91 98765 43210"
                       autoComplete="tel"
+                      className={getInputClass("phone")}
                     />
                   </div>
-                  {errors.phone && touched.phone && (
-                    <div style={S.errMsg}>{errors.phone}</div>
+                  {touched.phone && errors.phone && (
+                    <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.phone}</span>
+                    </p>
                   )}
                 </div>
 
-                {/* Agent-only */}
+                {/* Agent-only Fields: Agency Name & License Number (Stacked on mobile, 2 columns on sm+) */}
                 {role === "agent" && (
-                  <div style={{ ...S.twoCol }} className="f-in">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Agency Name */}
                     <div>
-                      <label style={S.lbl}>Agency Name</label>
-                      <div style={S.wrap}>
-                        <span style={S.icoL}>
-                          <IconBuilding />
+                      <label
+                        htmlFor="agencyName"
+                        className="block text-xs font-semibold text-[#172554] uppercase tracking-wider mb-2"
+                      >
+                        Agency Name
+                      </label>
+                      <div className="relative group">
+                        <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                          <Building2 className="w-4 h-4" />
                         </span>
                         <input
+                          id="agencyName"
                           name="agencyName"
+                          type="text"
                           value={form.agencyName}
                           onChange={handleChange}
                           onBlur={() => handleBlur("agencyName")}
-                          placeholder="Agency name"
-                          style={fStyle("agencyName")}
+                          placeholder="Agency or brokerage name"
                           autoComplete="organization"
+                          className={getInputClass("agencyName")}
                         />
                       </div>
-                      {errors.agencyName && touched.agencyName && (
-                        <div style={S.errMsg}>{errors.agencyName}</div>
+                      {touched.agencyName && errors.agencyName && (
+                        <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                          <span>{errors.agencyName}</span>
+                        </p>
                       )}
                     </div>
+
+                    {/* License Number */}
                     <div>
-                      <label style={S.lbl}>License No.</label>
-                      <div style={S.wrap}>
-                        <span style={S.icoL}>
-                          <IconClipboard />
+                      <label
+                        htmlFor="licenseNumber"
+                        className="block text-xs font-semibold text-[#172554] uppercase tracking-wider mb-2"
+                      >
+                        License No.
+                      </label>
+                      <div className="relative group">
+                        <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                          <FileText className="w-4 h-4" />
                         </span>
                         <input
+                          id="licenseNumber"
                           name="licenseNumber"
+                          type="text"
                           value={form.licenseNumber}
                           onChange={handleChange}
                           onBlur={() => handleBlur("licenseNumber")}
                           placeholder="REA-XXXX-XXXX"
-                          style={fStyle("licenseNumber")}
                           autoComplete="off"
+                          className={getInputClass("licenseNumber")}
                         />
                       </div>
-                      {errors.licenseNumber && touched.licenseNumber && (
-                        <div style={S.errMsg}>{errors.licenseNumber}</div>
+                      {touched.licenseNumber && errors.licenseNumber && (
+                        <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                          <span>{errors.licenseNumber}</span>
+                        </p>
                       )}
                     </div>
                   </div>
                 )}
 
-                {/* Password */}
-                <div style={S.field} className="f-in">
-                  <label style={S.lbl}>Password</label>
-                  <div style={S.wrap}>
-                    <span style={S.icoL}>
-                      <IconLock />
+                {/* Password Field */}
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-xs font-semibold text-[#172554] uppercase tracking-wider mb-2"
+                  >
+                    Password
+                  </label>
+                  <div className="relative group">
+                    <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                      <Lock className="w-4 h-4" />
                     </span>
                     <input
+                      id="password"
                       name="password"
                       type={showPw ? "text" : "password"}
                       value={form.password}
                       onChange={handleChange}
                       onBlur={() => handleBlur("password")}
                       placeholder="Min. 8 characters"
-                      style={fStyle("password")}
                       autoComplete="new-password"
+                      className={getInputClass("password", true)}
                     />
                     <button
                       type="button"
-                      style={S.eyeBtn}
                       onClick={() => setShowPw((v) => !v)}
+                      aria-label={showPw ? "Hide password" : "Show password"}
+                      className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#172554] transition-colors p-1 cursor-pointer focus:outline-none"
                     >
-                      {showPw ? <IconEyeOpen /> : <IconEyeClosed />}
+                      {showPw ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
                     </button>
                   </div>
+
+                  {/* Password Strength Meter */}
                   {form.password && (
-                    <div style={S.strengthRow}>
+                    <div className="mt-2.5 flex items-center gap-1.5">
                       {[1, 2, 3, 4].map((i) => (
                         <div
                           key={i}
+                          className="flex-1 h-1.5 rounded-full transition-all duration-300"
                           style={{
-                            ...S.strengthSeg,
-                            background: i <= pw.score ? pw.color : "#dce3f0",
+                            backgroundColor:
+                              i <= pw.score ? pw.color : "#E5E7EB",
                           }}
                         />
                       ))}
                       <span
-                        style={{
-                          fontSize: 10.5,
-                          color: pw.color,
-                          marginLeft: 6,
-                          fontWeight: 700,
-                          minWidth: 38,
-                        }}
+                        className="text-xs font-bold ml-2 min-w-[48px] text-right"
+                        style={{ color: pw.color }}
                       >
                         {pw.label}
                       </span>
                     </div>
                   )}
-                  {errors.password && touched.password && (
-                    <div style={S.errMsg}>{errors.password}</div>
+
+                  {touched.password && errors.password && (
+                    <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.password}</span>
+                    </p>
                   )}
                 </div>
 
-                {/* Confirm Password */}
-                <div style={S.field} className="f-in">
-                  <label style={S.lbl}>Confirm Password</label>
-                  <div style={S.wrap}>
-                    <span style={S.icoL}>
-                      <IconShield />
+                {/* Confirm Password Field */}
+                <div>
+                  <label
+                    htmlFor="confirmPassword"
+                    className="block text-xs font-semibold text-[#172554] uppercase tracking-wider mb-2"
+                  >
+                    Confirm Password
+                  </label>
+                  <div className="relative group">
+                    <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                      <ShieldCheck className="w-4 h-4" />
                     </span>
                     <input
+                      id="confirmPassword"
                       name="confirmPassword"
                       type={showCpw ? "text" : "password"}
                       value={form.confirmPassword}
                       onChange={handleChange}
                       onBlur={() => handleBlur("confirmPassword")}
                       placeholder="Re-enter password"
-                      style={fStyle("confirmPassword")}
                       autoComplete="new-password"
+                      className={getInputClass("confirmPassword", true)}
                     />
                     <button
                       type="button"
-                      style={S.eyeBtn}
                       onClick={() => setShowCpw((v) => !v)}
+                      aria-label={showCpw ? "Hide password" : "Show password"}
+                      className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#172554] transition-colors p-1 cursor-pointer focus:outline-none"
                     >
-                      {showCpw ? <IconEyeOpen /> : <IconEyeClosed />}
+                      {showCpw ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
                     </button>
                   </div>
-                  {errors.confirmPassword && touched.confirmPassword && (
-                    <div style={S.errMsg}>{errors.confirmPassword}</div>
+
+                  {touched.confirmPassword && errors.confirmPassword && (
+                    <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.confirmPassword}</span>
+                    </p>
                   )}
+
+                  {/* Passwords Match Success Message */}
                   {!errors.confirmPassword &&
                     touched.confirmPassword &&
                     form.confirmPassword &&
                     form.password === form.confirmPassword && (
-                      <div style={S.okMsg}>
-                        <IconCheckMark /> Passwords match
-                      </div>
+                      <p className="mt-1.5 text-xs text-emerald-600 flex items-center gap-1.5 font-medium">
+                        <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                        <span>Passwords match</span>
+                      </p>
                     )}
                 </div>
 
-                {/* Terms */}
-                <div style={S.checkRow}>
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    name="agreeTerms"
-                    checked={form.agreeTerms}
-                    onChange={handleChange}
-                    style={S.checkbox}
-                  />
-                  <label htmlFor="terms" style={S.checkLbl}>
-                    I agree to the{" "}
-                    <a href="#" style={S.lnk}>
-                      Terms of Service
-                    </a>{" "}
-                    and{" "}
-                    <a href="#" style={S.lnk}>
-                      Privacy Policy
-                    </a>
-                  </label>
-                </div>
-                {errors.agreeTerms && touched.agreeTerms && (
-                  <div style={{ ...S.errMsg, marginTop: -10, marginBottom: 12 }}>
-                    {errors.agreeTerms}
+                {/* Terms and Conditions Checkbox */}
+                <div className="pt-1">
+                  <div className="flex items-start gap-2.5">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      name="agreeTerms"
+                      checked={form.agreeTerms}
+                      onChange={handleChange}
+                      className="mt-1 h-4 w-4 rounded border-[#E5E7EB] text-[#2043B0] accent-[#2043B0] focus:ring-[#2043B0] cursor-pointer shrink-0"
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="text-xs sm:text-sm text-[#4B5563] leading-relaxed cursor-pointer select-none"
+                    >
+                      I agree to the{" "}
+                      <Link
+                        href="/terms-of-service"
+                        className="text-[#2043B0] font-semibold hover:underline"
+                      >
+                        Terms of Service
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        href="/privacy-policy"
+                        className="text-[#2043B0] font-semibold hover:underline"
+                      >
+                        Privacy Policy
+                      </Link>
+                    </label>
                   </div>
-                )}
+                  {touched.agreeTerms && errors.agreeTerms && (
+                    <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.agreeTerms}</span>
+                    </p>
+                  )}
+                </div>
 
-                {/* Submit */}
+                {/* Primary Submit Button */}
                 <button
                   type="submit"
-                  style={S.submitBtn}
-                  className="sbtn"
                   disabled={loading}
+                  className="w-full py-3 sm:py-3.5 px-4 rounded-xl text-white font-semibold text-sm sm:text-base tracking-wide bg-[#2043B0] hover:bg-blue-700 active:bg-blue-800 shadow-md shadow-blue-900/10 active:scale-[0.99] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/30"
                 >
                   {loading ? (
                     <>
-                      <IconSpinner /> Creating your account…
+                      <svg
+                        className="w-4 h-4 animate-spin text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v8H4z"
+                        />
+                      </svg>
+                      <span>Creating your account…</span>
                     </>
                   ) : (
                     `Create ${role === "buyer" ? "Buyer" : "Agent"} Account`
                   )}
                 </button>
+              </form>
+            )}
 
-                <div style={S.divRow}>
-                  <div style={S.divLine} />
-                  <span style={S.divTxt}>OR</span>
-                  <div style={S.divLine} />
+            {!success && (
+              <>
+                {/* Subtle Divider matching Sign-In */}
+                <div className="flex items-center my-5 sm:my-6">
+                  <div className="flex-1 h-px bg-[#E5E7EB]" />
+                  <span className="mx-3 text-xs font-semibold uppercase tracking-wider text-[#4B5563]/60">
+                    or
+                  </span>
+                  <div className="flex-1 h-px bg-[#E5E7EB]" />
                 </div>
 
-                {/* Google */}
-                <button type="button" style={S.googleBtn} className="gbtn">
-                  <svg width="19" height="19" viewBox="0 0 48 48">
-                    <path
-                      fill="#EA4335"
-                      d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
-                    />
+                {/* Google Sign-Up Button (Informative notice on click per requirements) */}
+                <button
+                  type="button"
+                  onClick={handleGoogleSignUp}
+                  className="w-full py-3 px-4 rounded-xl text-sm sm:text-base font-semibold text-[#172554] bg-white border border-[#E5E7EB] hover:border-blue-300 hover:bg-[#F5F7FF] shadow-2xs active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/15"
+                >
+                  <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
                     <path
                       fill="#4285F4"
-                      d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
-                    />
-                    <path
-                      fill="#FBBC05"
-                      d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     />
                     <path
                       fill="#34A853"
-                      d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                     />
                   </svg>
-                  Continue with Google
+                  <span>Continue with Google</span>
                 </button>
 
-                <p style={S.bottomTxt}>
-                  Already have an account?
-                  <a href="/sign-In" style={S.bottomLnk}>
+                {/* Bottom Sign In Link matching Sign-In page */}
+                <p className="mt-6 sm:mt-8 text-center text-sm text-[#4B5563]">
+                  Already have an account?{" "}
+                  <button
+                    type="button"
+                    onClick={() => router.push("/sign-in")}
+                    className="font-bold text-[#2043B0] hover:underline cursor-pointer focus:outline-none ml-1"
+                  >
                     Sign In
-                  </a>
+                  </button>
                 </p>
-              </form>
+              </>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Toast */}
-      {toast && (
-        <div style={S.toast} className="f-in">
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: "50%",
-              background: "rgba(0,198,160,0.12)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
+      {/* ═════════════════════════════════════════════════════════════════════
+          TOAST NOTIFICATION (Clean White & Blue Style)
+      ═════════════════════════════════════════════════════════════════════ */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.96 }}
+            transition={{ duration: 0.25 }}
+            className="fixed bottom-6 right-6 z-50 bg-white border border-[#E5E7EB] shadow-xl rounded-xl p-4 flex items-start gap-3.5 max-w-sm sm:max-w-md"
           >
-            <svg
-              width="18"
-              height="18"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="#00c6a0"
-              strokeWidth={2.5}
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${toast.toLowerCase().includes("failed") ||
+                toast.toLowerCase().includes("error") ||
+                toast.toLowerCase().includes("unavailable") ||
+                toast.toLowerCase().includes("development")
+                ? "bg-amber-50 text-amber-600 border border-amber-200"
+                : "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                }`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          </div>
-          <div>
-            <div style={{ fontWeight: 700, color: "#0a1628", fontSize: 13.5 }}>
-              {toast}
+              {toast.toLowerCase().includes("failed") ||
+                toast.toLowerCase().includes("error") ||
+                toast.toLowerCase().includes("unavailable") ||
+                toast.toLowerCase().includes("development") ? (
+                <AlertCircle className="w-4 h-4" />
+              ) : (
+                <CheckCircle2 className="w-4 h-4" />
+              )}
             </div>
-            <div style={{ fontSize: 12, color: "#6b7f9e", marginTop: 2 }}>
-              Welcome to MishtiSpaces!
+            <div className="flex-1 min-w-0 pr-2">
+              <div className="text-sm font-semibold text-[#172554] leading-snug break-words">
+                {toast}
+              </div>
+              <div className="text-xs text-[#4B5563] mt-0.5">
+                {toast.toLowerCase().includes("failed") ||
+                  toast.toLowerCase().includes("error")
+                  ? "Please check your details and try again."
+                  : toast.toLowerCase().includes("development") ||
+                    toast.toLowerCase().includes("unavailable")
+                    ? "Please complete registration with your email."
+                    : "Welcome to Mishti Spaces!"}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+            <button
+              type="button"
+              onClick={() => setToast(null)}
+              className="text-slate-400 hover:text-[#172554] p-1 transition-colors cursor-pointer"
+              aria-label="Close notification"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

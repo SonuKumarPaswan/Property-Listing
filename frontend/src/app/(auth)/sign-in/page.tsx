@@ -4,12 +4,20 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, Variants } from "framer-motion";
+import {
+  Building2,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  CheckCircle2,
+} from "lucide-react";
 import api from "@/lib/api";
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   ANIMATION VARIANTS (Matches Mishti Spaces About Us Page)
-───────────────────────────────────────────────────────────────────────────── */
+// ─── Animation Variants (Matches Mishti Spaces About Us Page) ────────────────
 const subtleFadeUp: Variants = {
+
   hidden: { opacity: 0, y: 16 },
   visible: (delay = 0) => ({
     opacity: 1,
@@ -21,6 +29,93 @@ const subtleFadeUp: Variants = {
     },
   }),
 };
+
+// ─── Restyled City Skyline (Subtle Blue & Light Grey Shades) ─────────────────
+const CitySkylineSVG = () => (
+  <svg
+    viewBox="0 0 760 380"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-full max-h-[340px] pointer-events-none select-none"
+    preserveAspectRatio="xMidYBottom meet"
+  >
+    {/* Base buildings */}
+    {[
+      { x: 10, w: 52, h: 220, fill: "#E2E8F0" },
+      { x: 68, w: 38, h: 160, fill: "#DBEAFE" },
+      { x: 112, w: 62, h: 270, fill: "#EFF6FF" },
+      { x: 180, w: 48, h: 210, fill: "#E2E8F0" },
+      { x: 234, w: 78, h: 340, fill: "#DBEAFE" },
+      { x: 318, w: 52, h: 240, fill: "#EFF6FF" },
+      { x: 376, w: 68, h: 300, fill: "#E2E8F0" },
+      { x: 450, w: 44, h: 185, fill: "#DBEAFE" },
+      { x: 500, w: 88, h: 320, fill: "#EFF6FF" },
+      { x: 594, w: 52, h: 230, fill: "#E2E8F0" },
+      { x: 652, w: 38, h: 165, fill: "#DBEAFE" },
+      { x: 696, w: 54, h: 260, fill: "#EFF6FF" },
+    ].map((b, i) => (
+      <rect
+        key={i}
+        x={b.x}
+        y={380 - b.h}
+        width={b.w}
+        height={b.h}
+        fill={b.fill}
+        stroke="#CBD5E1"
+        strokeWidth="1"
+        rx="2"
+      />
+    ))}
+
+    {/* Windows */}
+    {[
+      [25, 230],
+      [36, 260],
+      [125, 160],
+      [125, 200],
+      [125, 240],
+      [145, 180],
+      [145, 220],
+      [248, 100],
+      [248, 140],
+      [248, 180],
+      [248, 220],
+      [268, 120],
+      [268, 160],
+      [268, 200],
+      [268, 240],
+      [388, 130],
+      [388, 170],
+      [388, 210],
+      [408, 150],
+      [408, 190],
+      [515, 120],
+      [515, 160],
+      [515, 200],
+      [540, 140],
+      [540, 180],
+      [608, 200],
+      [608, 240],
+      [710, 170],
+      [710, 210],
+      [710, 250],
+    ].map(([x, y], i) => (
+      <rect
+        key={i}
+        x={x}
+        y={y}
+        width={7}
+        height={10}
+        rx="1"
+        fill={i % 2 === 0 ? "#93C5FD" : "#60A5FA"}
+        opacity={0.65}
+      />
+    ))}
+
+    {/* Ground baseline */}
+    <line x1="0" y1="379" x2="760" y2="379" stroke="#E5E7EB" strokeWidth="2" />
+  </svg>
+);
 
 const SignInPage = () => {
   const [identifier, setIdentifier] = useState("");
@@ -101,13 +196,17 @@ const SignInPage = () => {
           router.push("/dashboard");
         }, 1500);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Login error:", error);
 
+      const err = error as {
+        response?: { data?: { message?: string; error?: string } };
+        message?: string;
+      };
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.response?.data?.error ||
-        error.message ||
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        err?.message ||
         "Login failed";
 
       setSuccessMsg(errorMessage);
@@ -138,77 +237,64 @@ const SignInPage = () => {
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
       `}</style>
 
-      <div className="min-h-screen flex bg-white font-sans antialiased selection:bg-[#2043B0] selection:text-white">
+      <div className="min-h-screen flex bg-[#F5F7FF] font-sans antialiased text-[#172554] selection:bg-[#2043B0] selection:text-white overflow-x-hidden">
         {/* ═════════════════════════════════════════════════════════════════════
-            LEFT PANEL: Desktop Branding (Mishti Spaces Navy & Blue Identity)
+            LEFT PANEL: Desktop & Laptop Branding (Clean White & Blue Identity)
         ═════════════════════════════════════════════════════════════════════ */}
-        <div className="hidden lg:flex flex-col justify-between w-1/2 relative overflow-hidden bg-gradient-to-br from-[#0B132B] via-[#10244F] to-[#172554] p-10 xl:p-14">
-          {/* Subtle Ambient Decorative Glows */}
-          <div className="pointer-events-none absolute -left-20 -top-20 h-[380px] w-[380px] rounded-full bg-[#2043B0]/25 blur-3xl" />
-          <div className="pointer-events-none absolute -right-20 bottom-1/4 h-[350px] w-[350px] rounded-full bg-[#2043B0]/20 blur-3xl" />
+        <div className="hidden lg:flex flex-col justify-between w-1/2 relative overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-[#F8FAFC] to-white p-8 xl:p-12 2xl:p-16 border-r border-[#E5E7EB]">
+          {/* Subtle Ambient Decorative Shapes */}
+          <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[380px] w-[380px] rounded-full bg-[#2043B0]/5 blur-3xl" />
+          <div className="pointer-events-none absolute -right-16 bottom-1/3 h-[300px] w-[300px] rounded-full bg-blue-100/50 blur-2xl" />
 
-          {/* City silhouette SVG background decoration */}
-          <div className="absolute inset-x-0 bottom-0 pointer-events-none opacity-10">
-            <svg
-              viewBox="0 0 800 600"
-              className="w-full h-full"
-              preserveAspectRatio="xMidYMid slice"
-            >
-              <rect x="50" y="300" width="60" height="300" fill="white" />
-              <rect x="60" y="260" width="40" height="50" fill="white" />
-              <rect x="130" y="250" width="80" height="350" fill="white" />
-              <rect x="145" y="200" width="50" height="60" fill="white" />
-              <rect x="220" y="320" width="50" height="280" fill="white" />
-              <rect x="280" y="200" width="100" height="400" fill="white" />
-              <rect x="295" y="150" width="70" height="60" fill="white" />
-              <rect x="390" y="270" width="70" height="330" fill="white" />
-              <rect x="470" y="180" width="90" height="420" fill="white" />
-              <rect x="480" y="130" width="70" height="60" fill="white" />
-              <rect x="570" y="310" width="60" height="290" fill="white" />
-              <rect x="640" y="240" width="80" height="360" fill="white" />
-              <rect x="655" y="190" width="50" height="60" fill="white" />
-              <rect x="730" y="290" width="70" height="310" fill="white" />
-            </svg>
+          {/* City skyline illustration in subtle blue/light grey */}
+          <div className="absolute inset-x-0 bottom-0 pointer-events-none opacity-40 flex items-end justify-center">
+            <CitySkylineSVG />
           </div>
 
-          {/* Grid overlay */}
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }}
-          />
-
+          {/* Top Brand Logo */}
+          <div className="relative z-10">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="h-11 w-11 rounded-xl bg-[#2043B0] flex items-center justify-center text-white shadow-xs group-hover:bg-blue-700 transition-colors">
+                <Building2 className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <span className="text-xl font-bold font-[Cinzel] text-[#172554] tracking-tight block">
+                  Mishti Spaces
+                </span>
+                <span className="text-[11px] font-semibold tracking-wider uppercase text-[#2043B0] block">
+                  Real Estate Platform
+                </span>
+              </div>
+            </Link>
+          </div>
 
           {/* Headline + Value Proposition + Statistics */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={subtleFadeUp}
-            className="relative z-10 my-auto py-10"
+            className="relative z-10 my-auto py-8"
           >
             {/* Real Estate Platform Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-900/40 backdrop-blur-md px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-200 mb-6 shadow-xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#60A5FA]" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#2043B0] mb-6 shadow-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
               <span>Real Estate Platform</span>
             </div>
 
             {/* Main Headline */}
-            <h2 className="text-4xl xl:text-5xl font-[Cinzel] font-bold text-white leading-[1.18] tracking-tight mb-5">
+            <h2 className="text-4xl xl:text-5xl font-[Cinzel] font-bold text-[#172554] leading-[1.18] tracking-tight mb-5">
               Find Your<br />
-              <span className="text-[#60A5FA]">Dream Property</span><br />
+              <span className="text-[#2043B0]">Dream Property</span><br />
               Today
             </h2>
 
             {/* Description */}
-            <p className="text-sm xl:text-base leading-relaxed text-blue-100/75 mb-10 max-w-md font-sans">
+            <p className="text-sm xl:text-base leading-relaxed text-[#4B5563] mb-8 max-w-md font-sans">
               Buy, sell or rent properties easily with Mishti Spaces. Thousands of verified listings across India.
             </p>
 
             {/* Statistics Row */}
-            <div className="grid grid-cols-3 gap-3.5 pt-6 border-t border-white/10 max-w-lg">
+            <div className="grid grid-cols-3 gap-3.5 pt-6 border-t border-[#E5E7EB] max-w-lg">
               {[
                 { value: "12K+", label: "Properties" },
                 { value: "8K+", label: "Happy Clients" },
@@ -216,12 +302,12 @@ const SignInPage = () => {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xs p-3.5 transition-all duration-300 hover:border-blue-400/30 hover:bg-white/10"
+                  className="rounded-xl border border-[#E5E7EB] bg-white/90 backdrop-blur-xs p-3.5 shadow-xs transition-all duration-300 hover:border-blue-300 hover:bg-white"
                 >
-                  <div className="text-xl xl:text-2xl font-[Cinzel] font-bold text-white tracking-tight">
+                  <div className="text-xl xl:text-2xl font-[Cinzel] font-bold text-[#2043B0] tracking-tight">
                     {s.value}
                   </div>
-                  <div className="text-xs text-blue-200/70 mt-1 uppercase tracking-wider font-semibold">
+                  <div className="text-xs text-[#172554] mt-1 uppercase tracking-wider font-semibold">
                     {s.label}
                   </div>
                 </div>
@@ -230,7 +316,7 @@ const SignInPage = () => {
           </motion.div>
 
           {/* Left Panel Footer Note */}
-          <div className="relative z-10 text-xs text-blue-200/50">
+          <div className="relative z-10 text-xs text-[#4B5563]">
             © {new Date().getFullYear()} Mishti Spaces. Verified Real Estate Platform.
           </div>
         </div>
@@ -238,8 +324,8 @@ const SignInPage = () => {
         {/* ═════════════════════════════════════════════════════════════════════
             RIGHT PANEL: Sign-In Form (Clean White & Blue Mishti Spaces Theme)
         ═════════════════════════════════════════════════════════════════════ */}
-        <div className="flex-1 flex items-center justify-center px-4 sm:px-8 lg:px-12 py-12 relative bg-[#F5F7FF]/50 overflow-y-auto">
-          {/* Subtle Ambient Decorative Shape */}
+        <div className="flex-1 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-8 sm:py-12 relative bg-[#F5F7FF] overflow-y-auto">
+          {/* Subtle Ambient Decorative Shapes */}
           <div className="pointer-events-none absolute right-10 top-10 h-72 w-72 rounded-full bg-[#2043B0]/5 blur-3xl" />
           <div className="pointer-events-none absolute left-10 bottom-10 h-72 w-72 rounded-full bg-blue-100/50 blur-2xl" />
 
@@ -247,15 +333,26 @@ const SignInPage = () => {
             initial="hidden"
             animate="visible"
             variants={subtleFadeUp}
-            className="relative w-full max-w-md bg-white rounded-2xl border border-[#E5E7EB] shadow-xs hover:border-blue-200 transition-all duration-300 p-7 sm:p-9 z-10"
+            className="relative w-full max-w-md xl:max-w-lg bg-white rounded-2xl border border-[#E5E7EB] shadow-xs hover:border-blue-200 transition-all duration-300 p-6 sm:p-8 lg:p-9 z-10 my-auto"
           >
+            {/* Mobile / Tablet Brand Header */}
+            <div className="lg:hidden mb-6 flex items-center justify-center gap-2.5">
+              <Link href="/" className="inline-flex items-center gap-2.5">
+                <div className="h-9 w-9 rounded-xl bg-[#2043B0] flex items-center justify-center text-white shadow-xs">
+                  <Building2 className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-lg font-bold font-[Cinzel] text-[#172554] tracking-tight">
+                  Mishti Spaces
+                </span>
+              </Link>
+            </div>
 
             {/* Form Header */}
-            <div className="mb-8 text-left">
+            <div className="mb-6 sm:mb-8 text-left">
               <h1 className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#172554] tracking-tight">
                 Welcome back
               </h1>
-              <p className="mt-2 text-sm sm:text-base text-[#4B5563] leading-relaxed">
+              <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-[#4B5563] leading-relaxed">
                 Sign in to your account to continue
               </p>
             </div>
@@ -265,47 +362,27 @@ const SignInPage = () => {
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`mb-6 flex items-start gap-3 rounded-xl px-4 py-3 text-sm font-medium border ${
+                className={`mb-6 flex items-start gap-3 rounded-xl p-3.5 sm:p-4 text-xs sm:text-sm font-medium border ${
                   successMsg.toLowerCase().includes("failed") ||
                   successMsg.toLowerCase().includes("error")
-                    ? "bg-red-50 border-red-200 text-red-700"
-                    : "bg-[#F5F7FF] border-blue-200 text-[#2043B0]"
-                }`}
+                  ? "bg-red-50 border-red-200 text-red-700"
+                  : "bg-[#F5F7FF] border-blue-200 text-[#2043B0]"
+                  }`}
               >
                 <span className="mt-0.5 shrink-0">
                   {successMsg.toLowerCase().includes("failed") ||
-                  successMsg.toLowerCase().includes("error") ? (
-                    <svg
-                      className="w-4 h-4 text-red-600"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    successMsg.toLowerCase().includes("error") ? (
+                    <AlertCircle className="w-4 h-4 text-red-600" />
                   ) : (
-                    <svg
-                      className="w-4 h-4 text-[#2043B0]"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <CheckCircle2 className="w-4 h-4 text-[#2043B0]" />
                   )}
                 </span>
-                <span className="leading-snug">{successMsg}</span>
+                <span className="leading-snug break-words">{successMsg}</span>
               </motion.div>
             )}
 
             {/* Sign-In Form */}
-            <form onSubmit={handleLogin} noValidate className="space-y-5">
+            <form onSubmit={handleLogin} noValidate className="space-y-4 sm:space-y-5">
               {/* Identifier Field */}
               <div>
                 <label
@@ -314,21 +391,9 @@ const SignInPage = () => {
                 >
                   Email or Mobile Number
                 </label>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-[#4B5563]/60">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.8}
-                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                      />
-                    </svg>
+                <div className="relative group">
+                  <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                    <Mail className="w-4 h-4" />
                   </span>
                   <input
                     id="identifier"
@@ -337,7 +402,8 @@ const SignInPage = () => {
                     onChange={(e) => handleChange("identifier", e.target.value)}
                     onBlur={() => handleBlur("identifier")}
                     placeholder="you@example.com or 9876543210"
-                    className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm text-[#172554] placeholder-[#4B5563]/50 bg-white transition-all duration-200 outline-none shadow-2xs ${
+                    autoComplete="username"
+                    className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm sm:text-base text-[#172554] placeholder-[#4B5563]/50 bg-white transition-all duration-200 outline-none shadow-2xs ${
                       touched.identifier && errors.identifier
                         ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100 bg-red-50/20"
                         : "border-[#E5E7EB] hover:border-blue-300 focus:border-[#2043B0] focus:ring-2 focus:ring-[#2043B0]/15"
@@ -345,18 +411,8 @@ const SignInPage = () => {
                   />
                 </div>
                 {touched.identifier && errors.identifier && (
-                  <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium">
-                    <svg
-                      className="w-3.5 h-3.5 shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                  <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>{errors.identifier}</span>
                   </p>
                 )}
@@ -378,21 +434,9 @@ const SignInPage = () => {
                     Forgot password?
                   </button>
                 </div>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-[#4B5563]/60">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.8}
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
+                <div className="relative group">
+                  <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#2043B0] transition-colors">
+                    <Lock className="w-4 h-4" />
                   </span>
                   <input
                     id="password"
@@ -401,7 +445,8 @@ const SignInPage = () => {
                     onChange={(e) => handleChange("password", e.target.value)}
                     onBlur={() => handleBlur("password")}
                     placeholder="Min. 6 characters"
-                    className={`w-full pl-10 pr-11 py-3 rounded-xl border text-sm text-[#172554] placeholder-[#4B5563]/50 bg-white transition-all duration-200 outline-none shadow-2xs ${
+                    autoComplete="current-password"
+                    className={`w-full pl-10 pr-11 py-3 rounded-xl border text-sm sm:text-base text-[#172554] placeholder-[#4B5563]/50 bg-white transition-all duration-200 outline-none shadow-2xs ${
                       touched.password && errors.password
                         ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100 bg-red-50/20"
                         : "border-[#E5E7EB] hover:border-blue-300 focus:border-[#2043B0] focus:ring-2 focus:ring-[#2043B0]/15"
@@ -411,58 +456,18 @@ const SignInPage = () => {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Hide password" : "Show password"}
-                    className="absolute inset-y-0 right-3 flex items-center text-[#4B5563]/60 hover:text-[#172554] transition-colors p-1 cursor-pointer focus:outline-none"
+                    className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#172554] transition-colors p-1 cursor-pointer focus:outline-none"
                   >
                     {showPassword ? (
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.8}
-                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                        />
-                      </svg>
+                      <EyeOff className="w-4 h-4" />
                     ) : (
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.8}
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.8}
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        />
-                      </svg>
+                      <Eye className="w-4 h-4" />
                     )}
                   </button>
                 </div>
                 {touched.password && errors.password && (
-                  <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium">
-                    <svg
-                      className="w-3.5 h-3.5 shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                  <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1.5 font-medium break-words">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>{errors.password}</span>
                   </p>
                 )}
@@ -472,7 +477,7 @@ const SignInPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 px-4 rounded-xl text-white font-semibold text-sm sm:text-base tracking-wide bg-[#2043B0] hover:bg-[#1a3896] active:bg-[#152e7b] shadow-md shadow-blue-900/10 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/30"
+                className="w-full py-3 sm:py-3.5 px-4 rounded-xl text-white font-semibold text-sm sm:text-base tracking-wide bg-[#2043B0] hover:bg-blue-700 active:bg-blue-800 shadow-md shadow-blue-900/10 active:scale-[0.99] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/30"
               >
                 {loading ? (
                   <>
@@ -504,9 +509,9 @@ const SignInPage = () => {
             </form>
 
             {/* Divider */}
-            <div className="flex items-center my-6">
+            <div className="flex items-center my-5 sm:my-6">
               <div className="flex-1 h-px bg-[#E5E7EB]" />
-              <span className="mx-3 text-xs font-semibold uppercase tracking-widest text-[#4B5563]/60">
+              <span className="mx-3 text-xs font-semibold uppercase tracking-wider text-[#4B5563]/60">
                 or
               </span>
               <div className="flex-1 h-px bg-[#E5E7EB]" />
@@ -517,7 +522,7 @@ const SignInPage = () => {
               <button
                 type="button"
                 onClick={handleGoogleLogin}
-                className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-[#172554] bg-white border border-[#E5E7EB] hover:border-blue-300 hover:bg-[#F5F7FF] shadow-2xs active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/15"
+                className="w-full py-3 px-4 rounded-xl text-sm sm:text-base font-semibold text-[#172554] bg-white border border-[#E5E7EB] hover:border-blue-300 hover:bg-[#F5F7FF] shadow-2xs active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/15"
               >
                 <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
                   <path
@@ -544,7 +549,7 @@ const SignInPage = () => {
                 type="button"
                 onClick={handleOtpLogin}
                 disabled={otpLoading}
-                className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-[#2043B0] bg-[#F5F7FF] border border-blue-200 hover:bg-blue-100/60 shadow-2xs active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/15"
+                className="w-full py-3 px-4 rounded-xl text-sm sm:text-base font-semibold text-[#2043B0] bg-[#F5F7FF] border border-blue-200 hover:bg-blue-100/60 shadow-2xs active:scale-[0.99] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/15"
               >
                 {otpLoading ? (
                   <>
@@ -591,7 +596,7 @@ const SignInPage = () => {
             </div>
 
             {/* Bottom Create Account Link */}
-            <p className="mt-8 text-center text-sm text-[#4B5563]">
+            <p className="mt-6 sm:mt-8 text-center text-sm text-[#4B5563]">
               Don&apos;t have an account?{" "}
               <button
                 type="button"

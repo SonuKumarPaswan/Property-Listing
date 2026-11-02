@@ -49,7 +49,7 @@ export default function Stats() {
                 custom={index * 0.08}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="flex flex-col items-center text-center p-6 sm:p-7 rounded-2xl border border-[#E5E7EB] bg-[#F5F7FF] shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300"
+                className="flex flex-col items-center text-center p-6 sm:p-7 rounded border border-[#E5E7EB] bg-[#F5F7FF] shadow-xs hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300"
               >
                 <div className="mb-3.5 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-[#2043B0]">
                   <Icon className="h-5 w-5" />

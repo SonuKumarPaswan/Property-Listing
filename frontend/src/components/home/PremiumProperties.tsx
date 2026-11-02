@@ -52,7 +52,7 @@ export default function PremiumProperties() {
             <PillBadge text="Luxury Living" />
 
             <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-[Cinzel] font-bold text-white tracking-tight leading-tight">
-              Premium <span className="text-[#2043B0] ">Collection</span>
+              Premium <span className="text-blue-600 ">Collection</span>
             </h2>
 
             <p className="mt-4 text-base sm:text-lg md:text-xl text-white leading-relaxed max-w-2xl mx-auto">

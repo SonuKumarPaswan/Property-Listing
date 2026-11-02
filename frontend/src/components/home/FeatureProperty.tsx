@@ -26,7 +26,7 @@ const subtleFadeUp: Variants = {
 ───────────────────────────────────────────────────────────────────────────── */
 function PillBadge({ text }: { text: string }) {
   return (
-    <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#2043B0]">
+    <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-3.5 sm:px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#2043B0]">
       <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
       <span>{text}</span>
     </div>
@@ -108,18 +108,34 @@ const FeaturedProperty = () => {
     }
   };
 
+  const getScrollAmount = () => {
+    if (!scrollRef.current) return 380;
+    const firstCard = scrollRef.current.firstElementChild as HTMLElement | null;
+    if (firstCard) {
+      const cardWidth = firstCard.getBoundingClientRect().width;
+      const gap =
+        typeof window !== "undefined" && window.innerWidth >= 640 ? 24 : 16;
+      return cardWidth + gap;
+    }
+    return 380;
+  };
+
   const scrollLeft = () => {
-    scrollRef.current?.scrollBy({
-      left: -380,
-      behavior: "smooth",
-    });
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: -getScrollAmount(),
+        behavior: "smooth",
+      });
+    }
   };
 
   const scrollRight = () => {
-    scrollRef.current?.scrollBy({
-      left: 380,
-      behavior: "smooth",
-    });
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: getScrollAmount(),
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -135,26 +151,27 @@ const FeaturedProperty = () => {
         }
       `}</style>
 
-      <section className="bg-white py-16 sm:py-20 lg:py-24 text-[#172554] antialiased">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-white py-12 sm:py-16 md:py-20 lg:py-24 text-[#172554] antialiased overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
           {/* ══════════════════════════════════════════
               HEADER & NAVIGATION CONTROLS
           ══════════════════════════════════════════ */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-10">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
               variants={subtleFadeUp}
-              className="max-w-2xl"
+              className="max-w-2xl min-w-0"
             >
               <PillBadge text="Exclusive Listings" />
 
-              <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-[Cinzel] font-bold tracking-tight text-[#172554] leading-tight">
+              <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-[Cinzel] font-bold tracking-tight
+               text-[#172554] leading-tight break-words">
                 Featured <span className="text-[#2043B0]">Property</span>
               </h2>
 
-              <p className="mt-3 text-base sm:text-lg text-[#4B5563] leading-relaxed">
+              <p className="mt-2 sm:mt-3 text-sm sm:text-base md:text-lg text-[#4B5563] leading-relaxed break-words">
                 Find your suitable house here and stay safe and relax with pleasure
               </p>
             </motion.div>
@@ -166,30 +183,30 @@ const FeaturedProperty = () => {
               viewport={{ once: true, margin: "-40px" }}
               variants={subtleFadeUp}
               custom={0.1}
-              className="flex items-center gap-3 self-start md:self-end"
+              className="flex items-center gap-2.5 sm:gap-3 self-end md:self-end shrink-0"
             >
               <button
                 type="button"
                 onClick={scrollLeft}
                 aria-label="Previous properties"
-                className="h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-[#E5E7EB] bg-white flex items-center justify-center text-[#172554] shadow-xs hover:border-[#2043B0] hover:bg-[#2043B0] hover:text-white transition-all duration-300 active:scale-95 cursor-pointer"
+                className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 rounded-full border border-[#E5E7EB] bg-white flex items-center justify-center text-[#172554] shadow-xs hover:border-[#2043B0] hover:bg-[#2043B0] hover:text-white transition-all duration-300 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/30"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
 
               <button
                 type="button"
                 onClick={scrollRight}
                 aria-label="Next properties"
-                className="h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-[#E5E7EB] bg-white flex items-center justify-center text-[#172554] shadow-xs hover:border-[#2043B0] hover:bg-[#2043B0] hover:text-white transition-all duration-300 active:scale-95 cursor-pointer"
+                className="h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 rounded-full border border-[#E5E7EB] bg-white flex items-center justify-center text-[#172554] shadow-xs hover:border-[#2043B0] hover:bg-[#2043B0] hover:text-white transition-all duration-300 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2043B0]/30"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </motion.div>
           </div>
 
           {/* ══════════════════════════════════════════
-              CATEGORY TABS
+              CATEGORY TABS (Scrollable on small screens)
           ══════════════════════════════════════════ */}
           <motion.div
             initial="hidden"
@@ -197,9 +214,9 @@ const FeaturedProperty = () => {
             viewport={{ once: true, margin: "-40px" }}
             variants={subtleFadeUp}
             custom={0.15}
-            className="mb-8 overflow-x-auto hide-scrollbar"
+            className="mb-6 sm:mb-8 overflow-x-auto hide-scrollbar touch-pan-x -mx-4 px-4 sm:mx-0 sm:px-0"
           >
-            <div className="inline-flex items-center gap-2 rounded-xl border border-blue-100 bg-[#F5F7FF] p-1.5 shadow-xs">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-xl border border-blue-100 bg-[#F5F7FF] p-1 sm:p-1.5 shadow-xs shrink-0">
               {tabs.map((tab) => {
                 const isActive = activeTab === tab;
                 return (
@@ -207,11 +224,10 @@ const FeaturedProperty = () => {
                     key={tab}
                     type="button"
                     onClick={() => handleTabChange(tab)}
-                    className={`rounded-lg px-5 py-2 text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer ${
-                      isActive
+                    className={`rounded-lg px-3.5 sm:px-5 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer select-none ${isActive
                         ? "bg-[#2043B0] text-white shadow-sm shadow-blue-900/20"
                         : "text-[#172554] hover:bg-white hover:text-[#2043B0]"
-                    }`}
+                      }`}
                   >
                     {tab}
                   </button>
@@ -225,7 +241,7 @@ const FeaturedProperty = () => {
           ══════════════════════════════════════════ */}
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth hide-scrollbar py-2 -my-2 px-1 -mx-1"
+            className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth hide-scrollbar snap-x snap-mandatory py-3 -my-3 px-1 -mx-1 touch-pan-x"
           >
             {filteredProperties.map((property, index) => (
               <motion.div
@@ -237,14 +253,16 @@ const FeaturedProperty = () => {
                 custom={index * 0.08}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="w-[300px] sm:w-[340px] md:w-[360px] flex-shrink-0"
+                className="w-[84vw] max-w-[340px] min-w-[260px] sm:min-w-0 sm:w-[340px] md:w-[360px] lg:w-[370px] 
+                xl:w-[380px] flex-shrink-0 snap-start"
               >
                 <Link
                   href={`/properties/${property.slug}`}
-                  className="group block h-full rounded-2xl border border-[#E5E7EB] bg-white p-3.5 sm:p-4 shadow-xs transition-all duration-300 hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20"
+                  className="group block h-full rounded border border-[#E5E7EB] bg-white p-3
+                   sm:p-4 shadow-xs transition-all duration-300 hover:border-blue-300 hover:shadow-md hover:shadow-blue-900/5 focus:outline-none focus:ring-2 focus:ring-[#2043B0]/20"
                 >
                   {/* Property Image Container */}
-                  <div className="relative h-56 sm:h-60 w-full overflow-hidden rounded-xl bg-[#F5F7FF]">
+                  <div className="relative h-48 sm:h-56 md:h-60 w-full overflow-hidden rounded bg-[#F5F7FF]">
                     <img
                       src={property.image}
                       alt={property.title}
@@ -253,39 +271,40 @@ const FeaturedProperty = () => {
                     />
 
                     {/* Category Pill Tag */}
-                    <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-3 py-1 text-xs font-semibold text-[#2043B0] shadow-xs backdrop-blur-sm">
+                    <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-white/95 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold text-[#2043B0] shadow-xs backdrop-blur-xs">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#2043B0]" />
                       <span>{property.category}</span>
                     </div>
                   </div>
 
                   {/* Card Content */}
-                  <div className="pt-4 pb-1">
-                    <h3 className="text-lg sm:text-xl font-[Cinzel] font-bold text-[#172554] transition-colors duration-200 group-hover:text-[#2043B0] line-clamp-1">
+                  <div className="pt-3.5 sm:pt-4 pb-1">
+                    <h3 className="text-base sm:text-lg md:text-xl font-[Cinzel] font-bold text-[#172554]
+                     transition-colors duration-200 group-hover:text-[#2043B0] truncate">
                       {property.title}
                     </h3>
 
-                    <div className="mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-[#4B5563]">
+                    <div className="mt-1.5 sm:mt-2 flex items-center gap-1.5 text-xs sm:text-sm text-[#4B5563]">
                       <MapPin className="h-3.5 w-3.5 text-[#2043B0] shrink-0" />
                       <span className="truncate">{property.location}</span>
                     </div>
 
                     {/* Divider */}
-                    <div className="my-4 border-t border-[#E5E7EB]" />
+                    <div className="my-3 sm:my-4 border-t border-[#E5E7EB]" />
 
                     {/* Footer / Price & Navigation Indicator */}
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#4B5563]">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="min-w-0">
+                        <span className="block text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-[#4B5563]">
                           Price
                         </span>
-                        <span className="text-xl sm:text-2xl font-[Cinzel] font-bold text-[#2043B0]">
+                        <span className="text-lg sm:text-xl md:text-2xl font-[Cinzel] font-bold text-[#2043B0] truncate block">
                           {property.price}
                         </span>
                       </div>
 
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#2043B0] text-white shadow-sm shadow-blue-900/20 transition-all duration-300 group-hover:bg-blue-700 group-hover:translate-x-0.5">
-                        <ArrowRight className="h-5 w-5" />
+                      <div className="flex h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-xl bg-[#2043B0] text-white shadow-sm shadow-blue-900/20 transition-all duration-300 group-hover:bg-blue-700 group-hover:translate-x-0.5">
+                        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                       </div>
                     </div>
                   </div>
