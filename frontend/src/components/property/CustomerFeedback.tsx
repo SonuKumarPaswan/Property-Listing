@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Star } from "lucide-react";
 
 const testimonials = [
@@ -117,9 +118,11 @@ const CustomerFeedback = () => {
 
               {/* Customer Profile Info */}
               <div className="flex items-center gap-3.5 pt-4 border-t border-[#E5E7EB] mt-auto">
-                <img
+                <Image
                   src={item.image}
                   alt={item.name}
+                  width={56}
+                  height={56}
                   className="w-14 h-14 rounded-full object-cover border border-[#E5E7EB] shrink-0"
                 />
 

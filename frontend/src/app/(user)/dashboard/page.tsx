@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 
@@ -54,9 +55,17 @@ const navItems = [
   { id: "settings",   icon: "⚙",  label: "Settings" },
 ];
 
+interface UserProfile {
+  id?: string;
+  username?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("listings");
   const [activeFilter, setActiveFilter] = useState("All");
@@ -231,12 +240,14 @@ export default function DashboardPage() {
             >
              
               <div className="relative h-44 overflow-hidden">
-                <img
+                <Image
                   src={l.img}
                   alt={l.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
 
                 <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border
                   ${l.status === "Sold"

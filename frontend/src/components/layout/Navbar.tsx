@@ -11,7 +11,7 @@ const navLinks = [
     href: "/",
   },
   {
-    label: "About Us",  
+    label: "About Us",
     href: "/about",
   },
   {
@@ -52,7 +52,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
   const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -75,7 +74,6 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);

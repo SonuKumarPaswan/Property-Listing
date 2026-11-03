@@ -43,7 +43,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
       `}</style>
 
-      <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs hover:border-blue-200 hover:shadow-md transition-all duration-300 p-6 sm:p-8 md:p-10 font-sans">
+      <div className="bg-white  border border-[#E5E7EB] shadow-xs hover:border-blue-200 hover:shadow-md transition-all duration-300 p-6 sm:p-8 md:p-10 font-sans">
         {/* Main Property Title */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-[Cinzel] font-bold text-[#172554] tracking-tight leading-tight mb-8 break-words">
           {property?.title || "Premium 3 BHK Apartment"}
@@ -51,7 +51,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
 
         {/* Quick Info Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
-          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded-2xl p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#4B5563]">
                 Bedrooms
@@ -65,7 +65,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
             </p>
           </div>
 
-          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded-2xl p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#4B5563]">
                 Bathrooms
@@ -79,7 +79,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
             </p>
           </div>
 
-          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded-2xl p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#4B5563]">
                 Area
@@ -96,7 +96,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
             </p>
           </div>
 
-          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded-2xl p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+          <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#4B5563]">
                 Parking
@@ -148,7 +148,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs hover:border-blue-200 transition-colors">
+              <div className="bg-[#F5F7FF] border border-[#E5E7EB]  p-6 shadow-xs hover:border-blue-200 transition-colors">
                 <h4 className="text-lg sm:text-xl font-[Cinzel] font-bold text-[#172554] mb-4 flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-[#2043B0]" />
                   Property Highlights
@@ -168,7 +168,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
                 </ul>
               </div>
 
-              <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs hover:border-blue-200 transition-colors">
+              <div className="bg-[#F5F7FF] border border-[#E5E7EB]  p-6 shadow-xs hover:border-blue-200 transition-colors">
                 <h4 className="text-lg sm:text-xl font-[Cinzel] font-bold text-[#172554] mb-4 flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-[#2043B0]" />
                   Nearby Facilities

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 const Page = () => {
   const [wishlist, setWishlist] = useState([
@@ -33,10 +34,13 @@ const Page = () => {
         <div className="grid md:grid-cols-3 gap-6">
           {wishlist.map((item) => (
             <div key={item.id} className="border p-4 rounded-xl shadow">
-              <img
+              <Image
+                unoptimized
                 src={item.image}
                 alt={item.title}
-                className="rounded-lg mb-3"
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover rounded-lg mb-3"
               />
               <h2 className="text-lg font-semibold">{item.title}</h2>
               <p>{item.location}</p>

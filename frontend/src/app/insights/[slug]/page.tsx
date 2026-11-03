@@ -8,8 +8,6 @@ import {
   Clock,
   ArrowLeft,
   ArrowRight,
-  Share2,
-  Bookmark,
   CheckCircle2,
   Quote,
   Building2,

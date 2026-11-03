@@ -3,8 +3,43 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, X } from "lucide-react";
 
-const Sidebar = ({ property }: { property: any }) => {
+interface PropertyLocation {
+  address?: string;
+  city?: string;
+  state?: string;
+}
+
+interface SidebarProperty {
+  price?: number;
+  listingType?: string;
+  title?: string;
+  location?: PropertyLocation | string;
+  [key: string]: unknown;
+}
+
+interface SidebarProps {
+  property?: SidebarProperty | null;
+}
+
+const Sidebar = ({ property }: SidebarProps) => {
   const [open, setOpen] = useState(false);
+
+  const locationAddress =
+    typeof property?.location === "object" && property?.location !== null
+      ? property.location.address
+      : typeof property?.location === "string"
+      ? property.location
+      : "Sector 63, Noida";
+
+  const locationCity =
+    typeof property?.location === "object" && property?.location !== null
+      ? property.location.city
+      : "";
+
+  const locationState =
+    typeof property?.location === "object" && property?.location !== null
+      ? property.location.state
+      : "";
 
   return (
     <>
@@ -13,7 +48,8 @@ const Sidebar = ({ property }: { property: any }) => {
       `}</style>
 
       {/* Main Sidebar Card */}
-      <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs hover:border-blue-200 hover:shadow-md transition-all duration-300 p-6 sm:p-7 sticky top-20 font-sans">
+      <div className="bg-white rounded border border-[#E5E7EB] shadow-xs hover:border-blue-200
+       hover:shadow-md transition-all duration-300 p-6 sm:p-7 sticky top-20 font-sans">
         {/* Price Section */}
         <div className="mb-5 pb-5 border-b border-[#E5E7EB]">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#4B5563] block mb-1">
@@ -42,22 +78,28 @@ const Sidebar = ({ property }: { property: any }) => {
         <div className="p-4 rounded-xl bg-[#F5F7FF] border border-[#E5E7EB] space-y-4 mb-6">
           {/* Location */}
           <div className="flex items-start gap-3">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-[#2043B0] mt-0.5">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100
+             text-[#2043B0] mt-0.5">
               <MapPin size={16} />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-semibold text-sm text-[#172554] break-words">
-                {property?.location?.address || "Sector 63, Noida"}
+                {locationAddress || "Sector 63, Noida"}
               </p>
-              <p className="text-xs text-[#4B5563] mt-0.5">
-                {property?.location?.city}, {property?.location?.state}
-              </p>
+              {(locationCity || locationState) && (
+                <p className="text-xs text-[#4B5563] mt-0.5">
+                  {locationCity && locationState
+                    ? `${locationCity}, ${locationState}`
+                    : locationCity || locationState}
+                </p>
+              )}
             </div>
           </div>
 
           {/* Phone */}
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-[#2043B0]">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
+             bg-blue-100 text-[#2043B0]">
               <Phone size={16} />
             </div>
             <span className="font-semibold text-sm text-[#172554]">

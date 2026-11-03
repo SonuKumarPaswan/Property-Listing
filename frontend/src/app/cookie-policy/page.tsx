@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 // ─── Reveal on scroll ─────────────────────────────────────────────────────────
-function useInView(ref: React.RefObject<HTMLElement>) {
+function useInView(ref: React.RefObject<HTMLElement | null>) {
     const [inView, setInView] = useState(false);
     useEffect(() => {
         const el = ref.current;
@@ -14,7 +14,7 @@ function useInView(ref: React.RefObject<HTMLElement>) {
         );
         obs.observe(el);
         return () => obs.disconnect();
-    }, []);
+    }, [ref]);
     return inView;
 }
 
@@ -131,17 +131,13 @@ export default function CookiePolicyPage() {
                 ══════════════════════════════════════════ */}
                 <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-white to-white px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 text-center">
                     {/* Subtle ambient decorative shapes */}
-                    <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[260px] sm:h-[360px] w-[90%]
-                     max-w-[650px] rounded-full bg-[#2043B0]/5 blur-2xl sm:blur-3xl" />
-                    <div className="pointer-events-none absolute right-[5%] sm:right-[10%] top-20 h-36 w-36 sm:h-48 sm:w-48 
-                    rounded-full bg-blue-100/50 blur-xl sm:blur-2xl" />
+                    <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[260px] sm:h-[360px] w-[90%] max-w-[650px] rounded-full bg-[#2043B0]/5 blur-2xl sm:blur-3xl" />
+                    <div className="pointer-events-none absolute right-[5%] sm:right-[10%] top-20 h-36 w-36 sm:h-48 sm:w-48 rounded-full bg-blue-100/50 blur-xl sm:blur-2xl" />
 
                     <div className="relative z-10 max-w-4xl mx-auto">
                         {/* Pill badge */}
                         <div style={heroStyle(0)} className="mb-5 sm:mb-6 flex justify-center">
-                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200
-                             bg-[#F5F7FF] px-3.5 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold 
-                             uppercase tracking-wider text-[#2043B0] shadow-xs">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-3.5 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0] shadow-xs">
                                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
                                 <span>🍪 Data Privacy & Transparency · Effective April 2, 2026</span>
                             </div>
@@ -168,7 +164,7 @@ export default function CookiePolicyPage() {
                                 { v: "24hr", label: "Opt-out SLA" },
                             ].map((s) => (
                                 <div key={s.label}
-                                    className="card-lift flex flex-col items-center justify-center p-4 sm:p-5 rounded border border-[#E5E7EB] bg-white shadow-xs">
+                                    className="card-lift flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl border border-[#E5E7EB] bg-white shadow-xs">
                                     <span className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#2043B0]">
                                         {s.v}
                                     </span>
@@ -199,7 +195,7 @@ export default function CookiePolicyPage() {
                         <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
                             {sections.map((s, i) => (
                                 <Reveal key={s.num} delay={i * 80}>
-                                    <div className="card-lift h-full flex flex-col  border border-[#E5E7EB] bg-white p-6 sm:p-7 shadow-xs">
+                                    <div className="card-lift h-full flex flex-col rounded-2xl border border-[#E5E7EB] bg-white p-6 sm:p-7 shadow-xs">
                                         {/* Card Header */}
                                         <div className="flex items-center gap-3.5 pb-4 border-b border-[#E5E7EB]">
                                             <div className="w-10 h-10 rounded-xl bg-[#F5F7FF] border border-blue-100 flex items-center justify-center text-lg flex-shrink-0">
@@ -247,7 +243,7 @@ export default function CookiePolicyPage() {
                         </Reveal>
 
                         <Reveal delay={100}>
-                            <div className="rounded border border-[#E5E7EB] bg-white shadow-sm overflow-hidden">
+                            <div className="rounded-2xl border border-[#E5E7EB] bg-white shadow-sm overflow-hidden">
                                 {cookieTypes.map((ct, i) => (
                                     <div key={ct.label}
                                         className={`flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 ${i < cookieTypes.length - 1 ? "border-b border-[#E5E7EB]" : ""}`}>
@@ -315,9 +311,7 @@ export default function CookiePolicyPage() {
                 <section className="relative px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-white border-t border-[#E5E7EB]">
                     <div className="max-w-6xl mx-auto">
                         <Reveal className="text-center mb-10 sm:mb-12">
-                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200
-                             bg-[#F5F7FF] px-3.5 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider
-                              text-[#2043B0] mb-3">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-3.5 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0] mb-3">
                                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2043B0]" />
                                 <span>Data Rights</span>
                             </div>
@@ -329,7 +323,7 @@ export default function CookiePolicyPage() {
                         <div className="grid sm:grid-cols-3 gap-5 sm:gap-6">
                             {rights.map((r, i) => (
                                 <Reveal key={r.title} delay={i * 90}>
-                                    <div className="card-lift h-full  border border-[#E5E7EB] bg-white p-6 sm:p-7 text-center shadow-xs">
+                                    <div className="card-lift h-full rounded-2xl border border-[#E5E7EB] bg-white p-6 sm:p-7 text-center shadow-xs">
                                         <div className="mx-auto w-12 h-12 rounded-xl bg-[#F5F7FF] border border-blue-100 flex items-center justify-center text-2xl mb-4">
                                             {r.icon}
                                         </div>
@@ -352,8 +346,11 @@ export default function CookiePolicyPage() {
                 <section className="relative px-4 sm:px-6 lg:px-8 pb-20 sm:pb-24 bg-white">
                     <div className="max-w-6xl mx-auto">
                         <Reveal>
-                            <div className="relative  overflow-hidden border border-blue-200 bg-gradient-to-br from-[#F5F7FF] via-white to-blue-50/50 p-6 sm:p-10 shadow-xs">
+                            <div className="relative rounded-2xl overflow-hidden border border-blue-200 bg-gradient-to-br from-[#F5F7FF] via-white to-blue-50/50 p-6 sm:p-10 shadow-xs">
                                 <div className="pointer-events-none absolute -right-20 -bottom-20 w-64 h-64 rounded-full bg-blue-100/40 blur-3xl" />
+                                <div className="pointer-events-none absolute right-4 bottom-4 opacity-10">
+                                    <CookieSVG size={80} />
+                                </div>
 
                                 <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
                                     <div className="flex-1 text-center sm:text-left">

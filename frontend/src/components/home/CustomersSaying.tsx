@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 
@@ -182,9 +183,11 @@ export default function CustomersSaying() {
 
                       {/* User */}
                       <div className="flex items-center gap-4">
-                        <img
+                        <Image
                           src={item.image}
                           alt={item.name}
+                          width={64}
+                          height={64}
                           className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-blue-200/80 shadow-xs"
                         />
 

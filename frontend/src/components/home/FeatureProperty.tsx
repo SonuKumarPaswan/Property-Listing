@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, MapPin, ArrowRight } from "lucide-react";
 
@@ -44,8 +45,8 @@ const FeaturedProperty = () => {
       title: "Luxury Apartment",
       slug: "luxury-apartment",
       category: "Apartments",
-      location: "Cleveland, United States",
-      price: "₹2,12,120",
+      location: "Sector 150, Noida, Uttar Pradesh",
+      price: "₹60,000",
       image:
         "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.35_PM_2.jpg",
     },
@@ -53,8 +54,8 @@ const FeaturedProperty = () => {
       title: "Green Apartment",
       slug: "green-apartment",
       category: "Apartments",
-      location: "Cleveland, United States",
-      price: "₹2,32,120",
+      location: "Sector 16B, Greater Noida West, Uttar Pradesh",
+      price: "₹55,000",
       image:
         "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076257/WhatsApp_Image_2026-10-26_at_5.48.21_PM_1.jpg",
     },
@@ -62,8 +63,8 @@ const FeaturedProperty = () => {
       title: "Modern Villa",
       slug: "modern-villa",
       category: "Villas",
-      location: "Miami, United States",
-      price: "₹4,62,120",
+      location: "Sector 150, Noida, Uttar Pradesh",
+      price: "₹60,000",
       image:
         "https://reanty.themes-studio.com/assets/img/feature/feature-img4.jpg",
     },
@@ -71,8 +72,8 @@ const FeaturedProperty = () => {
       title: "Luxury Villa",
       slug: "luxury-villa",
       category: "Villas",
-      location: "Los Angeles, United States",
-      price: "₹5,12,120",
+      location: "Sector Omega 1, Greater Noida, Uttar Pradesh",
+      price: "₹58,000",
       image:
         "https://reanty.themes-studio.com/assets/img/feature/feature-img1.jpg",
     },
@@ -80,8 +81,8 @@ const FeaturedProperty = () => {
       title: "Premium Land",
       slug: "premium-land",
       category: "Lands",
-      location: "Texas, United States",
-      price: "₹1,82,120",
+      location: "Sector 150, Noida, Uttar Pradesh",
+      price: "₹52,000",
       image:
         "https://reanty.themes-studio.com/assets/img/feature/feature-img3.jpg",
     },
@@ -89,12 +90,14 @@ const FeaturedProperty = () => {
       title: "Investment Land",
       slug: "investment-land",
       category: "Lands",
-      location: "Arizona, United States",
-      price: "₹2,42,120",
+      location: "Yamuna Expressway, Greater Noida, Uttar Pradesh",
+      price: "₹50,000",
       image:
         "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076258/WhatsApp_Image_2026-10-26_at_5.48.27_PM_2.jpg",
     },
   ];
+
+
 
   const filteredProperties =
     activeTab === "All"
@@ -225,8 +228,8 @@ const FeaturedProperty = () => {
                     type="button"
                     onClick={() => handleTabChange(tab)}
                     className={`rounded-lg px-3.5 sm:px-5 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer select-none ${isActive
-                        ? "bg-[#2043B0] text-white shadow-sm shadow-blue-900/20"
-                        : "text-[#172554] hover:bg-white hover:text-[#2043B0]"
+                      ? "bg-[#2043B0] text-white shadow-sm shadow-blue-900/20"
+                      : "text-[#172554] hover:bg-white hover:text-[#2043B0]"
                       }`}
                   >
                     {tab}
@@ -263,11 +266,12 @@ const FeaturedProperty = () => {
                 >
                   {/* Property Image Container */}
                   <div className="relative h-48 sm:h-56 md:h-60 w-full overflow-hidden rounded bg-[#F5F7FF]">
-                    <img
+                    <Image
                       src={property.image}
                       alt={property.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                     />
 
                     {/* Category Pill Tag */}

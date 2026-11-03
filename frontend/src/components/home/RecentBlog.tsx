@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 const blogs = [
   {
@@ -62,11 +63,15 @@ const RecentBlog = () => {
               key={blog.id}
               className="bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300"
             >
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="w-full h-64 object-cover"
-              />
+              <div className="relative w-full h-64 overflow-hidden">
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
 
               <div className="p-5">
                 <h3 className="text-2xl font-semibold text-slate-900 mb-4">
