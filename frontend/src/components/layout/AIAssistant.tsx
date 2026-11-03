@@ -39,6 +39,7 @@ const AIAssistant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messageIdCounter = useRef(0);
 
   // Auto-scroll to bottom of messages container
   useEffect(() => {
@@ -51,8 +52,9 @@ const AIAssistant: React.FC = () => {
     const query = (textToSend || input).trim();
     if (!query) return;
 
+    messageIdCounter.current += 1;
     const userMessage: Message = {
-      id: `user-${Date.now()}`,
+      id: `user-${messageIdCounter.current}`,
       sender: "user",
       text: query,
       time: "Just now",
@@ -79,8 +81,9 @@ const AIAssistant: React.FC = () => {
         reply = "You can connect with our verified property advisors via our Contact page or call our helpdesk anytime.";
       }
 
+      messageIdCounter.current += 1;
       const aiReply: Message = {
-        id: `ai-${Date.now()}`,
+        id: `ai-${messageIdCounter.current}`,
         sender: "ai",
         text: reply,
         time: "Just now",

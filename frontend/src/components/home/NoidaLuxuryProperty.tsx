@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, MapPin, ArrowRight } from "lucide-react";
 
@@ -39,7 +40,7 @@ const properties = [
     title: "Luxury Office Space",
     slug: "luxury-office-space",
     location: "Sector 62, Noida",
-    price: "₹ 1.25 Cr",
+    price: "₹50,000",
     image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
   },
   {
@@ -47,7 +48,7 @@ const properties = [
     title: "Premium Commercial Hub",
     slug: "premium-commercial-hub",
     location: "Sector 18, Noida",
-    price: "₹ 2.10 Cr",
+    price: "₹60,000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076252/WhatsApp_Image_2026-10-26_at_5.43.04_PM.jpg",
   },
   {
@@ -55,7 +56,7 @@ const properties = [
     title: "Corporate Business Center",
     slug: "corporate-business-center",
     location: "Noida Extension",
-    price: "₹ 95 Lakh",
+    price: "₹55,000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076250/WhatsApp_Image_2026-10-26_at_5.40.08_PM.jpg",
   },
   {
@@ -63,7 +64,7 @@ const properties = [
     title: "Business Tower",
     slug: "business-tower",
     location: "Sector 137, Noida",
-    price: "₹ 1.50 Cr",
+    price: "₹54,000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076255/WhatsApp_Image_2026-10-26_at_5.46.49_PM_1.jpg",
   },
   {
@@ -71,7 +72,7 @@ const properties = [
     title: "Skyline Corporate Plaza",
     slug: "skyline-corporate-plaza",
     location: "Sector 142, Noida",
-    price: "₹ 1.85 Cr",
+    price: "₹70,000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076251/WhatsApp_Image_2026-10-26_at_5.42.03_PM.jpg",
   },
 ];
@@ -79,7 +80,7 @@ const properties = [
 const NoidaLuxuryProperty = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scrollLeft = () => {
+  const scrollLeft =() => {
     scrollRef.current?.scrollBy({
       left: -380,
       behavior: "smooth",
@@ -184,11 +185,12 @@ const NoidaLuxuryProperty = () => {
                 >
                   {/* Property Image Container */}
                   <div className="relative h-56 sm:h-60 w-full overflow-hidden rounded bg-[#F5F7FF]">
-                    <img
+                    <Image
                       src={property.image}
                       alt={property.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 640px) 300px, 360px"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                     />
 
                     {/* Tag Badge */}

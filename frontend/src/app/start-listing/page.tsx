@@ -49,7 +49,7 @@ export default function CreateProperty() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Property Data:', formData);
+    console.log('Property Data:', formData, images);
     try {
         const res = await api.post('/office/', formData);
         console.log('Server Response:', res.data);

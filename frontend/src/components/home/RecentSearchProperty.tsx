@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, MapPin, ArrowRight } from "lucide-react";
 
@@ -183,11 +184,12 @@ const RecentSearchProperty = () => {
                    hover:border-blue-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     {/* Image Wrapper */}
                     <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-blue-50/50">
-                      <img
+                      <Image
                         src={property.image}
                         alt={property.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 640px) 290px, 360px"
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                       />
                     </div>
 

@@ -25,7 +25,8 @@ const Page = async ({ params }: PageProps) => {
       <SharedPropertyListings
         mode="sale"
         title="Properties for Sale"
-        description="Explore verified residential flats, luxury villas, commercial spaces, and plots available for purchase across India."
+        description="Explore verified residential flats, luxury villas, commercial spaces, and
+        plots available for purchase across India."
       />
     );
   }

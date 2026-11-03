@@ -20,20 +20,19 @@ interface SectionDef {
 // ─── Primitives ───────────────────────────────────────────────────────────────
 
 const Note: React.FC<{ children: React.ReactNode; warn?: boolean }> = ({ children, warn }) => (
-    <div className={`relative my-5 rounded-xl border px-5 py-4 text-sm leading-relaxed ${
-        warn ? "border-amber-500/25 bg-amber-500/[0.08] text-amber-200/80"
-             : "border-blue-500/20 bg-blue-500/[0.07] text-blue-300"
-    }`}>
-        <AlertTriangle size={13} className={`absolute right-4 top-4 ${warn ? "text-amber-400/50" : "text-blue-500/50"}`} />
-        {children}
+    <div className={`relative my-5 rounded-xl border px-5 py-4 text-xs sm:text-sm leading-relaxed ${warn ? "border-amber-200 bg-amber-50 text-amber-900"
+            : "border-blue-200 bg-[#F5F7FF] text-[#172554]"
+        }`}>
+        <AlertTriangle size={14} className={`absolute right-4 top-4 ${warn ? "text-amber-500" : "text-[#2043B0]"}`} />
+        <div className="pr-6">{children}</div>
     </div>
 );
 
 const Bullets: React.FC<{ items: string[] }> = ({ items }) => (
-    <ul className="mt-3 space-y-2">
+    <ul className="mt-3 mb-4 space-y-2">
         {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-slate-400 text-[14px] leading-relaxed">
-                <ChevronRight size={13} className="mt-0.5 flex-shrink-0 text-blue-500" />
+            <li key={i} className="flex items-start gap-2.5 text-[#4B5563] text-sm leading-relaxed">
+                <ChevronRight size={14} className="mt-0.5 flex-shrink-0 text-[#2043B0]" />
                 <span>{item}</span>
             </li>
         ))}
@@ -41,7 +40,7 @@ const Bullets: React.FC<{ items: string[] }> = ({ items }) => (
 );
 
 const P: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <p className="text-slate-400 text-[14.5px] leading-[1.85] mb-4 last:mb-0">{children}</p>
+    <p className="text-[#4B5563] text-sm sm:text-[14.5px] leading-relaxed mb-4 last:mb-0">{children}</p>
 );
 
 // ─── Section content factory ──────────────────────────────────────────────────
@@ -52,8 +51,8 @@ function buildSections(): SectionDef[] {
             id: "introduction", label: "Introduction", icon: <Home size={15} />,
             content: (
                 <>
-                    <P>Welcome to <strong className="text-white font-semibold">MishtiSpaces.com</strong> — a premium <em>real estate platform</em> built to transform the way people discover, evaluate, and transact in property across India. Whether you intend to <em>buy, sell, or rent property</em>, MishtiSpaces.com provides a secure, transparent, and technology-first environment.</P>
-                    <P>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User") and MishtiSpaces.com ("Company", "we", "us", or "our"), governing your access to and use of the Platform.</P>
+                    <P>Welcome to <strong className="text-[#172554] font-semibold">MishtiSpaces.com</strong> — a premium <em>real estate platform</em> built to transform the way people discover, evaluate, and transact in property across India. Whether you intend to <em>buy, sell, or rent property</em>, MishtiSpaces.com provides a secure, transparent, and technology-first environment.</P>
+                    <P>These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;User&quot;) and MishtiSpaces.com (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;), governing your access to and use of the Platform.</P>
                     <Note>By accessing any part of this Platform — even without creating an account — you confirm that you have read, understood, and agreed to these Terms in their entirety. If you disagree with any provision, please discontinue use immediately.</Note>
                     <P>MishtiSpaces.com serves as a neutral digital marketplace connecting buyers, sellers, landlords, tenants, and registered agents. We do not directly own, manage, or sell any property featured herein.</P>
                 </>
@@ -140,7 +139,7 @@ function buildSections(): SectionDef[] {
             content: (
                 <>
                     <P>The following activities are strictly prohibited and may result in immediate account termination, civil action, or referral to law enforcement:</P>
-                    <div className="grid sm:grid-cols-2 gap-2 mt-4">
+                    <div className="grid sm:grid-cols-2 gap-2.5 mt-4">
                         {[
                             "Posting false, misleading, or duplicate property listings.",
                             "Impersonating any person, agent, builder, or authority.",
@@ -153,9 +152,9 @@ function buildSections(): SectionDef[] {
                             "Circumventing subscription paywalls or security mechanisms.",
                             "Publishing defamatory, discriminatory, or obscene content.",
                         ].map((item, i) => (
-                            <div key={i} className="flex items-start gap-2 bg-red-500/[0.06] border border-red-500/10 rounded-lg px-3 py-2.5">
-                                <Ban size={11} className="mt-0.5 flex-shrink-0 text-red-400/70" />
-                                <span className="text-red-300/70 text-xs leading-relaxed">{item}</span>
+                            <div key={i} className="flex items-start gap-2.5 bg-red-50/70 border border-red-100 rounded-xl px-3.5 py-3">
+                                <Ban size={13} className="mt-0.5 flex-shrink-0 text-red-500" />
+                                <span className="text-red-900/90 text-xs sm:text-[13px] leading-relaxed">{item}</span>
                             </div>
                         ))}
                     </div>
@@ -188,7 +187,7 @@ function buildSections(): SectionDef[] {
             content: (
                 <>
                     <P>MishtiSpaces.com may integrate or link to third-party services — including mapping tools, mortgage calculators, legal advisory portals, and payment gateways — to enhance your experience on our real estate platform. These are provided for convenience only.</P>
-                    <P>We do not control, endorse, or assume responsibility for the content, privacy practices, or security of any third-party service. Your use of any linked external platform is entirely at your own risk and is governed by that platform's own terms and policies.</P>
+                    <P>We do not control, endorse, or assume responsibility for the content, privacy practices, or security of any third-party service. Your use of any linked external platform is entirely at your own risk and is governed by that platform&apos;s own terms and policies.</P>
                     <P>MishtiSpaces.com shall not be liable for any loss, damage, or inconvenience arising from your reliance on or interaction with third-party tools or services accessed through the Platform.</P>
                 </>
             ),
@@ -205,7 +204,7 @@ function buildSections(): SectionDef[] {
                         "Unauthorised access to your account or personal data.",
                         "Interruptions, downtime, or technical failures on the Platform.",
                     ]} />
-                    <Note>In no event shall MishtiSpaces.com's total aggregate liability to you exceed the amount paid by you to the Company in the twelve (12) months preceding the event giving rise to the claim.</Note>
+                    <Note>In no event shall MishtiSpaces.com&apos;s total aggregate liability to you exceed the amount paid by you to the Company in the twelve (12) months preceding the event giving rise to the claim.</Note>
                 </>
             ),
         },
@@ -223,7 +222,7 @@ function buildSections(): SectionDef[] {
             id: "termination", label: "Termination", icon: <PowerOff size={15} />,
             content: (
                 <>
-                    <P>MishtiSpaces.com reserves the right to suspend, restrict, or permanently terminate your access to the Platform at any time, with or without prior notice, for reasons including breach of these Terms, fraudulent activity, or conduct deemed harmful to other users or the Platform's integrity.</P>
+                    <P>MishtiSpaces.com reserves the right to suspend, restrict, or permanently terminate your access to the Platform at any time, with or without prior notice, for reasons including breach of these Terms, fraudulent activity, or conduct deemed harmful to other users or the Platform&apos;s integrity.</P>
                     <P>You may terminate your account at any time by using the account deletion option in your profile settings or by writing to support@mishtSpaces.com. Upon termination, your right to access the Platform ceases immediately.</P>
                     <P>Provisions that by their nature survive termination — including intellectual property rights, limitation of liability, dispute resolution, and governing law — shall remain in full force after your account is closed.</P>
                 </>
@@ -234,7 +233,7 @@ function buildSections(): SectionDef[] {
             content: (
                 <>
                     <P>MishtiSpaces.com may revise these Terms from time to time to reflect changes in our services, applicable laws, or operational requirements. We will notify registered users of material changes via email and through a prominent in-Platform notice.</P>
-                    <P>The "Last Updated" date at the top of this page reflects the most recent revision. Minor clarifications may be made without separate notification.</P>
+                    <P>The &quot;Last Updated&quot; date at the top of this page reflects the most recent revision. Minor clarifications may be made without separate notification.</P>
                     <Note>Your continued use of MishtiSpaces.com after any revised Terms take effect constitutes your binding acceptance of the updated agreement. If you do not agree with a revision, you must discontinue use immediately.</Note>
                 </>
             ),
@@ -243,7 +242,7 @@ function buildSections(): SectionDef[] {
             id: "governing", label: "Governing Law", icon: <Gavel size={15} />,
             content: (
                 <>
-                    <P>These Terms shall be governed by, and construed in accordance with, the laws of the Republic of India. Any dispute arising out of or in connection with these Terms or your use of MishtiSpaces.com shall be subject to the exclusive jurisdiction of the courts of <strong className="text-white">New Delhi, India</strong>.</P>
+                    <P>These Terms shall be governed by, and construed in accordance with, the laws of the Republic of India. Any dispute arising out of or in connection with these Terms or your use of MishtiSpaces.com shall be subject to the exclusive jurisdiction of the courts of <strong className="text-[#172554]">New Delhi, India</strong>.</P>
                     <P>In the event of a dispute, both parties agree to first attempt resolution through good-faith negotiation within thirty (30) calendar days. If unsuccessful, disputes shall be resolved through binding arbitration under the Arbitration and Conciliation Act, 1996, conducted in English in New Delhi.</P>
                     <P>Nothing herein prevents MishtiSpaces.com from seeking injunctive or equitable relief from a court of competent jurisdiction to protect intellectual property rights or prevent imminent irreparable harm.</P>
                 </>
@@ -261,15 +260,16 @@ function buildSections(): SectionDef[] {
                             { role: "Account Support", email: "support@mishtSpaces.com" },
                             { role: "Security Reports", email: "security@mishtSpaces.com" },
                         ].map((c) => (
-                            <div key={c.role} className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 hover:border-blue-500/25 transition-colors">
-                                <p className="text-[10px] uppercase tracking-widest text-white/25 mb-1">{c.role}</p>
-                                <p className="text-sm text-blue-400 font-medium">{c.email}</p>
+                            <div key={c.role} className="rounded-xl border border-[#E5E7EB] bg-[#F5F7FF]/60 px-4 py-3
+                             hover:border-blue-300 hover:bg-[#F5F7FF] transition-all">
+                                <p className="text-[10px] uppercase tracking-widest text-[#4B5563] font-semibold mb-1">{c.role}</p>
+                                <p className="text-sm text-[#2043B0] font-semibold">{c.email}</p>
                             </div>
                         ))}
                     </div>
-                    <div className="mt-3 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3">
-                        <p className="text-[10px] uppercase tracking-widest text-white/25 mb-1">Registered Office</p>
-                        <p className="text-sm text-slate-400">MishtiSpaces.com , Basement B-07, AGS Building, C-27 Sector-63, Noida, 201301, India.</p>
+                    <div className="mt-3 rounded-xl border border-[#E5E7EB] bg-[#F5F7FF]/60 px-4 py-3">
+                        <p className="text-[10px] uppercase tracking-widest text-[#4B5563] font-semibold mb-1">Registered Office</p>
+                        <p className="text-sm text-[#4B5563]">MishtiSpaces.com , Basement B-07, AGS Building, C-27 Sector-63, Noida, 201301, India.</p>
                     </div>
                 </>
             ),
@@ -281,33 +281,18 @@ function buildSections(): SectionDef[] {
 // Animates when the active section label changes
 
 const DynamicHeading: React.FC<{ label: string; icon: React.ReactNode }> = ({ label, icon }) => {
-    const [displayLabel, setDisplayLabel] = useState(label);
-    const [displayIcon, setDisplayIcon] = useState(icon);
-    const [animKey, setAnimKey] = useState(0);
-
-    useEffect(() => {
-        // Trigger exit → update → enter animation
-        setAnimKey((k) => k + 1);
-        // Small delay so the exit animation plays before the content swaps
-        const t = setTimeout(() => {
-            setDisplayLabel(label);
-            setDisplayIcon(icon);
-        }, 120);
-        return () => clearTimeout(t);
-    }, [label, icon]);
-
     return (
         <div className="overflow-hidden">
             <div
-                key={animKey}
+                key={label}
                 style={{ animation: "headingEnter 0.28s cubic-bezier(.22,1,.36,1) forwards" }}
-                className="flex items-center gap-3"
+                className="flex items-center gap-3 min-w-0"
             >
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/15 text-blue-400 border border-blue-500/20 flex-shrink-0">
-                    {displayIcon}
+                <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-[#F5F7FF] text-[#2043B0] border border-blue-100 flex-shrink-0">
+                    {icon}
                 </span>
-                <h2 className="text-xl font-bold text-white truncate" style={{ fontFamily: "'Syne', sans-serif" }}>
-                    {displayLabel}
+                <h2 className="text-base sm:text-lg font-[Cinzel] font-bold text-[#172554] truncate">
+                    {label}
                 </h2>
             </div>
         </div>
@@ -324,16 +309,26 @@ const SectionCard: React.FC<{ section: SectionDef; observerRef: (el: HTMLDivElem
         id={section.id}
         data-section-id={section.id}
         ref={observerRef}
-        className="mb-4 group relative rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-sm overflow-hidden hover:border-blue-500/25 hover:bg-white/[0.04] transition-all duration-300"
+        className="mb-6  border border-[#E5E7EB] bg-white p-6 sm:p-8 shadow-xs hover:border-blue-300 hover:shadow-md 
+        transition-all duration-300"
     >
-        {/* Hover glow line */}
-        <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        {/* Section label pill */}
-        <div className="flex items-center gap-2 px-6 pt-5 pb-3 border-b border-white/[0.05]">
-            <span className="text-blue-400/70">{section.icon}</span>
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-white/30">{section.label}</span>
+        {/* Section label strip */}
+        <div className="flex items-center justify-between gap-3 pb-4 mb-4 border-b border-[#E5E7EB]">
+            <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#F5F7FF] border border-blue-100 flex items-center 
+                justify-center text-[#2043B0] flex-shrink-0">
+                    {section.icon}
+                </div>
+                <h3 className="font-[Cinzel] font-bold text-base sm:text-lg text-[#172554]">
+                    {section.label}
+                </h3>
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#2043B0] bg-blue-50 border
+             border-blue-200 px-2.5 py-1 rounded-full shrink-0">
+                {section.id}
+            </span>
         </div>
-        <div className="px-6 py-5">{section.content}</div>
+        <div>{section.content}</div>
     </div>
 );
 
@@ -346,15 +341,13 @@ export default function TermsOfServicePage() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const sectionEls = useRef<Map<string, HTMLDivElement>>(new Map());
 
-    // ── IntersectionObserver — scoped to the right scroll pane ────────────────
+    // ── IntersectionObserver — handles both page scroll and container scroll ──
     useEffect(() => {
         const container = scrollContainerRef.current;
-        if (!container) return;
+        const isScrollable = Boolean(container && container.scrollHeight > container.clientHeight + 50);
 
-        // rootMargin: trigger when a section enters the top 40% of the pane
         const observer = new IntersectionObserver(
             (entries) => {
-                // Find the topmost intersecting section
                 const visible = entries
                     .filter((e) => e.isIntersecting)
                     .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -363,7 +356,11 @@ export default function TermsOfServicePage() {
                     if (id) setActiveId(id);
                 }
             },
-            { root: container, rootMargin: "-10% 0px -55% 0px", threshold: 0 }
+            {
+                root: isScrollable ? container : null,
+                rootMargin: isScrollable ? "-10% 0px -55% 0px" : "-15% 0px -55% 0px",
+                threshold: 0,
+            }
         );
 
         sectionEls.current.forEach((el) => observer.observe(el));
@@ -379,14 +376,23 @@ export default function TermsOfServicePage() {
         []
     );
 
-    // Scroll section into view inside the pane
+    // Scroll section into view
     const scrollTo = useCallback((id: string) => {
         const el = sectionEls.current.get(id);
-        if (el && scrollContainerRef.current) {
-            scrollContainerRef.current.scrollTo({
-                top: el.offsetTop - 16,
-                behavior: "smooth",
-            });
+        if (el) {
+            const container = scrollContainerRef.current;
+            const isScrollable = Boolean(container && container.scrollHeight > container.clientHeight + 50);
+
+            if (isScrollable && container) {
+                container.scrollTo({
+                    top: el.offsetTop - 16,
+                    behavior: "smooth",
+                });
+            } else {
+                const yOffset = -110; // Clearance for navbar & sticky header
+                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: "smooth" });
+            }
         }
         setMobileOpen(false);
     }, []);
@@ -397,220 +403,225 @@ export default function TermsOfServicePage() {
     return (
         <>
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600&display=swap');
-        *, body { font-family: 'Manrope', sans-serif; }
-        :root { color-scheme: dark; }
-
-        /* Scoped scrollbar for the right pane */
-        .right-pane::-webkit-scrollbar { width: 4px; }
-        .right-pane::-webkit-scrollbar-track { background: transparent; }
-        .right-pane::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 6px; }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
 
         /* Sidebar scrollbar */
-        .sidebar-nav::-webkit-scrollbar { width: 3px; }
+        .sidebar-nav::-webkit-scrollbar { width: 4px; }
         .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
-        .sidebar-nav::-webkit-scrollbar-thumb { background: #1e2d40; border-radius: 6px; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
 
         /* Dynamic heading entrance animation */
         @keyframes headingEnter {
-          from { opacity: 0; transform: translateY(8px); }
+          from { opacity: 0; transform: translateY(6px); }
           to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Subtle grid bg */
-        .grid-bg {
-          background-image:
-            linear-gradient(rgba(59,130,246,0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59,130,246,0.025) 1px, transparent 1px);
-          background-size: 50px 50px;
         }
       `}</style>
 
-            {/* ── Root: full viewport, no page-level scroll ─────────────────── */}
-            <div className="h-screen flex flex-col bg-[#061A2D] grid-bg text-white overflow-hidden">
+            <main className="min-h-screen bg-white text-[#172554] antialiased selection:bg-[#2043B0] selection:text-white">
 
-                {/* Ambient glows */}
-                <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-                    <div className="absolute -top-48 -left-48 w-[600px] h-[600px] rounded-full bg-blue-600/[0.055] blur-[110px]" />
-                    <div className="absolute top-[40%] -right-64 w-[450px] h-[450px] rounded-full bg-cyan-800/[0.07] blur-[130px]" />
-                    <div className="absolute bottom-20 left-1/3 w-[320px] h-[320px] rounded-full bg-blue-800/[0.04] blur-[90px]" />
-                </div>
+                {/* ══════════════════════════════════════════
+                    1 · HERO / INTRODUCTION SECTION
+                ══════════════════════════════════════════ */}
+                <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-white to-white px-4 sm:px-6 lg:px-8 pt-28 pb-12 sm:pt-36 sm:pb-16 md:pt-40 md:pb-20 text-center border-b border-[#E5E7EB]">
+                    {/* Subtle ambient decorative shapes */}
+                    <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 h-[260px] sm:h-[360px] w-[90%] max-w-[650px] rounded-full bg-[#2043B0]/5 blur-2xl sm:blur-3xl" />
+                    <div className="pointer-events-none absolute right-[5%] sm:right-[10%] top-20 h-36 w-36 sm:h-48 sm:w-48 rounded-full bg-blue-100/50 blur-xl sm:blur-2xl" />
 
-              
-              
+                    <div className="relative z-10 max-w-4xl mx-auto">
+                        {/* Legal document pill badge */}
+                        <div className="mb-4 sm:mb-5 flex justify-center">
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-[#F5F7FF] px-3.5 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0] shadow-xs">
+                                <Scale size={13} className="text-[#2043B0]" />
+                                <span>Legal Document — Effective April 2, 2026</span>
+                            </div>
+                        </div>
 
-                
-                <div className="relative z-10 flex-1 flex overflow-hidden max-w-screen-xl mt-20 mb-20 w-full mx-auto px-5 sm:px-8">
+                        {/* Heading */}
+                        <h1 className="text-3xl sm:text-5xl md:text-6xl font-[Cinzel] font-bold tracking-tight text-[#172554] leading-tight mb-4 sm:mb-6">
+                            Terms of{" "}
+                            <span className="text-[#2043B0]">Service</span>
+                        </h1>
 
-                    {/* ── LEFT SIDEBAR — position:sticky within flex, never scrolls ── */}
-                    <aside className="hidden lg:flex flex-col flex-shrink-0 w-64 xl:w-72 py-6 pr-5 mt-20">
-                        <div className="flex flex-col h-full rounded-2xl border border-white/[0.07] bg-white/[0.025] backdrop-blur-md overflow-hidden">
+                        {/* Description */}
+                        <p className="text-sm sm:text-base md:text-lg text-[#4B5563] max-w-2xl mx-auto leading-relaxed">
+                            Please read these Terms carefully before using <strong className="text-[#172554]">MishtiSpaces.com</strong> — India&apos;s trusted real estate platform for property buyers, sellers, and renters.
+                        </p>
+                    </div>
+                </section>
 
-                            {/* Sidebar header — the DYNAMIC HEADING lives here */}
-                            <div className="flex-shrink-0 px-4 py-4 border-b border-white/[0.06] bg-white/[0.02]">
-                                <p className="text-[9px] uppercase tracking-[0.2em] text-white/20 mb-2 font-semibold">Current Section</p>
-                                <DynamicHeading label={activeSection.label} icon={activeSection.icon} />
+                {/* ══════════════════════════════════════════
+                    2 · TWO-COLUMN LEGAL DOCUMENT LAYOUT
+                ══════════════════════════════════════════ */}
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+                    <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+
+                        {/* ── LEFT SIDEBAR — sticky on desktop ─────────────────────── */}
+                        <aside className="hidden lg:flex flex-col flex-shrink-0 w-72 xl:w-80 sticky top-28 self-start max-h-[calc(100vh-8.5rem)]">
+                            <div className="flex flex-col h-full rounded-2xl border border-[#E5E7EB] bg-white shadow-sm overflow-hidden">
+
+                                {/* Sidebar header with Dynamic Heading */}
+                                <div className="flex-shrink-0 px-5 py-4 border-b border-[#E5E7EB] bg-[#F5F7FF]/50">
+                                    <p className="text-[10px] uppercase tracking-widest text-[#4B5563] font-semibold mb-2">
+                                        Current Section
+                                    </p>
+                                    <DynamicHeading label={activeSection.label} icon={activeSection.icon} />
+                                </div>
+
+                                {/* Nav list */}
+                                <nav className="sidebar-nav flex-1 overflow-y-auto p-2 space-y-1">
+                                    {sections.map((s, i) => {
+                                        const isActive = activeId === s.id;
+                                        return (
+                                            <button
+                                                key={s.id}
+                                                type="button"
+                                                onClick={() => scrollTo(s.id)}
+                                                className={`w-full text-left flex items-center gap-2.5 px-3.5 py-2.5 text-xs rounded-xl transition-all duration-150 relative group ${isActive
+                                                        ? "text-[#2043B0] bg-[#F5F7FF] font-semibold shadow-2xs border-l-2 border-[#2043B0]"
+                                                        : "text-[#4B5563] hover:text-[#172554] hover:bg-[#F5F7FF]/60"
+                                                    }`}
+                                            >
+                                                <span className={`flex-shrink-0 ${isActive ? "text-[#2043B0]" : "text-[#4B5563] group-hover:text-[#172554]"}`}>
+                                                    {s.icon}
+                                                </span>
+                                                <span className="flex-1 truncate leading-tight">{s.label}</span>
+                                                <span className={`font-mono text-[10px] ${isActive ? "text-[#2043B0]" : "text-gray-400"}`}>
+                                                    {String(i + 1).padStart(2, "0")}
+                                                </span>
+                                            </button>
+                                        );
+                                    })}
+                                </nav>
+
+                                {/* Reading progress bar */}
+                                <div className="flex-shrink-0 px-5 py-4 border-t border-[#E5E7EB] bg-[#F5F7FF]/30">
+                                    <div className="flex justify-between items-center mb-1.5 text-xs">
+                                        <span className="text-[#4B5563] text-[10px] uppercase tracking-wider font-semibold">Progress</span>
+                                        <span className="text-[#2043B0] font-bold text-xs">
+                                            {sections.findIndex((s) => s.id === activeId) + 1} / {sections.length}
+                                        </span>
+                                    </div>
+                                    <div className="h-1.5 bg-[#E5E7EB] rounded-full overflow-hidden">
+                                        <div
+                                            className="h-full rounded-full bg-[#2043B0] transition-all duration-300 ease-out"
+                                            style={{ width: `${progressPct}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+
+                        {/* ── RIGHT MAIN LEGAL CONTENT AREA ────────────────────────── */}
+                        <div
+                            ref={scrollContainerRef}
+                            className="flex-1 w-full min-w-0"
+                        >
+                            {/* Sticky Header for Mobile & Tablet with Contents Drawer trigger */}
+                            <div className="sticky top-20 z-20 mb-6 lg:hidden">
+                                <div className="flex items-center justify-between gap-3 p-3.5 rounded-xl border border-[#E5E7EB]
+                                 bg-white/95 backdrop-blur-md shadow-xs">
+                                    <DynamicHeading label={activeSection.label} icon={activeSection.icon} />
+                                    <button
+                                        type="button"
+                                        className="flex items-center gap-1.5 text-xs font-semibold text-[#2043B0] bg-[#F5F7FF] border border-blue-200 px-3 py-1.5 rounded-lg transition-all hover:bg-blue-100/60 flex-shrink-0"
+                                        onClick={() => setMobileOpen(true)}
+                                    >
+                                        <Menu size={14} />
+                                        <span>Contents</span>
+                                    </button>
+                                </div>
                             </div>
 
-                            {/* Nav list */}
-                            <nav className="sidebar-nav flex-1 overflow-y-auto py-1.5">
-                                {sections.map((s, i) => {
-                                    const isActive = activeId === s.id;
-                                    return (
+                            {/* Section Cards */}
+                            {sections.map((section) => (
+                                <SectionCard
+                                    key={section.id}
+                                    section={section}
+                                    observerRef={getRefCallback(section.id)}
+                                />
+                            ))}
+
+                            {/* ── Bottom CTA ───────────────────────────────────────── */}
+                            <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-[#F5F7FF] via-white to-blue-50/50 p-6 sm:p-10 shadow-xs relative overflow-hidden mt-8">
+                                <div className="pointer-events-none absolute -right-20 -bottom-20 w-64 h-64 rounded-full bg-blue-100/40 blur-3xl" />
+
+                                <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                    <div className="flex-1 text-center sm:text-left">
+                                        <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-white px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#2043B0] mb-3 shadow-2xs">
+                                            <Star size={11} className="text-[#2043B0]" />
+                                            <span>Start Your Journey</span>
+                                        </div>
+                                        <h2 className="text-2xl sm:text-3xl font-[Cinzel] font-bold text-[#172554] mb-2 leading-tight">
+                                            Find Your Dream Property
+                                        </h2>
+                                        <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed max-w-md">
+                                            Explore thousands of verified <em>property listings</em> across India. Buy, sell, or rent with full confidence on MishtiSpaces.com.
+                                        </p>
+                                    </div>
+                                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
                                         <button
-                                            key={s.id}
-                                            onClick={() => scrollTo(s.id)}
-                                            className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-[11.5px] transition-all duration-150 relative group ${
-                                                isActive
-                                                    ? "text-blue-400 bg-blue-500/[0.09]"
-                                                    : "text-white/40 hover:text-white/80 hover:bg-white/[0.04]"
-                                            }`}
+                                            type="button"
+                                            className="inline-flex items-center justify-center gap-2 bg-[#2043B0] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm px-6 sm:px-8 py-3 rounded-xl transition-all shadow-sm shadow-blue-900/10"
                                         >
-                                            {isActive && (
-                                                <span className="absolute left-0 inset-y-0 w-0.5 bg-blue-500 rounded-r-full shadow-[0_0_8px_rgba(59,130,246,0.7)]" />
-                                            )}
-                                            <span className={`flex-shrink-0 ${isActive ? "text-blue-400" : "text-white/20 group-hover:text-white/40"}`}>
-                                                {s.icon}
-                                            </span>
-                                            <span className="flex-1 truncate font-medium leading-tight">{s.label}</span>
-                                            <span className={`font-mono text-[9px] ${isActive ? "text-blue-400/60" : "text-white/10"}`}>
-                                                {String(i + 1).padStart(2, "0")}
-                                            </span>
+                                            Browse Listings
+                                            <ArrowUpRight size={14} />
                                         </button>
-                                    );
-                                })}
-                            </nav>
-
-                            {/* Progress bar */}
-                            <div className="flex-shrink-0 px-4 py-3.5 border-t border-white/[0.06]">
-                                <div className="flex justify-between mb-1.5 text-[10px]">
-                                    <span className="text-white/20 uppercase tracking-wide">Progress</span>
-                                    <span className="text-blue-400/60 font-medium">
-                                        {sections.findIndex((s) => s.id === activeId) + 1} / {sections.length}
-                                    </span>
-                                </div>
-                                <div className="h-1 bg-white/[0.05] rounded-full overflow-hidden">
-                                    <div
-                                        className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 ease-out"
-                                        style={{ width: `${progressPct}%` }}
-                                    />
+                                        <button
+                                            type="button"
+                                            onClick={() => scrollTo("contact")}
+                                            className="inline-flex items-center justify-center gap-2 border border-[#E5E7EB] bg-white hover:bg-[#F5F7FF] hover:border-blue-300 text-[#172554] text-xs sm:text-sm font-semibold px-6 sm:px-8 py-3 rounded-xl transition-all shadow-2xs"
+                                        >
+                                            <Mail size={13} />
+                                            Contact Us
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </aside>
-
-                    {/* ── RIGHT PANE — only this scrolls ────────────────────────── */}
-                    <div
-                        ref={scrollContainerRef}
-                        className="right-pane flex-1 overflow-y-auto py-6 pl-1 lg:pl-5"
-                    >
-                        {/* Sticky section title bar (inside the scroll pane, sticks to pane top) */}
-                        <div className="sticky top-0 z-20 mb-4 -mx-1 lg:-mx-5 px-1 lg:px-5 py-3 bg-[#061A2D]/80 backdrop-blur-md border-b border-white/[0.05]">
-                            <div className="flex items-center justify-between gap-3">
-                                <DynamicHeading label={activeSection.label} icon={activeSection.icon} />
-                                {/* Mobile TOC button */}
-                                <button
-                                    className="lg:hidden flex items-center gap-1.5 text-[11px] text-white/40 hover:text-white border border-white/10 hover:border-white/20 px-2.5 py-1.5 rounded-lg transition-colors flex-shrink-0"
-                                    onClick={() => setMobileOpen(true)}
-                                >
-                                    <Menu size={12} />
-                                    <span>Contents</span>
-                                </button>
-                                {/* Section counter badge (desktop) */}
-                                <span className="hidden lg:flex items-center gap-1.5 text-[11px] text-white/25 flex-shrink-0">
-                                    <span className="font-mono">{String(sections.findIndex((s) => s.id === activeId) + 1).padStart(2, "0")}</span>
-                                    <span>/</span>
-                                    <span className="font-mono">{String(sections.length).padStart(2, "0")}</span>
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Hero blurb (scrolls away) */}
-                        <div className="mb-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-6 py-5">
-                            <div className="inline-flex items-center gap-2 border border-blue-500/25 bg-blue-500/[0.08] text-blue-300 text-[11px] font-semibold px-3 py-1 rounded-full mb-3">
-                                <Scale size={10} />
-                                Legal Document — Effective April 2, 2026
-                            </div>
-                            <p className="text-slate-400 text-[14px] leading-relaxed">
-                                Please read these Terms carefully before using <strong className="text-white">MishtiSpaces.com</strong> — India's trusted real estate platform for property buyers, sellers, and renters.
-                            </p>
-                        </div>
-
-                        {/* Section cards */}
-                        {sections.map((section) => (
-                            <SectionCard
-                                key={section.id}
-                                section={section}
-                                observerRef={getRefCallback(section.id)}
-                            />
-                        ))}
-
-                        {/* CTA */}
-                        
-                        {/* Bottom padding */}
-                        <div className="h-12" />
                     </div>
                 </div>
-            </div>
-             <div className="mt-4 relative rounded-2xl overflow-hidden border border-blue-500/20">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540] via-[#061A2D] to-[#0D3355]" />
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(59,130,246,0.18),transparent_55%)]" />
-                            <div className="relative px-8 py-10 flex flex-col sm:flex-row items-center gap-6">
-                                <div className="flex-1 text-center sm:text-left">
-                                    <div className="inline-flex items-center gap-2 mb-3 text-blue-300 text-[10px] uppercase tracking-widest font-semibold">
-                                        <Star size={10} />
-                                        Start Your Journey
-                                    </div>
-                                    <h2 className="text-2xl sm:text-[28px] font-bold text-white mb-2 leading-tight" style={{ fontFamily: "'Syne', sans-serif" }}>
-                                        Find Your Dream Property
-                                    </h2>
-                                    <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                                        Explore thousands of verified <em>property listings</em> across India. Buy, sell, or rent with full confidence on MishtiSpaces.com.
-                                    </p>
-                                </div>
-                                <div className="flex flex-col gap-3 flex-shrink-0">
-                                    <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-8 py-3 rounded-full transition-all duration-200 shadow-[0_0_24px_rgba(59,130,246,0.35)] hover:shadow-[0_0_32px_rgba(59,130,246,0.5)]">
-                                        Browse Listings
-                                        <ArrowUpRight size={14} />
-                                    </button>
-                                    <button
-                                        onClick={() => scrollTo("contact")}
-                                        className="flex items-center justify-center gap-2 border border-white/15 hover:border-white/25 text-white/60 hover:text-white text-sm font-medium px-8 py-3 rounded-full transition-all duration-200"
-                                    >
-                                        <Mail size={13} />
-                                        Contact Us
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
+            </main>
 
             {/* ── Mobile TOC Drawer ─────────────────────────────────────────── */}
             {mobileOpen && (
                 <div className="fixed inset-0 z-50 lg:hidden">
-                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-72 bg-[#061A2D] border-l border-white/[0.07] flex flex-col">
-                        <div className="flex items-center justify-between px-5 py-4 border-b mt-10 border-white/[0.06]">
-                            <span className="text-sm font-bold text-white" style={{ fontFamily: "'Syne', sans-serif" }}>Table of Contents</span>
-                            <button onClick={() => setMobileOpen(false)} aria-label="Close">
-                                <X size={18} className="text-white/50  hover:text-white" />
+                    <div
+                        className="absolute inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+                        onClick={() => setMobileOpen(false)}
+                    />
+                    <div className="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white border-l border-[#E5E7EB] shadow-2xl flex flex-col z-10">
+                        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E5E7EB] bg-[#F5F7FF]/50">
+                            <span className="text-base font-[Cinzel] font-bold text-[#172554]">
+                                Table of Contents
+                            </span>
+                            <button
+                                type="button"
+                                onClick={() => setMobileOpen(false)}
+                                aria-label="Close"
+                                className="p-1 rounded-lg hover:bg-gray-100 text-[#4B5563] transition-colors"
+                            >
+                                <X size={18} />
                             </button>
                         </div>
-                        <nav className="sidebar-nav flex-1 overflow-y-auto py-2">
+                        <nav className="sidebar-nav flex-1 overflow-y-auto p-3 space-y-1">
                             {sections.map((s, i) => {
                                 const isActive = activeId === s.id;
                                 return (
                                     <button
                                         key={s.id}
+                                        type="button"
                                         onClick={() => scrollTo(s.id)}
-                                        className={`w-full text-left flex items-center gap-3 px-5 py-3 text-xs transition-all duration-150 relative ${
-                                            isActive ? "text-blue-400 bg-blue-500/10" : "text-white/50 hover:text-white hover:bg-white/[0.04]"
-                                        }`}
+                                        className={`w-full text-left flex items-center gap-3 px-4 py-2.5 text-xs rounded-xl 
+                                            transition-all duration-150 relative ${isActive
+                                                ? "text-[#2043B0] bg-[#F5F7FF] font-semibold border-l-2 border-[#2043B0]"
+                                                : "text-[#4B5563] hover:text-[#172554] hover:bg-gray-50"
+                                            }`}
                                     >
-                                        {isActive && <span className="absolute left-0 inset-y-0 w-0.5 bg-blue-500 rounded-r-full" />}
-                                        <span className={isActive ? "text-blue-400" : "text-white/25"}>{s.icon}</span>
-                                        <span className="flex-1 font-medium">{s.label}</span>
-                                        <span className="font-mono text-[10px] text-white/15">{String(i + 1).padStart(2, "0")}</span>
+                                        <span className={`shrink-0 ${isActive ? "text-[#2043B0]" : "text-[#4B5563]"}`}>{s.icon}</span>
+                                        <span className="flex-1 font-medium truncate">{s.label}</span>
+                                        <span className={`font-mono text-[10px] ${isActive ? "text-[#2043B0]" : "text-gray-400"}`}>
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
                                     </button>
                                 );
                             })}

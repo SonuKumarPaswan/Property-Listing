@@ -69,41 +69,41 @@ const NoidaOffice = () => {
           title: "Luxury Office Space",
           slug: "luxury-office-space",
           location: "Sector 62, Noida",
-          price: "₹1,25,00,000",
+          price: "₹60,000",
           image:
-            "https://reanty.themes-studio.com/assets/img/feature/feature-img3.jpg",
+            "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.34_PM.jpg",
         },
         {
           title: "Corporate Workspace",
           slug: "corporate-workspace",
           location: "Sector 18, Noida",
-          price: "₹95,00,000",
+          price: "₹52,000",
           image:
-            "https://reanty.themes-studio.com/assets/img/feature/feature-img2.jpg",
+            "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076259/WhatsApp_Image_2026-10-26_at_5.48.32_PM.jpg",
         },
         {
           title: "Premium Office",
           slug: "premium-office",
           location: "Sector 132, Noida",
-          price: "₹2,10,00,000",
+          price: "₹60,000",
           image:
-            "https://reanty.themes-studio.com/assets/img/feature/feature-img1.jpg",
+            "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076254/WhatsApp_Image_2026-10-26_at_5.43.35_PM.jpg",
         },
         {
           title: "Business Hub",
           slug: "business-hub",
           location: "Sector 137, Noida",
-          price: "₹1,45,00,000",
+          price: "₹58000",
           image:
-            "https://reanty.themes-studio.com/assets/img/feature/feature-img3.jpg",
+            "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647908/WhatsApp_Image_2026-10-13_at_11.25.15_AM.jpg",
         },
         {
           title: "Corporate Tower",
           slug: "corporate-tower",
           location: "Noida Extension",
-          price: "₹1,85,00,000",
+          price: "₹50000",
           image:
-            "https://reanty.themes-studio.com/assets/img/feature/feature-img2.jpg",
+            "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647908/WhatsApp_Image_2026-10-13_at_11.25.15_AM_2.jpg",
         },
       ]);
     } catch (error) {

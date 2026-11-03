@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { SUCCESSFUL_PROJECTS } from "@/data/projects";
@@ -127,11 +128,12 @@ const SuccessfulProjects = () => {
                   <div className="h-full flex flex-col bg-white rounded border border-[#E5E7EB] overflow-hidden shadow-xs hover:border-blue-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     {/* Image Wrapper */}
                     <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-blue-50/50">
-                      <img
+                      <Image
                         src={project.image}
                         alt={project.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 640px) 290px, 360px"
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                       />
                     </div>
 

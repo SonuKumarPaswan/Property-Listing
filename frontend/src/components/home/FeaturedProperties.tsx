@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const properties = [
   {
     id: 1,
@@ -32,11 +34,15 @@ export default function FeaturedProperties() {
             key={property.id}
             className="bg-white rounded-xl shadow"
           >
-            <img
-              src={property.image}
-              alt={property.title}
-              className="w-full h-60 object-cover rounded-t-xl"
-            />
+            <div className="relative w-full h-60 rounded-t-xl overflow-hidden">
+              <Image
+                src={property.image}
+                alt={property.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+              />
+            </div>
             <div className="p-4">
               <h3 className="font-bold">{property.title}</h3>
               <p>{property.price}</p>

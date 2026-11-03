@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface GalleryProps {
   images?: { url: string; isPrimary?: boolean }[];
@@ -11,19 +11,21 @@ interface GalleryProps {
 const Gallery = ({ images = [], title = "Property" }: GalleryProps) => {
   const validImages = Array.isArray(images)
     ? images.filter(
-        (image): image is { url: string; isPrimary?: boolean } =>
-          Boolean(image && typeof image.url === "string" && image.url.trim().length > 0)
-      )
+      (image): image is { url: string; isPrimary?: boolean } =>
+        Boolean(image && typeof image.url === "string" && image.url.trim().length > 0)
+    )
     : [];
 
   const galleryImages = validImages.map((image) => image.url);
 
+  const [prevImages, setPrevImages] = useState(images);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Reset selected image when images prop changes
-  useEffect(() => {
+  if (images !== prevImages) {
+    setPrevImages(images);
     setSelectedImage(null);
-  }, [images]);
+  }
 
   // First image displays by default; clicking thumbnail overrides it
   const mainImage =
@@ -61,7 +63,7 @@ const Gallery = ({ images = [], title = "Property" }: GalleryProps) => {
                 />
               </svg>
             </div>
-            <p className="text-sm font-medium text-[#4B5563]">No images available</p>
+            <p className="text-sm font-medium text-[#4B5563]">No images available </p>
           </div>
         )}
       </div>
@@ -78,11 +80,10 @@ const Gallery = ({ images = [], title = "Property" }: GalleryProps) => {
                 onClick={() => setSelectedImage(image)}
                 aria-label={`View ${title} image ${index + 1}`}
                 aria-pressed={isSelected}
-                className={`relative min-w-[100px] sm:min-w-[120px] h-20 sm:h-24 rounded-xl overflow-hidden border-2 transition-all duration-200 cursor-pointer shrink-0 bg-[#F5F7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2043B0]/40 ${
-                  isSelected
+                className={`relative min-w-[100px] sm:min-w-[120px] h-20 sm:h-24 rounded-xl overflow-hidden border-2 transition-all duration-200 cursor-pointer shrink-0 bg-[#F5F7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2043B0]/40 ${isSelected
                     ? "border-[#2043B0] ring-2 ring-[#2043B0]/20 shadow-xs opacity-100"
                     : "border-[#E5E7EB] hover:border-blue-300 opacity-80 hover:opacity-100"
-                }`}
+                  }`}
               >
                 <Image
                   src={image}

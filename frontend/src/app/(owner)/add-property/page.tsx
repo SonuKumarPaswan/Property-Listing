@@ -1,6 +1,7 @@
 "use client";
 import api from "@/lib/api";
 import React, {useState} from "react";
+import Image from "next/image";
 
 const AMENITY_OPTIONS = [
   {key: "gym", label: "Gym", icon: "🏋️"},
@@ -74,6 +75,55 @@ const Field = ({
 // ─── Shared input / select className ─────────────────────────────────────────
 const inputCls =
   "w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg outline-none focus:border-gray-900 transition-colors placeholder:text-gray-400 bg-white";
+
+// ─── Step counter for bedrooms/bathrooms/balconies ────────────────────────
+interface CounterProps {
+  name: string;
+  label: string;
+  value: number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onIncrement: () => void;
+  onDecrement: () => void;
+}
+
+const Counter: React.FC<CounterProps> = ({
+  name,
+  label,
+  value,
+  onChange,
+  onIncrement,
+  onDecrement,
+}) => (
+  <div className="flex flex-col gap-1.5">
+    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+      {label}
+    </label>
+    <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+      <button
+        type="button"
+        onClick={onDecrement}
+        className="w-9 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-500 text-lg transition-colors"
+      >
+        −
+      </button>
+      <input
+        type="number"
+        name={name}
+        min={0}
+        value={value || 0}
+        onChange={onChange}
+        className="flex-1 text-center text-sm py-2.5 border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+      />
+      <button
+        type="button"
+        onClick={onIncrement}
+        className="w-9 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-500 text-lg transition-colors"
+      >
+        +
+      </button>
+    </div>
+  </div>
+);
 
 const PropertyListing = () => {
   const [step, setStep] = useState(1);
@@ -176,61 +226,19 @@ const PropertyListing = () => {
     console.log("Created:", res.data);
   }; 
 
-  // ─── Step counter for bedrooms/bathrooms/balconies ────────────────────────
-
-  const Counter = ({
-    name,
-    label,
-  }: {
-    name: keyof typeof propertyData.details;
-    label: string;
-  }) => (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-        {label}
-      </label>
-      <div className="flex border border-gray-300 rounded-lg overflow-hidden">
-        <button
-          type="button"
-          onClick={() =>
-            setPropertyData((p) => ({
-              ...p,
-              details: {
-                ...p.details,
-                [name]: Math.max(0, (p.details[name] as number) - 1),
-              },
-            }))
-          }
-          className="w-9 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-500 text-lg transition-colors"
-        >
-          −
-        </button>
-        <input
-          type="number"
-          name={name}
-          min={0}
-          value={(propertyData.details[name] as number) || 0}
-          onChange={handleChange}
-          className="flex-1 text-center text-sm py-2.5 border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-        />
-        <button
-          type="button"
-          onClick={() =>
-            setPropertyData((p) => ({
-              ...p,
-              details: {
-                ...p.details,
-                [name]: (p.details[name] as number) + 1,
-              },
-            }))
-          }
-          className="w-9 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-500 text-lg transition-colors"
-        >
-          +
-        </button>
-      </div>
-    </div>
-  );
+  // ─── Step counter handler for bedrooms/bathrooms/balconies ────────────────
+  const handleStepCounter = (
+    name: "bedrooms" | "bathrooms" | "balconies",
+    delta: number
+  ) => {
+    setPropertyData((p) => ({
+      ...p,
+      details: {
+        ...p.details,
+        [name]: Math.max(0, (Number(p.details[name]) || 0) + delta),
+      },
+    }));
+  };
 
   return (
     <main className="min-h-screen bg-gray-100 p-4">
@@ -439,9 +447,30 @@ const PropertyListing = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Counters */}
               <div className="col-span-2 grid grid-cols-3 gap-4">
-                <Counter name="bedrooms" label="Bedrooms" />
-                <Counter name="bathrooms" label="Bathrooms" />
-                <Counter name="balconies" label="Balconies" />
+                <Counter
+                  name="bedrooms"
+                  label="Bedrooms"
+                  value={Number(propertyData.details.bedrooms) || 0}
+                  onChange={handleChange}
+                  onDecrement={() => handleStepCounter("bedrooms", -1)}
+                  onIncrement={() => handleStepCounter("bedrooms", 1)}
+                />
+                <Counter
+                  name="bathrooms"
+                  label="Bathrooms"
+                  value={Number(propertyData.details.bathrooms) || 0}
+                  onChange={handleChange}
+                  onDecrement={() => handleStepCounter("bathrooms", -1)}
+                  onIncrement={() => handleStepCounter("bathrooms", 1)}
+                />
+                <Counter
+                  name="balconies"
+                  label="Balconies"
+                  value={Number(propertyData.details.balconies) || 0}
+                  onChange={handleChange}
+                  onDecrement={() => handleStepCounter("balconies", -1)}
+                  onIncrement={() => handleStepCounter("balconies", 1)}
+                />
               </div>
 
               {/* Area */}
@@ -706,10 +735,12 @@ const PropertyListing = () => {
                       className="relative aspect-[4/3] rounded-lg overflow-hidden border border-gray-200 bg-gray-100"
                     >
                       {/* ✅ File object se preview */}
-                      <img
+                      <Image
+                        unoptimized
                         src={URL.createObjectURL(file)}
                         alt=""
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                       />
                       {i === 0 && (
                         <span className="absolute bottom-2 left-2 text-[10px] font-medium bg-black/60 text-white px-2 py-0.5 rounded-full">

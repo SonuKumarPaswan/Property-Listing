@@ -5,9 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   MapPin,
-  Bed,
-  Bath,
-  Maximize2,
   ShieldCheck,
   Sparkles,
   ArrowRight,
