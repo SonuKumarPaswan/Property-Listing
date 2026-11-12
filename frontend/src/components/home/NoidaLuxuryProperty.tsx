@@ -37,42 +37,42 @@ function PillBadge({ text }: { text: string }) {
 const properties = [
   {
     id: 1,
-    title: "Luxury Office Space",
-    slug: "luxury-office-space",
+    title: "commercial Workspace",
+    slug: "commercial-workspace-1",
     location: "Sector 62, Noida",
-    price: "₹50,000",
+    price: "₹60,000",
     image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
   },
   {
     id: 2,
-    title: "Premium Commercial Hub",
-    slug: "premium-commercial-hub",
+    title: "commercial workspace",
+    slug: "commercial-workspace-2",
     location: "Sector 18, Noida",
-    price: "₹60,000",
+    price: "₹65,000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076252/WhatsApp_Image_2026-10-26_at_5.43.04_PM.jpg",
   },
   {
     id: 3,
-    title: "Corporate Business Center",
-    slug: "corporate-business-center",
+    title: "commercial workspace",
+    slug: "commercial-workspace-3",
     location: "Noida Extension",
-    price: "₹55,000",
+    price: "₹180000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076250/WhatsApp_Image_2026-10-26_at_5.40.08_PM.jpg",
   },
   {
     id: 5,
-    title: "Business Tower",
-    slug: "business-tower",
-    location: "Sector 137, Noida",
-    price: "₹54,000",
+    title: "commercial workspace",
+    slug: "commercial-workspace-5",
+    location: "H-Block, Noida",
+    price: "₹50,000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076255/WhatsApp_Image_2026-10-26_at_5.46.49_PM_1.jpg",
   },
   {
     id: 7,
-    title: "Skyline Corporate Plaza",
-    slug: "skyline-corporate-plaza",
-    location: "Sector 142, Noida",
-    price: "₹70,000",
+    title: "commercial workspace",
+    slug: "commercial-workspace-4",
+    location: "A-block, Noida",
+    price: "₹2,20,000",
     image: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076251/WhatsApp_Image_2026-10-26_at_5.42.03_PM.jpg",
   },
 ];
@@ -80,7 +80,7 @@ const properties = [
 const NoidaLuxuryProperty = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scrollLeft =() => {
+  const scrollLeft = () => {
     scrollRef.current?.scrollBy({
       left: -380,
       behavior: "smooth",

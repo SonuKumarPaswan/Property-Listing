@@ -20,7 +20,7 @@ const propertyValidationSchema = Joi.object({
 
   listingType: Joi.string().valid("rent", "sale").required(),
 
-  price: Joi.number().positive().required().messages({
+  price: Joi.number().positive().required().messages({ 
     "number.positive": "Price must be a positive number",
     "any.required": "Price is required",
   }),
@@ -40,6 +40,7 @@ const propertyValidationSchema = Joi.object({
   }),
 
   details: Joi.object({
+    cabins: Joi.number().integer().min(0).max(20),
     bedrooms: Joi.number().integer().min(0).max(20),
     bathrooms: Joi.number().integer().min(0).max(20),
     balconies: Joi.number().integer().min(0),

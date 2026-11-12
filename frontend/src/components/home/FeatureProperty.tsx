@@ -42,10 +42,10 @@ const FeaturedProperty = () => {
 
   const properties = [
     {
-      title: "Luxury Apartment",
+      title: "commercial workspace",
       slug: "luxury-apartment",
       category: "Apartments",
-      location: "Sector 150, Noida, Uttar Pradesh",
+      location: "A-block, Noida, Uttar Pradesh",
       price: "₹60,000",
       image:
         "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.35_PM_2.jpg",
