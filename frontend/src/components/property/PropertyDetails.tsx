@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bed, Bath, Maximize2, Car, CheckCircle2, Sparkles, MapPin } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 interface PropertyDetailsProps {
   property: {

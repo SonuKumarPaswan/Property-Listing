@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
@@ -35,43 +35,40 @@ function PillBadge({ text }: { text: string }) {
 }
 
 const FeaturedProperty = () => {
-  const [activeTab, setActiveTab] = useState("All");
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const tabs = ["All", "Apartments", "Villas", "Lands"];
 
   const properties = [
     {
       title: "commercial workspace",
       slug: "luxury-apartment",
-      category: "Apartments",
-      location: "A-block, Noida, Uttar Pradesh",
+      category: "Commercial",
+      location: "A-block, Noida",
       price: "₹60,000",
       image:
         "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.35_PM_2.jpg",
     },
     {
-      title: "Green Apartment",
+      title: "commercial workspace",
       slug: "green-apartment",
-      category: "Apartments",
-      location: "Sector 16B, Greater Noida West, Uttar Pradesh",
-      price: "₹55,000",
+      category: "Commercial",
+      location: "H-Block, Noida",
+      price: "₹50,000",
       image:
         "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076257/WhatsApp_Image_2026-10-26_at_5.48.21_PM_1.jpg",
     },
     {
-      title: "Modern Villa",
+      title: "commercial workspace",
       slug: "modern-villa",
-      category: "Villas",
-      location: "Sector 150, Noida, Uttar Pradesh",
-      price: "₹60,000",
+      category: "Commercial",
+      location: "A-Block, Noida",
+      price: "₹80,000",
       image:
         "https://reanty.themes-studio.com/assets/img/feature/feature-img4.jpg",
     },
     {
       title: "Luxury Villa",
       slug: "luxury-villa",
-      category: "Villas",
+      category: "Commercial",
       location: "Sector Omega 1, Greater Noida, Uttar Pradesh",
       price: "₹58,000",
       image:
@@ -80,7 +77,7 @@ const FeaturedProperty = () => {
     {
       title: "Premium Land",
       slug: "premium-land",
-      category: "Lands",
+      category: "Commercial",
       location: "Sector 150, Noida, Uttar Pradesh",
       price: "₹52,000",
       image:
@@ -89,27 +86,13 @@ const FeaturedProperty = () => {
     {
       title: "Investment Land",
       slug: "investment-land",
-      category: "Lands",
+      category: "Commercial",
       location: "Yamuna Expressway, Greater Noida, Uttar Pradesh",
       price: "₹50,000",
       image:
         "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076258/WhatsApp_Image_2026-10-26_at_5.48.27_PM_2.jpg",
     },
   ];
-
-
-
-  const filteredProperties =
-    activeTab === "All"
-      ? properties
-      : properties.filter((property) => property.category === activeTab);
-
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
-    }
-  };
 
   const getScrollAmount = () => {
     if (!scrollRef.current) return 380;
@@ -209,44 +192,13 @@ const FeaturedProperty = () => {
           </div>
 
           {/* ══════════════════════════════════════════
-              CATEGORY TABS (Scrollable on small screens)
-          ══════════════════════════════════════════ */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-40px" }}
-            variants={subtleFadeUp}
-            custom={0.15}
-            className="mb-6 sm:mb-8 overflow-x-auto hide-scrollbar touch-pan-x -mx-4 px-4 sm:mx-0 sm:px-0"
-          >
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-xl border border-blue-100 bg-[#F5F7FF] p-1 sm:p-1.5 shadow-xs shrink-0">
-              {tabs.map((tab) => {
-                const isActive = activeTab === tab;
-                return (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => handleTabChange(tab)}
-                    className={`rounded-lg px-3.5 sm:px-5 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer select-none ${isActive
-                      ? "bg-[#2043B0] text-white shadow-sm shadow-blue-900/20"
-                      : "text-[#172554] hover:bg-white hover:text-[#2043B0]"
-                      }`}
-                  >
-                    {tab}
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          {/* ══════════════════════════════════════════
               PROPERTY SLIDER
           ══════════════════════════════════════════ */}
           <div
             ref={scrollRef}
             className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth hide-scrollbar snap-x snap-mandatory py-3 -my-3 px-1 -mx-1 touch-pan-x"
           >
-            {filteredProperties.map((property, index) => (
+            {properties.map((property, index) => (
               <motion.div
                 key={property.slug}
                 initial="hidden"
