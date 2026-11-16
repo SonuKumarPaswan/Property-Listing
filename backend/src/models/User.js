@@ -20,11 +20,11 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'agent'],
+        enum: ['user', 'owner', 'agent'],
         default: 'user',
-    },  
+    },
 }
-, { timestamps: true });
+    , { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 

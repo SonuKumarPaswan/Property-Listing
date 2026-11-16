@@ -36,23 +36,38 @@ const getPropertyById = async (req, res) => {
 
 const createProperty = async (req, res) => {
   try {
+    // Only authenticated owner and agent accounts can create properties
+    if (!req.user || !["owner", "agent"].includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: "Forbidden: Only property owners and real estate agents can create listings.",
+      });
+    }
+
     console.log("Received property data:", req.body);
     console.log("Files:", req.files);
 
-    // ✅ 1. Parse JSON fields
-    const details = req.body.details ? JSON.parse(req.body.details) : {};
-    const amenities = req.body.amenities ? JSON.parse(req.body.amenities) : [];
+    // 1. Parse JSON fields
+    let details = {};
+    if (req.body.details) {
+      details = typeof req.body.details === "string" ? JSON.parse(req.body.details) : req.body.details;
+    }
+    let amenities = [];
+    if (req.body.amenities) {
+      amenities = typeof req.body.amenities === "string" ? JSON.parse(req.body.amenities) : req.body.amenities;
+    }
 
-    // ✅ 2. Generate slug
-    const slug = slugify(req.body.title, { lower: true, strict: true });
+    // 2. Generate slug
+    const baseTitle = req.body.title || `property-${Date.now()}`;
+    const slug = slugify(baseTitle, { lower: true, strict: true });
 
-    // ✅ 3. Images map
+    // 3. Images map
     const images = req.files?.map((file) => ({
       url: file.path,
       public_id: file.filename,
     })) || [];
 
-    // ✅ 4. Final structured payload (VERY IMPORTANT)
+    // 4. Final structured payload with ownership
     const propertyData = {
       title: req.body.title,
       slug,
@@ -65,42 +80,43 @@ const createProperty = async (req, res) => {
 
       status: req.body.status || "available",
 
-      // 📍 Location (nested)
+      // Store authenticated user's ID as owner
+      owner: req.user.id,
+      ...(req.user.role === "agent" ? { agent: req.user.id } : {}),
+
+      // Location
       location: {
         address: req.body.address,
         city: req.body.city,
         state: req.body.state,
         zipCode: req.body.zipCode,
-        country: req.body.country,
+        country: req.body.country || "India",
         coordinates: {
           type: "Point",
           coordinates: [
-            Number(req.body.lng), // longitude
-            Number(req.body.lat), // latitude
+            Number(req.body.lng) || 0,
+            Number(req.body.lat) || 0,
           ],
         },
       },
 
-      // 🏠 Details (parsed)
+      // Details
       details: {
         ...details,
-        bedrooms: Number(details.bedrooms),
-        bathrooms: Number(details.bathrooms),
-        balconies: Number(details.balconies),
-        area: Number(details.area),
-        floor: Number(details.floor),
-        totalFloors: Number(details.totalFloors),
-        ageOfProperty: Number(details.ageOfProperty),
+        bedrooms: Number(details.bedrooms) || 0,
+        bathrooms: Number(details.bathrooms) || 0,
+        balconies: Number(details.balconies) || 0,
+        area: Number(details.area) || 0,
+        floor: Number(details.floor) || 0,
+        totalFloors: Number(details.totalFloors) || 0,
+        ageOfProperty: Number(details.ageOfProperty) || 0,
       },
 
-      // 🏢 Amenities
       amenities,
-
-      // 🖼 Images
       images,
     };
 
-    // ✅ 5. Save in DB
+    // 5. Save in DB
     const property = await Property.create(propertyData);
 
     res.status(201).json({
@@ -115,6 +131,26 @@ const createProperty = async (req, res) => {
       success: false,
       message: err.message,
     });
+  }
+};
+
+// GET /api/properties/my (Fetch properties belonging to the logged-in user)
+const getMyProperties = async (req, res) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    const properties = await Property.find({
+      $or: [
+        { owner: req.user.id },
+        { agent: req.user.id },
+      ],
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json({ success: true, data: properties });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -167,18 +203,58 @@ const createProperty = async (req, res) => {
 // PUT /api/properties/:id
 const updateProperty = async (req, res) => {
   try {
-    console.log("📦 Body:", req.body);      // ✅ add karo
-    console.log("📁 Files:", req.files);
-    const property = await Property.findByIdAndUpdate(
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({ success: false, message: "Property not found" });
+    }
+
+    // Verify ownership: only owner or assigned agent can update
+    const isOwner = property.owner && property.owner.toString() === req.user.id;
+    const isAgent = property.agent && property.agent.toString() === req.user.id;
+    if (!isOwner && !isAgent) {
+      return res.status(403).json({
+        success: false,
+        message: "Forbidden: You can only edit your own listings",
+      });
+    }
+
+    // Never allow users to modify protected fields: owner, agent, isVerified, isFeatured
+    const updates = { ...req.body };
+    delete updates.owner;
+    delete updates.agent;
+    delete updates.isVerified;
+    delete updates.isFeatured;
+    delete updates._id;
+
+    if (typeof updates.details === "string") {
+      try { updates.details = JSON.parse(updates.details); } catch {}
+    }
+    if (typeof updates.amenities === "string") {
+      try { updates.amenities = JSON.parse(updates.amenities); } catch {}
+    }
+
+    // Append new uploaded images if any
+    if (req.files && req.files.length > 0) {
+      const newImages = req.files.map((file) => ({
+        url: file.path,
+        public_id: file.filename,
+      }));
+      updates.images = [...(property.images || []), ...newImages];
+    }
+
+    updates.updatedAt = Date.now();
+
+    const updated = await Property.findByIdAndUpdate(
       req.params.id,
-      { ...req.body, updatedAt: Date.now() },
+      { $set: updates },
       { new: true, runValidators: true }
     );
 
-    if (!property)
-      return res.status(404).json({ success: false, message: "Property not found" });
-
-    res.status(200).json({ success: true, data: property });
+    res.status(200).json({ success: true, data: updated });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -188,13 +264,36 @@ const updateProperty = async (req, res) => {
 // DELETE /api/properties/:id  (also deletes images from Cloudinary)
 const deleteProperty = async (req, res) => {
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
     const property = await Property.findById(req.params.id);
-    if (!property)
+    if (!property) {
       return res.status(404).json({ success: false, message: "Property not found" });
+    }
+
+    // Verify ownership: only owner or assigned agent can delete
+    const isOwner = property.owner && property.owner.toString() === req.user.id;
+    const isAgent = property.agent && property.agent.toString() === req.user.id;
+    if (!isOwner && !isAgent) {
+      return res.status(403).json({
+        success: false,
+        message: "Forbidden: You can only delete your own listings",
+      });
+    }
 
     // Delete images from Cloudinary
-    for (const img of property.images) {
-      if (img.public_id) await cloudinary.uploader.destroy(img.public_id);
+    if (property.images && Array.isArray(property.images)) {
+      for (const img of property.images) {
+        if (img.public_id) {
+          try {
+            await cloudinary.uploader.destroy(img.public_id);
+          } catch (e) {
+            console.error("Cloudinary delete error:", e.message);
+          }
+        }
+      }
     }
 
     await property.deleteOne();
@@ -267,4 +366,5 @@ module.exports = {
   getAllProperties, getPropertyById,
   createProperty, updateProperty,
   deleteProperty, searchProperties,
+  getMyProperties,
 };

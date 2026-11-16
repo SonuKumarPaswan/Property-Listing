@@ -1,7 +1,8 @@
 "use client";
 import api from "@/lib/api";
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const AMENITY_OPTIONS = [
   {key: "gym", label: "Gym", icon: "🏋️"},
@@ -126,8 +127,36 @@ const Counter: React.FC<CounterProps> = ({
 );
 
 const PropertyListing = () => {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [propertyData, setPropertyData] = useState(initialForm);
+  const [authChecking, setAuthChecking] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please log in to add a property listing.");
+      router.push("/sign-in");
+      return;
+    }
+
+    api
+      .get("/users/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        if (res.data?.role === "user") {
+          alert("Access Restricted: Only property owners and real estate agents can create property listings.");
+          router.push("/dashboard");
+        } else {
+          setAuthChecking(false);
+        }
+      })
+      .catch(() => {
+        localStorage.removeItem("token");
+        router.push("/sign-in");
+      });
+  }, [router]);
 
   const nextStep = () => setStep((p) => Math.min(p + 1, STEPS.length));
   const prevStep = () => setStep((p) => Math.max(p - 1, 1));
@@ -212,18 +241,32 @@ const PropertyListing = () => {
     propertyData.images.forEach((file) => {
       fd.append("images", file);
     });
-    console.log("Submitting form with data:", propertyData);
-    const res = await api.post("/properties/", fd, {
-      headers: {"Content-Type": "multipart/form-data"},
-    });
-    if (res.status === 201) {
-      alert("Property listing created successfully!");
-      setPropertyData(initialForm);
-      setStep(1);
-    } else {
-      alert("Failed to create property listing. Please try again.");
+    try {
+      console.log("Submitting form with data:", propertyData);
+      const res = await api.post("/properties/", fd, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      if (res.status === 201) {
+        alert("Property listing created successfully!");
+        setPropertyData(initialForm);
+        setStep(1);
+        router.push("/dashboard");
+      } else {
+        alert("Failed to create property listing. Please try again.");
+      }
+      console.log("Created:", res.data);
+    } catch (err: unknown) {
+      const errorObj = err as {
+        response?: { data?: { message?: string; error?: string } };
+        message?: string;
+      };
+      const errorMsg =
+        errorObj?.response?.data?.message ||
+        errorObj?.response?.data?.error ||
+        errorObj?.message ||
+        "Failed to create property listing. Please try again.";
+      alert(errorMsg);
     }
-    console.log("Created:", res.data);
   }; 
 
   // ─── Step counter handler for bedrooms/bathrooms/balconies ────────────────
@@ -239,6 +282,17 @@ const PropertyListing = () => {
       },
     }));
   };
+
+  if (authChecking) {
+    return (
+      <main className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-gray-300 border-t-[#2043B0] animate-spin" />
+          <p className="text-sm text-gray-500">Checking permissions…</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gray-100 p-4">
