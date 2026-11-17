@@ -62,6 +62,7 @@ const propertySchema = new mongoose.Schema(
       },
     },
     details: {
+      cabins: {type: Number, default: 0},
       bedrooms: {type: Number, default: 0},
       bathrooms: {type: Number, default: 0},
       balconies: {type: Number, default: 0},
@@ -77,6 +78,7 @@ const propertySchema = new mongoose.Schema(
       },
       parking: {type: Boolean, default: false},
       ageOfProperty: {type: Number, default: 0},
+      seat: {type: Number, default: 0},
     },
     amenities: {
       type: [String],

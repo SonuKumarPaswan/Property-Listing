@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bed, Bath, Maximize2, Car, CheckCircle2, Sparkles, MapPin } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 interface PropertyDetailsProps {
   property: {
@@ -50,7 +50,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
         </h2>
 
         {/* Quick Info Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
           <div className="bg-[#F5F7FF] border border-[#E5E7EB] rounded p-4 sm:p-5 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#4B5563]">
@@ -109,7 +109,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
               {property.details?.parking ? "Available" : "Not Available"}
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Tab Navigation */}
         <div className="border-b border-[#E5E7EB] mb-8">
@@ -127,7 +127,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
                       : "border-transparent text-[#4B5563] hover:text-[#2043B0] hover:bg-[#F5F7FF]/50"
                   }`}
                 >
-                  {tab.label}
+                  {tab.label} 
                 </button>
               );
             })}
@@ -146,7 +146,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
                   "Experience modern living in this beautifully designed property located in a prime area. The home features spacious rooms, abundant natural light, premium interiors, and thoughtfully planned layouts to provide maximum comfort. With excellent connectivity to schools, hospitals, shopping centers, metro stations, and major business hubs, this property offers the perfect combination of convenience and luxury for families and professionals alike."}
               </p>
             </div>
-
+{/* 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-[#F5F7FF] border border-[#E5E7EB]  p-6 shadow-xs hover:border-blue-200 transition-colors">
                 <h4 className="text-lg sm:text-xl font-[Cinzel] font-bold text-[#172554] mb-4 flex items-center gap-2">
@@ -187,7 +187,7 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
                   ))}
                 </ul>
               </div>
-            </div>
+            </div> */}
           </div>
         )}
 
@@ -245,9 +245,9 @@ const PropertyDetails = ({ property }: PropertyDetailsProps) => {
               { label: "Address", value: property.location?.address || "Address not provided" },
               { label: "City", value: property.location?.city || "City not provided" },
               { label: "State", value: property.location?.state || "State not provided" },
-              { label: "Pincode", value: property.pincode || "Not provided" },
-              { label: "Nearby Metro", value: property.metro || "Not provided" },
-              { label: "Landmark", value: property.landmark || "Not provided" },
+              { label: "Pincode", value: property.pincode || "Pincode Not provided" },
+              { label: "Nearby Metro", value: property.metro || "Not Available" },
+              { label: "Landmark", value: property.landmark || "Landmark Not provided" },
             ].map((item) => (
               <div
                 key={item.label}

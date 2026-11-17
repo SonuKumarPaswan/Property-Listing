@@ -3,17 +3,28 @@ export interface IProperty {
   _id: string;
   slug: string;
   title: string;
+  description?: string;
   location: string;
   city: string;
   price: number;
+  priceUnit?: "per_month" | "total";
   listingType: "rent" | "sale";
   type: string;
+  availabilityDate?: string;
   details: {
     bedrooms: number;
     bathrooms: number;
     area: number;
     furnishing: string;
+    cabins?: number;
+    seat?: number;
+    directorCabins?: number;
+    managerCabins?: number;
+    pantrySeats?: number;
+    hasFrontOffice?: boolean;
+    hasReception?: boolean;
   };
+  amenities?: string[];
   images: { url: string; isPrimary?: boolean }[];
   isVerified: boolean;
   isFeatured: boolean;
@@ -252,18 +263,19 @@ export const PROPERTIES: IProperty[] = [
   {
     _id: "13",
     slug: "luxury-apartment",
-    title: "Luxury Apartment",
-    location: "Greater Noida (A-block)",
+    description: "Discover this luxury apartment located at A-Block, Noida. Offering 1,850 sq. ft. of furnished space with a dedicated cabin, this property combines comfort, functionality, and modern design. Ideal for individuals or businesses seeking a premium and well-maintained property in a prime Noida location.",
+    title: "commercial workspace",
+    location: "A-Block",
     city: "Noida",
-    price: 1080000,
+    price: 180000,
     listingType: "sale",
     type: "building",
-    details: { bedrooms: 4, bathrooms: 3, area: 1850, furnishing: "furnished" },
+    details: { cabins: 3, bedrooms: 0, bathrooms: 0, area: 1850, furnishing: "furnished", seat: 8 },
     images: [
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076258/WhatsApp_Image_2026-10-26_at_5.48.29_PM_2.jpg", isPrimary: true },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076258/WhatsApp_Image_2026-10-26_at_5.48.27_PM_2.jpg", isPrimary: false },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076257/WhatsApp_Image_2026-10-26_at_5.48.22_PM.jpg", isPrimary: false },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076255/WhatsApp_Image_2026-10-26_at_5.46.49_PM_2.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.35_PM_2.jpg", isPrimary: true },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.34_PM.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.34_PM_1.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.35_PM_1.jpg", isPrimary: false },
     ],
     isVerified: true,
     isFeatured: true,
@@ -271,13 +283,14 @@ export const PROPERTIES: IProperty[] = [
   {
     _id: "14",
     slug: "green-apartment",
-    title: "Green Apartment",
-    location: "Sector 137",
+    description: "Well-maintained commercial office space available on the ground floor of H-Block. The office includes 1 private cabin and 10 workstations, making it ideal for startups, small businesses, and growing teams looking for a comfortable and ready-to-use workspace.",
+    title: "commercial workspace",
+    location: "H-Block",
     city: "Noida",
-    price: 55000,
-    listingType: "sale",
+    price: 50000,
+    listingType: "rent",
     type: "apartment",
-    details: { bedrooms: 3, bathrooms: 3, area: 1350, furnishing: "semi-furnished" },
+    details: { seat: 10, bedrooms: 0, bathrooms: 1, area: 10000, furnishing: "Not Provided" },
     images: [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076248/WhatsApp_Image_2026-10-26_at_5.42.14_PM.jpg", isPrimary: true },
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647906/WhatsApp_Image_2026-10-13_at_11.25.13_AM_1.jpg", isPrimary: false },
@@ -290,13 +303,14 @@ export const PROPERTIES: IProperty[] = [
   {
     _id: "15",
     slug: "modern-villa",
-    title: "Modern Villa",
-    location: "Sector 50",
+    description: "Well-designed commercial office space available in A-Block, featuring 1 director cabin, 1 conference cabin, 8 workstations, a reception area, and a pantry. Ideal for businesses looking for a professional and comfortable workspace with dedicated areas for meetings, management, and daily operations.",
+    title: "commercial workspace",
+    location: "A-Block",
     city: "Noida",
-    price: 60000,
+    price: 80000,
     listingType: "sale",
     type: "villa",
-    details: { bedrooms: 4, bathrooms: 4, area: 3200, furnishing: "furnished" },
+    details: { seat: 8, bedrooms: 0, bathrooms: 1, area: 5000, furnishing: "furnished" },
     images: [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076253/WhatsApp_Image_2026-10-26_at_5.43.15_PM.jpg", isPrimary: true },
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076255/WhatsApp_Image_2026-10-26_at_5.44.28_PM.jpg", isPrimary: false },
@@ -403,14 +417,15 @@ export const PROPERTIES: IProperty[] = [
   },
   {
     _id: "21",
-    slug: "business-tower",
-    title: "Business Tower",
-    location: "Sector 137",
+    slug: "commercial-workspace-5",
+    description: "Furnished commercial office space available at H-Block, offering flexible workspace arrangements to meet your business needs. Choose between 1 private cabin with 20 workstations or 2 private cabins with 16 workstations. Ideal for startups, small businesses, and growing teams looking for a comfortable and professional office environment. Monthly rent is ₹50,000, including maintenance charges.",
+    title: "commercial workspace",
+    location: "H-Block",
     city: "Noida",
-    price: 54000,
-    listingType: "sale",
+    price: 50000,
+    listingType: "rent",
     type: "office",
-    details: { bedrooms: 4, bathrooms: 4, area: 2800, furnishing: "semi-furnished" },
+    details: { seat: 20, bedrooms: 0, bathrooms: 1, area: 2800, furnishing: "semi-furnished" },
     images: [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647904/WhatsApp_Image_2026-10-13_at_11.25.10_AM_2.jpg", isPrimary: true },
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647907/WhatsApp_Image_2026-10-13_at_11.25.14_AM_1.jpg", isPrimary: false },
@@ -443,38 +458,39 @@ export const PROPERTIES: IProperty[] = [
   },
   {
     _id: "23",
-    slug: "luxury-office-space",
-    title: "Luxury Office Space",
-    location: "Sector 62",
+    slug: "commercial-workspace-1",
+    description: "Well-maintained furnished commercial office space available in Sector 62, Noida. Spread across 2,100 sq. ft., this workspace features two washrooms and is suitable for businesses looking for a comfortable and professional office environment.",
+    title: "commercial workspace",
+    location: "B-Block Sector 63",
     city: "Noida",
     price: 60000,
-    listingType: "sale",
+    listingType: "rent",
     type: "office",
-    details: { bedrooms: 0, bathrooms: 2, area: 2100, furnishing: "furnished" },
+    details: { bedrooms: 0, bathrooms: 1, area: 10000, furnishing: "furnished" },
     images: [
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647431/WhatsApp_Image_2026-10-13_at_11.25.08_AM.jpg", isPrimary: true },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792646899/WhatsApp_Image_2026-10-13_at_11.25.14_AM.jpg", isPrimary: false },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647440/WhatsApp_Image_2026-10-13_at_11.24.56_AM_1.jpg", isPrimary: false },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647550/WhatsApp_Image_2026-10-13_at_11.25.11_AM.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1794458893/WhatsApp_Image_2026-11-12_at_10.12.42_AM.jpg", isPrimary: true },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1794458893/WhatsApp_Image_2026-11-12_at_10.12.43_AM.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1794458893/WhatsApp_Image_2026-11-12_at_10.12.40_AM.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1794458893/WhatsApp_Image_2026-11-12_at_10.12.38_AM.jpg", isPrimary: false },
     ],
     isVerified: true,
     isFeatured: false,
   },
   {
     _id: "24",
-    slug: "premium-commercial-hub",
-    title: "Premium Commercial Hub",
-    location: "Sector 18",
+    slug: "commercial-workspace-2",
+    title: "commercial workspace",
+    location: "H-Block Ground Floor",
     city: "Noida",
-    price: 60000,
-    listingType: "sale",
+    price: 65000,
+    listingType: "rent",
     type: "office",
-    details: { bedrooms: 0, bathrooms: 3, area: 3100, furnishing: "furnished" },
+    details: { seat: 24, bedrooms: 0, bathrooms: 3, area: 3100, furnishing: "furnished" },
     images: [
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647908/WhatsApp_Image_2026-10-13_at_11.25.15_AM.jpg", isPrimary: true },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647907/WhatsApp_Image_2026-10-13_at_11.25.15_AM_1.jpg", isPrimary: false },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647907/WhatsApp_Image_2026-10-13_at_11.25.13_AM.jpg", isPrimary: false },
-      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647906/WhatsApp_Image_2026-10-13_at_11.25.13_AM_1.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1794465075/WhatsApp_Image_2026-11-12_at_11.59.21_AM.jpg", isPrimary: true },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1794465074/WhatsApp_Image_2026-10-13_at_11.25.04_AM.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1794465075/WhatsApp_Image_2026-11-12_at_11.59.22_AM.jpg", isPrimary: false },
+      { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.30_PM_1.jpg", isPrimary: false },
     ],
     isVerified: true,
     isFeatured: true,
@@ -483,14 +499,15 @@ export const PROPERTIES: IProperty[] = [
   },
   {
     _id: "25",
-    slug: "corporate-business-center",
-    title: "Corporate Business Center",
-    location: "Noida Extension",
+    slug: "commercial-workspace-3",
+    description: "Ready-to-move commercial office space available at A-Block. The office features 1 director cabin, 1 manager cabin, 1 conference room, seating capacity for 50 employees, and a dedicated pantry. Ideal for companies looking for a well-planned and professional workspace.",
+    title: "commercial workspace",
+    location: "Not Provided",
     city: "Noida",
-    price: 55000,
-    listingType: "sale",
+    price: 180000,
+    listingType: "rent",
     type: "office",
-    details: { bedrooms: 0, bathrooms: 2, area: 1800, furnishing: "furnished" },
+    details: { seat: 50, bedrooms: 0, bathrooms: 2, area: 1800, furnishing: "furnished" },
     images: [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647905/WhatsApp_Image_2026-10-13_at_11.25.12_AM_1.jpg", isPrimary: true },
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647902/WhatsApp_Image_2026-10-13_at_11.25.09_AM_1.jpg", isPrimary: false },
@@ -502,14 +519,15 @@ export const PROPERTIES: IProperty[] = [
   },
   {
     _id: "26",
-    slug: "skyline-corporate-plaza",
-    title: "Skyline Corporate Plaza",
-    location: "Sector 142",
+    slug: "commercial-workspace-4",
+    description: "Premium commercial office space available at A-Block, located in a prime business area next to Elevation. This well-designed workspace includes 1 director cabin, 6 manager cabins, 1 conference room, a reception area, a pantry, and 30 workstations. Ideal for companies looking for a professional, spacious, and ready-to-use office environment with all essential facilities.",
+    title: "commercial workspace",
+    location: "Prime Location",
     city: "Noida",
-    price: 70000,
+    price: 220000,
     listingType: "sale",
     type: "office",
-    details: { bedrooms: 3, bathrooms: 3, area: 2600, furnishing: "furnished" },
+    details: { seat: 30, bedrooms: 0, bathrooms: 1, area: 10000, furnishing: "furnished" },
     images: [
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792646899/WhatsApp_Image_2026-10-13_at_11.25.14_AM.jpg", isPrimary: true },
       { url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1792647901/WhatsApp_Image_2026-10-13_at_11.25.04_AM.jpg", isPrimary: false },
@@ -621,5 +639,33 @@ export const PROPERTIES: IProperty[] = [
     isFeatured: true,
 
     isNewProject: true,
+  },
+  {
+    _id: "27",
+    slug: "luxury-office-space",
+    description: "Premium office space available for rent in Sector 62, Noida. Located in a well-connected commercial area, this workspace is ideal for startups, growing businesses, and established companies looking for a professional working environment. The office offers a comfortable and practical setup suitable for various business requirements, with easy access to nearby corporate offices, transport facilities, and essential services.",
+    title: "Luxury Office Space",
+    location: "Sector 62",
+    city: "Noida",
+    price: 60000,
+    priceUnit: "per_month",
+    listingType: "rent",
+    type: "office",
+    details: {
+      seat: 0,
+      bedrooms: 0,
+      bathrooms: 0,
+      area: 0,
+      furnishing: "furnished"
+    },
+    images: [
+      {
+        url: "https://res.cloudinary.com/c3e6qxy4/image/upload/v1793076260/WhatsApp_Image_2026-10-26_at_5.48.34_PM.jpg",
+        isPrimary: true
+      }
+    ],
+    isVerified: true,
+    isFeatured: true,
+    isNewProject: false,
   },
 ];
